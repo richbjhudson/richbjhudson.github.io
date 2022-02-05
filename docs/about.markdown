@@ -15,4 +15,4 @@ As I transition from 3rd Line IT Engineer to DevOps Engineer I will provide conc
 I am a strong advocate for vendor certifications paths, without them you quite often don't know what you don't know. I will upload any study material to help others.
 
 # Badges
-![Microsoft Certified: Azure Network Engineer Associate](/badges/microsoft-certified-azure-network-engineer-associate96x96.png)
+![Microsoft Certified: Azure Network Engineer Associate](/badges/microsoft-certified-azure-network-engineer-associate108x108.png)
