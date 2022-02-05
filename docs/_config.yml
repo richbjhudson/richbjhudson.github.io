@@ -24,7 +24,7 @@ email: richard.b.j.hudson@gmail.com
 
 description: >- # this means to ignore newlines until "baseurl:"
   DevOps content for Infrastructure Engineers. 
-  As I make the transition from 3rd Line IT Engineer to DevOps Engineer I plan to share my learnings.
+  Azure DevOps, Terraform, PowerShell, Azure Policy and more.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 
