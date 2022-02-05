@@ -13,3 +13,6 @@ In the last two years I have been focused on Microsoft Azure working in an Agile
 As I transition from 3rd Line IT Engineer to DevOps Engineer I will provide concise posts to share my on the job learnings. 
 
 I am a strong advocate for vendor certifications paths, without them you quite often don't know what you don't know. I will upload any study material to help others.
+
+# Badges
+![Microsoft Certified: Azure Network Engineer Associate](https://www.credly.com/badges/8f5f82f9-5956-4190-8960-7c281567e064/public_url)
