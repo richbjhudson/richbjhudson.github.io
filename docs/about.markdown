@@ -4,15 +4,11 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+# About me
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I am Senior Infrastructure Engineer working in Managed Service Provider setting. 
+I specialise in Microsoft, Citrix and VMware technologies.
+In the last two years I have been focused on Microsoft Azure working in an Agile squad.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+As I transition from 3rd Line IT Engineer to DevOps Engineer I will provide concise posts to share my on the job learnings. 
+I am a strong advocate for vendor certifications paths, without them you quite often don't know what you don't know. I will upload any study material to help others.
