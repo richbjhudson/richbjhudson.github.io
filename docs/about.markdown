@@ -17,3 +17,7 @@ I am a strong advocate for vendor certifications paths, without them you quite o
 # Badges
 ![Microsoft Certified: Azure Network Engineer Associate](/badges/microsoft-certified-azure-network-engineer-associate114x114.png)
 ![Microsoft Certified: DevOps Engineer Expert](/badges/microsoft-certified-devops-engineer-expert114x114.png)
+![Microsoft Certified: Azure Solutions Architect Expert](/badges/microsoft-certified-azure-solutions-architect-expert114x114.png)
+![Microsoft Certified: Azure Security Engineer Associate](/badges/microsoft-certified-azure-security-engineer-associate114x114.png)
+![Microsoft Certified: Azure Administrator Associate](/badges/microsoft-certified-azure-administrator-associate114x114.png)
+![Microsoft Certified: Azure Fundamentals](/badges/microsoft-certified-azure-fundamentals114x114.png)
