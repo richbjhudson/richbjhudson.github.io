@@ -10,9 +10,9 @@ I am Senior Infrastructure Engineer working in a Managed Service Provider settin
 I specialise in Microsoft, Citrix and VMware technologies.
 In the last two years I have been focused on Microsoft Azure working in an Agile squad.
 
-As I transition from 3rd Line IT Engineer to DevOps Engineer I'll share my on the job learnings through regular posts. 
+As I continue transition from Infrastructure Engineer to DevOps Engineer I'll share my on the job learnings through regular posts. 
 
-I am a strong advocate for vendor certifications paths, without them you quite often don't know what you don't know. I will upload any study material to help others.
+I am a strong advocate of vendor certifications paths, without them you quite often don't know what you don't know. I'll share my study material as I go.
 
 # Badges
 ![Microsoft Certified: DevOps Engineer Expert](/badges/microsoft-certified-devops-engineer-expert144x144.png)
