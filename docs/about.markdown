@@ -21,3 +21,8 @@ I am a strong advocate of vendor certifications paths, without them you quite of
 ![Microsoft Certified: Azure Security Engineer Associate](/badges/microsoft-certified-azure-security-engineer-associate144x144.png)
 ![Microsoft Certified: Azure Administrator Associate](/badges/microsoft-certified-azure-administrator-associate144x144.png)
 ![Microsoft Certified: Azure Fundamentals](/badges/microsoft-certified-azure-fundamentals144x144.png)
+![OpenHack: DevOps](/badges/openhack-devops.png)
+![OpenHack: Migrating Microsoft Workloads to Azure](/badges/openhack-migrating-microsoft-workloads-to-azure.png)
+![Citrix Certified Professional - Virtualization (CCP - V)](/badges/citrix-certified-professional-virtualization-ccp-v.5.png)
+![MCSA: Windows Server 2012](/badges/mcsa-windows-server-2012-certified-2016.png)
+![ITIL 4 ® Foundation](/badges/itil-4-foundation.png)
