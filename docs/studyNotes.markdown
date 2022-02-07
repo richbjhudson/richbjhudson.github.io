@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Study Notes
 permalink: /studyNotes/
 ---
