@@ -35,7 +35,7 @@ github_username:  richbjhudson
 linkedin_username: richardbjhudson
 
 # Build settings
-theme: jekyll-theme-architect
+theme: minima
 plugins:
   - jekyll-feed
 
