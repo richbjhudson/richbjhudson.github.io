@@ -59,8 +59,7 @@ If you wish to use the output for input variables use a local to hold the data:
 locals {
 
 policy_set_definitions = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id } 
-
-policy_defs  = local.policy_set_definitions  
+ 
  
  }
 
@@ -76,7 +75,7 @@ variable "es_policy_set_definitions" {
 
 A resource block argument may use the input from the ESA module using the local define in the parent module that is passes to the child module variable as follows:
 
-policy_definition_id = var.es_policy_set_definitions.deploy_al_compute
+policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
 
 
 https://github.com/Azure/terraform-azurerm-caf-enterprise-scale/tree/main/modules/management
