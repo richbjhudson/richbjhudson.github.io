@@ -17,8 +17,8 @@
         <a id="a-title" href="{{ '/' | relative_url }}">
           <h1>{{ site.title | default: site.github.repository_name }}</h1>
         </a>
-        {% include simple-menu.html %}
         <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+        {% include simple-menu.html %}  
       </div>
     </header>
 
