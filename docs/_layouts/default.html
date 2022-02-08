@@ -27,6 +27,8 @@
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src='{{ site.baseurl }}/public/js/script.js'></script>
-    <script id="dsq-count-scr" src="//devopsrich.disqus.com/count.js" async></script> 
+    {% if page.layout == 'post' %}
+    <script id="dsq-count-scr" src="//{{site.disqus}}.disqus.com/count.js"></script>
+    {% endif %}
   </body>
 </html>

@@ -6,6 +6,7 @@ url:                 "https://devopsrich.com"
 baseurl:             ''
 paginate:            5
 permalink:           pretty
+disqus: 'devopsrich'
 
 # About/contact
 author:
