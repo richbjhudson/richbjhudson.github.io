@@ -5,7 +5,7 @@ date:   2022-02-05 18:59:00 +0000
 categories: Terraform
 ---
 # Context
-I have been working with terraform module [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest) to deploy an Azure management group structure and a base set of Azure policies. I needed to extend the module functionality to include monitoring. A parent module was created that sourced the caf-enterprise-scale module and the child monitor module.
+I have been working with terraform module [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest) to deploy an Azure management group structure and a base set of Azure policies. I needed to extend the module functionality to include monitoring. A parent module was created that sourced the caf-enterprise-scale module and a child monitor module.
 
 As part of this process the child monitor module needed to reference resources created by the caf-enterprise-scale module e.g. the caf-enterprise-scale module creates an Azure policy set resource and then the child monitor module assigns the policy set resource.   
 
@@ -14,7 +14,7 @@ As part of this process the child monitor module needed to reference resources c
 # Methodology 
 Reviewed the outputs for the terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs).
 
-From here I was able to identified the following output:
+From here I identified the following output:
 ```teraform
 azurerm_policy_set_definition
 ```
@@ -41,10 +41,8 @@ policy_set_definitions = {
       ...
 ```
 
-This led to Modifying the output to return a key value pair mapping for each object 
-```teraform
-{"object.name", "object.id" }
-```
+This led to Modifying the output to return a key value pair mapping for each object `{"object.name", "object.id" }`
+
 ```teraform
 output "policy_set_definition1" {
   value = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id }
@@ -81,7 +79,7 @@ policy_set_definitions = { for polset in module.enterprise_scale.azurerm_policy_
  }
 ```
 
-I set input variable value for the child module within the parent module as follows:
+I set the input variable value for the child module within the parent module as follows:
 ```teraform
 es_policy_set_definitions  = local.policy_set_definitions 
 ```
@@ -93,7 +91,7 @@ variable "es_policy_set_definitions" {
  }
 ```
 
-Here is an example of a resource block argument within the child monitor module:
+Here is an example of a resource block argument within the child monitor module for resource [azurerm_management_group_policy_assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_group_policy_assignment):
 ```teraform
 policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
 ```
