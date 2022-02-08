@@ -21,7 +21,7 @@ I am a strong advocate of vendor certifications paths, without them you quite of
   </tr>
   <tr>
     <td>
-    ![Microsoft Certified: DevOps Engineer Expert](/badges/microsoft-certified-devops-engineer-expert144x144.png)
+    <img src="/badges/microsoft-certified-devops-engineer-expert144x144.png" alt="Microsoft Certified: DevOps Engineer Expert">
     ![Microsoft Certified: Azure Solutions Architect Expert](/badges/microsoft-certified-azure-solutions-architect-expert144x144.png)
     ![Citrix Certified Professional - Virtualization (CCP - V)](/badges/citrix-certified-professional-virtualization-ccp-v.5.png)
     </td>
