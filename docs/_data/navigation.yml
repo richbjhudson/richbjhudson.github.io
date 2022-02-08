@@ -1,6 +1,16 @@
-- link: /
-  name: Home
-- link: /about/
-  name: About
-- link: /archive
-  name: Archive
+# Belongs at: /_data/navigation.yml
+
+- title: Home
+  url: /
+
+- title: About
+  URL: /about/
+
+ - title: Archive
+  URL: /archive/
+
+- title: Study Notes
+  url: /studyNotes/
+  sublinks:
+    - title: Terraform Associate
+      url: /studyNotes/terraformAssociate
