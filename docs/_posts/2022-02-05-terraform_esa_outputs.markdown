@@ -15,7 +15,9 @@ As part of this process the child monitor module needed to reference resources c
 Reviewed the outputs for the terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs).
 
 From here I was able to identified the following output:
+```teraform
 azurerm_policy_set_definition
+```
 
 I then tested what was returned by the module output by adding the following output to the code:
 ```teraform
@@ -24,7 +26,7 @@ output "policy_set_definitions" {
 }
 ```
 
-Example of the 1st object returned by the output:
+Here is an example of the first object returned by the output:
 ```teraform
 policy_set_definitions = {
   "enterprise_scale" = {
@@ -39,14 +41,14 @@ policy_set_definitions = {
       ...
 ```
 
-Modify the output to return a key value pair mapping for each object {"object.name", "object.id" }
+This led to Modifying the output to return a key value pair mapping for each object ```{"object.name", "object.id" }
 ```teraform
 output "policy_set_definition1" {
   value = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id }
 }
 ```
 
-Example of the output returned:
+Here is an example of the the output returned:
 ```teraform
 policy_set_definition1 = {
   "Deny-PublicPaaSEndpoints" = "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/Deny-PublicPaaSEndpoints"
@@ -67,29 +69,28 @@ policy_set_definition1 = {
   "set_sub_tags" = "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/set_sub_tags"
 }
 ```
+At this point it is understood how to obtain the output from terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) in a useful readable format.
 
-If you wish to use the output for input variables use a local to hold the data:
+To use the output to feed into input variables I used a local:
 ```teraform
 locals {
 policy_set_definitions = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id } 
  }
 ```
 
-Set input variable values when using child module:
+I set input variable value for the child module within the parent module as follows:
 ```teraform
 es_policy_set_definitions  = local.policy_set_definitions 
 ```
 
-Within the child module the input varaibale would look like:
+Within the child module the input variable would look like:
 ```teraform
 variable "es_policy_set_definitions" {
   type = map
  }
 ```
 
-A resource block argument may use the input from the ESA module using the local define in the parent module that is passes to the child module variable as follows:
+A resource block argument may use the input from the ESA module using the local defined in the parent module that is passes to the child module variable as follows:
 ```teraform
 policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
 ```
-
-https://github.com/Azure/terraform-azurerm-caf-enterprise-scale/tree/main/modules/management
