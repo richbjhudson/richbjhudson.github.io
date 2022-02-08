@@ -25,6 +25,7 @@ output "policy_set_definitions" {
 ```
 
 Example of the 1st object returned by the output:
+```teraform
 policy_set_definitions = {
   "enterprise_scale" = {
     "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/Deny-PublicPaaSEndpoints" = {
@@ -36,14 +37,17 @@ policy_set_definitions = {
       "metadata" = "{\"createdBy\":\"26a3202e-2ce0-40d2-b9a2-acfbc8e4a3cd\",\"createdOn\":\"2022-02-02T10:45:20.7787165Z\",\"updatedBy\":null,\"updatedOn\":null}"
       "name" = "Deny-PublicPaaSEndpoints"
       ...
+```
 
 Modify the output to return a key value pair mapping for each object {"object.name", "object.id" }
+```teraform
 output "policy_set_definition1" {
   value = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id }
 }
+```
 
 Example of the output returned:
-
+```teraform
 policy_set_definition1 = {
   "Deny-PublicPaaSEndpoints" = "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/Deny-PublicPaaSEndpoints"
   "Deploy-ASCDF-Config" = "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/Deploy-ASCDF-Config"
@@ -62,28 +66,30 @@ policy_set_definition1 = {
   "inherit_tags_by_service" = "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/inherit_tags_by_service"
   "set_sub_tags" = "/providers/Microsoft.Management/managementGroups/hexdev/providers/Microsoft.Authorization/policySetDefinitions/set_sub_tags"
 }
+```
 
 If you wish to use the output for input variables use a local to hold the data:
+```teraform
 locals {
-
 policy_set_definitions = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id } 
- 
- 
  }
-
+```
 
 Set input variable values when using child module:
+```teraform
 es_policy_set_definitions  = local.policy_set_definitions 
+```
 
 Within the child module the input varaibale would look like:
+```teraform
 variable "es_policy_set_definitions" {
   type = map
  }
-
+```
 
 A resource block argument may use the input from the ESA module using the local define in the parent module that is passes to the child module variable as follows:
-
+```teraform
 policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
-
+```
 
 https://github.com/Azure/terraform-azurerm-caf-enterprise-scale/tree/main/modules/management
