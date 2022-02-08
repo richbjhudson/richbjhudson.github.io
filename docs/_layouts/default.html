@@ -23,11 +23,10 @@
         {{ content }}
       </div>
     </div>
-
+    {% include comments.html %}
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src='{{ site.baseurl }}/public/js/script.js'></script>
-    {% include comments.html %}
     <script id="dsq-count-scr" src="//devopsrich.disqus.com/count.js" async></script> 
   </body>
 </html>
