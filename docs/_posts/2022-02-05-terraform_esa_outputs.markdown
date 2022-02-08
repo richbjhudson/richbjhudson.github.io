@@ -10,6 +10,7 @@ I have been working with terraform module [caf-enterprise-scale](https://registr
 As part of this process the child monitor module needed to reference resources created by the caf-enterprise-scale module e.g. the caf-enterprise-scale module creates an Azure policy set resource and then the child monitor module assigns the policy set resource.   
 
 # Key Takeway
+By converting the [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) output into a local map I was able to feed the values into child module input variables.
 
 # Methodology 
 Reviewed the outputs for the terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs).
@@ -72,7 +73,7 @@ policy_set_definition1 = {
 ```
 At this point it was understood how to obtain the output from terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) in a useful readable format.
 
-To use the caf-enterprise-scale output to feed into child module input variables I used a local:
+To use the caf-enterprise-scale output to feed into child monitor module input variables I used a local:
 ```teraform
 locals {
 policy_set_definitions = { for polset in module.enterprise_scale.azurerm_policy_set_definition["enterprise_scale"] : polset.name => polset.id } 
