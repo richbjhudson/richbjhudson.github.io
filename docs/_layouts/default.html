@@ -3,7 +3,7 @@
 
   {% include head.html %}
 
-  <body class="theme-base-0d" class="layout-reverse">
+  <body class="theme-base-0d">
 
     {% include sidebar.html %}
 
@@ -21,12 +21,12 @@
 
       <div class="container content">
         {{ content }}
-        {% include social-media-links.html %}
       </div>
     </div>
 
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src='{{ site.baseurl }}/public/js/script.js'></script>
+    {% include social-media-links.html %}
   </body>
 </html>

@@ -1,7 +1,7 @@
 # Setup
 title:               DevOps Rich
 tagline:             'DevOps content for Infrastructure Engineers'
-description:         '{% include social-media-links.html %}'
+description:         'Azure DevOps, Terraform, PowerShell, Azure Policy and more.'
 url:                 "https://devopsrich.com"
 baseurl:             ''
 paginate:            5
