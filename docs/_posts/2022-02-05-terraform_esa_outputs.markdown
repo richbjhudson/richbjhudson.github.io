@@ -10,7 +10,7 @@ I have been working with terraform module [caf-enterprise-scale](https://registr
 As part of this process the child monitor module needed to reference resources created by the caf-enterprise-scale module e.g. the caf-enterprise-scale module creates an Azure policy set resource and then the child monitor module assigns the policy set resource.   
 
 # Key Takeway
-By converting the [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) output into a local map I was able to feed the values into child module input variables.
+By converting the [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) output into a local map I was able to feed the values into a child module input variable.
 
 # Methodology 
 Reviewed the outputs for the terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs).
