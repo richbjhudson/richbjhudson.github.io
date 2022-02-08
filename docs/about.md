@@ -6,8 +6,8 @@ permalink: /about/
 <style>
 .avatar {
   vertical-align: middle;
-  width: 50px;
-  height: 50px;
+  width: 67px;
+  height: 90px;
   border-radius: 50%;
 }
 </style>
