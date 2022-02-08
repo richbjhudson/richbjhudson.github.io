@@ -13,10 +13,13 @@ As I continue my transition from Infrastructure Engineer to DevOps Engineer I'll
 I am a strong advocate of vendor certifications paths, without them you quite often don't know what you don't know. I'll share my study material as I go.
 
 # Badges
-![Microsoft Certified: DevOps Engineer Expert](/badges/microsoft-certified-devops-engineer-expert144x144.png)
-![Microsoft Certified: Azure Solutions Architect Expert](/badges/microsoft-certified-azure-solutions-architect-expert144x144.png)
-![Microsoft Certified: Azure Network Engineer Associate](/badges/microsoft-certified-azure-network-engineer-associate144x144.png)
-![Microsoft Certified: Azure Security Engineer Associate](/badges/microsoft-certified-azure-security-engineer-associate144x144.png)
+| Expert | Intermediate |
+
+| ---|---| 
+| ![Microsoft Certified: DevOps Engineer Expert](/badges/microsoft-certified-devops-engineer-expert144x144.png) | ![Microsoft Certified: Azure Network Engineer Associate](/badges/microsoft-certified-azure-network-engineer-associate144x144.png) |
+
+|![Microsoft Certified: Azure Solutions Architect Expert](/badges/microsoft-certified-azure-solutions-architect-expert144x144.png)| ![Microsoft Certified: Azure Security Engineer Associate](/badges/microsoft-certified-azure-security-engineer-associate144x144.png) |
+
 ![Microsoft Certified: Azure Administrator Associate](/badges/microsoft-certified-azure-administrator-associate144x144.png)
 ![Microsoft Certified: Azure Fundamentals](/badges/microsoft-certified-azure-fundamentals144x144.png)
 ![OpenHack: DevOps](/badges/openhack-devops.png)
