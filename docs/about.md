@@ -3,6 +3,15 @@ layout: page
 title: About Me
 permalink: /about/
 ---
+<style>
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+</style>
+<img src="avatar.png" alt="Avatar" class="avatar">
 
 I am Senior Infrastructure Engineer working in a Managed Service Provider setting. 
 I specialise in Microsoft, Citrix and VMware technologies.
