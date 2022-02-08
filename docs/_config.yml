@@ -2,7 +2,7 @@
 title:               DevOps Rich
 tagline:             'DevOps content for Infrastructure Engineers'
 description:         'Azure DevOps, Terraform, PowerShell, Azure Policy and more.
-<a href="https://linkedin.com/in/richardbjhudson" title="Linkedin"><i class="fa fa-linkedin-square"></i></a><a href="https://www.twitter.com/devops_rich" title="Twitter"><i class="fa fa-twitter-square"></i></a><a mailto:richard.b.j.hudson@gmail.com" title="Email"><i class="fa fa-envelope-square"></i></a>'
+<a href="https://linkedin.com/in/richardbjhudson" title="Linkedin"><i class="fa fa-linkedin-square"></i></a><a href="https://www.twitter.com/devops_rich" title="Twitter"><i class="fa fa-twitter-square"></i></a><a href="mailto:richard.b.j.hudson@gmail.com" title="Email"><i class="fa fa-envelope-square"></i></a>'
 url:                 "https://devopsrich.com"
 baseurl:             ''
 paginate:            5
