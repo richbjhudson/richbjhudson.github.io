@@ -24,8 +24,8 @@ I am a strong advocate of vendor certifications paths, without them you quite of
 # Badges
 <table>
   <tr>
-    <th>Expert</th>
-    <th>Associate</th>
+    <th>Advanced</th>
+    <th>Intermediate</th>
     <th>Fundamental</th>
   </tr>
   <tr>
