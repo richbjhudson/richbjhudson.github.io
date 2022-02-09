@@ -96,6 +96,7 @@ Here is an example of a resource block argument within the child monitor module 
 ```teraform
 policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
 ```
-A member of our Agile squad James has written a similar [post][1].
+A member of our Agile squad James has written a similar [post][1] 
+
 <!--Reference links in article-->
 [1]: https://www.rawritscloud.com/using-enterprise-scale-outputs
