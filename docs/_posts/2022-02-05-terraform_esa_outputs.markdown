@@ -5,22 +5,22 @@ date:   2022-02-05 18:59:00 +0000
 categories: Terraform
 ---
 # Context
-I have been working with terraform module [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest) to deploy an Azure management group structure and a base set of Azure policies. I needed to extend the module functionality to include monitoring. A parent module was created that sourced the caf-enterprise-scale module and a child monitor module.
+Our Agile squad have been working with terraform module [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest) to deploy an Azure management group structure and a base set of Azure policies. We needed to extend the module functionality to include monitoring. A parent module was created that sourced the caf-enterprise-scale module and a child monitor module.
 
 As part of this process the child monitor module needed to reference resources created by the caf-enterprise-scale module e.g. the caf-enterprise-scale module creates an Azure policy set resource and then the child monitor module assigns the policy set resource.   
 
 # Key Takeway
-By converting the [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) output into a local map I was able to feed the values into a child module input variable.
+By converting the [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs) output into a local map we were able to feed the values into a child module input variable.
 
 # Methodology 
 Reviewed the outputs for the terraform module  [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest?tab=outputs).
 
-From here I identified the following output:
+From here we identified the following output:
 ```teraform
 azurerm_policy_set_definition
 ```
 
-I then tested what was returned by the module output by adding the following output to the parent module code:
+We then tested what was returned by the module output by adding the following output to the parent module code:
 ```teraform
 output "policy_set_definitions" {
   value = module.enterprise_scale.azurerm_policy_set_definition
@@ -42,7 +42,7 @@ policy_set_definitions = {
       ...
 ```
 
-This led to Modifying the output to return a key value pair mapping for each object `{"object.name", "object.id" }`
+This led to modifying the output to return a key value pair mapping for each object `{"object.name", "object.id" }`
 
 ```teraform
 output "policy_set_definition1" {
@@ -80,7 +80,7 @@ policy_set_definitions = { for polset in module.enterprise_scale.azurerm_policy_
  }
 ```
 
-I set the input variable value for the child module within the parent module as follows:
+We set the input variable value for the child module within the parent module as follows:
 ```teraform
 es_policy_set_definitions  = local.policy_set_definitions 
 ```
@@ -96,3 +96,5 @@ Here is an example of a resource block argument within the child monitor module 
 ```teraform
 policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
 ```
+<!--Reference links in article-->
+[1]: https://www.rawritscloud.com/using-enterprise-scale-outputs
