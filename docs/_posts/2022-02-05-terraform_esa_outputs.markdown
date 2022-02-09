@@ -5,7 +5,7 @@ date:   2022-02-05 18:59:00 +0000
 categories: Terraform
 ---
 # Context
-Our [Agile squad][1] have been working with terraform module [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest) to deploy an Azure management group structure and a base set of Azure policies. We needed to extend the module functionality to include monitoring. A parent module was created that sourced the caf-enterprise-scale module and a child monitor module.
+Our Agile squad have been working with terraform module [caf-enterprise-scale](https://registry.terraform.io/modules/Azure/caf-enterprise-scale/azurerm/latest) to deploy an Azure management group structure and a base set of Azure policies. We needed to extend the module functionality to include monitoring. A parent module was created that sourced the caf-enterprise-scale module and a child monitor module.
 
 As part of this process the child monitor module needed to reference resources created by the caf-enterprise-scale module e.g. the caf-enterprise-scale module creates an Azure policy set resource and then the child monitor module assigns the policy set resource.   
 
@@ -96,5 +96,6 @@ Here is an example of a resource block argument within the child monitor module 
 ```teraform
 policy_definition_id = var.es_policy_set_definitions["deploy_al_compute"]
 ```
+A member of our Agile squad James has written a similar [post][1].
 <!--Reference links in article-->
 [1]: https://www.rawritscloud.com/using-enterprise-scale-outputs
