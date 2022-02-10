@@ -1,6 +1,6 @@
 ---
 layout: techNote
-title: Providers
 cert: HashiCorp Teraform Associate
+title: Providers
 ---
 Here is some information about Providers.
