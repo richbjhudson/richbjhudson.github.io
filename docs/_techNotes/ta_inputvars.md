@@ -1,4 +1,5 @@
 ---
+layout: techNote
 title: Input Variables
 cert: HashiCorp Teraform Associate
 ---

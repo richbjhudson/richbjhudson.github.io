@@ -7,8 +7,8 @@ title: Tech Notes
 <ul>
   {% for techNote in site.techNotes %}
     <li>
+      <h2><a href="{{techNote.url }}">{{ techNote.title }}</a></h2>
       <h2>{{ techNote.cert }}</h2>
-      <h3>{{ techNote.title }}</h3>
       <p>{{ techNote.content | markdownify }}</p>
     </li>
   {% endfor %}

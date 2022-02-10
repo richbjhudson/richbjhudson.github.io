@@ -1,4 +1,5 @@
 ---
+layout: techNote
 title: Providers
 cert: HashiCorp Teraform Associate
 ---

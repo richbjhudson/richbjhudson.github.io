@@ -30,3 +30,4 @@ google_analytics_id: #UA-XXXX-Y
 #Collections
 collections:
   techNotes:
+    output: true
