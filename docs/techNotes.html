@@ -1,0 +1,15 @@
+---
+layout: default
+title: Tech Notes
+---
+<h1>Tech Notes</h1>
+
+<ul>
+  {% for techNote in site.tecNotes %}
+    <li>
+      <h2>{{ techNote.cert }}</h2>
+      <h3>{{ techNote.title }}</h3>
+      <p>{{ techNote.content | markdownify }}</p>
+    </li>
+  {% endfor %}
+</ul>
