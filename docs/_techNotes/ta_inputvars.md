@@ -1,6 +1,6 @@
 ---
 layout: techNote
-cert: HashiCorp Teraform Associate
+category: Terraform
 title: Input Variables
 ---
 Here is some information about input variables.

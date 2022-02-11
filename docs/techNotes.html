@@ -6,8 +6,9 @@ title: Tech Notes
 
 <ul>
   {% for techNote in site.techNotes %}
+  {% assign techNotes_by_category = site.techNotes | group_by: "category" %}
     <li>
-      <h2>{{ techNote.cert }}&nbsp;<a href="{{techNote.url }}">{{ techNote.title }}</a></h2>
+      <h2>{{ techNote.category }}&nbsp;<a href="{{techNote.url }}">{{ techNote.title }}</a></h2>
       <p>{{ techNote.content | markdownify }}</p>
     </li>
   {% endfor %}
