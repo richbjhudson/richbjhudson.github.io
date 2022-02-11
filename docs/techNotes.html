@@ -11,13 +11,13 @@ title: Tech Notes
   <div class="category_wrapper">
     <div class="category">{{ category.name }}</div>
     <ul>
-    {% for item in category.items %}
+    {% for techNote in category.techNotes %}
       <li class="collapsed">
-          <a href="{{ site.baseurl }}{{ item.url }}">
-          {% if item.url == navurl %}
-            <u>{{ item.title }}</u>
+          <a href="{{ site.baseurl }}{{ techNote.url }}">
+          {% if techNote.url == navurl %}
+            <u>{{ techNote.title }}</u>
           {% else %}
-            {{ item.title }}
+            {{ techNote.title }}
           {% endif %}
           </a>
       </li>
