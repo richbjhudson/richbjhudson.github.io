@@ -1,0 +1,15 @@
+---
+layout: default
+title: Tech Notes
+---
+<h1>Tech Notes</h1>
+
+<ul>
+  {% for techNote in site.techNotes %}
+  {% assign techNotes_by_category = site.documentation | group_by: "category" %}
+    <li>
+      <h2>{{ techNote.category }}&nbsp;<a href="{{techNote.url }}">{{ techNote.title }}</a></h2>
+      <p>{{ techNote.content | markdownify }}</p>
+    </li>
+  {% endfor %}
+</ul>
