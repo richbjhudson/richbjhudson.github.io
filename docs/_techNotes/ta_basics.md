@@ -87,7 +87,7 @@ It contains:
 - Resource type based on infrastructure object it can create.
 - Arguments - input details to create resource.
 - Resource local name - reference within existing module so you can call values elsewhere in your code.
-- Meta-arguments - they allow you to change behaviour of arguments e.g. count.
+- Meta-arguments - they allow you to change the behaviour of arguments e.g. count.
 
 ```
 resource "azurerm_resource_group" "resource_group" {
@@ -107,7 +107,9 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 - Create
 - Destroy - when the resource exists in state but not in config.
 - Update in place - where arguments for a resource have changed.
-- Destroy and recreate - when an argument has changed but can not perform an in place update e.g. location changed. It first destroys and then recreates. You can change this behaviour using meta-arguments.
+- Destroy and recreate - when an argument has changed but can not perform an in place update e.g. location changed. 
+
+*Note: It first destroys and then recreates. You can change this behaviour using meta-arguments.*
 
 # State
 
