@@ -68,7 +68,11 @@ provider "azurerm" {
 ## Dependency Lock File
 
 It prevents you from updating a provider plugin version.
+It is best practice to check in the lock file into your code repository.
+
 `terraform init upgrade` - this will upgrade the lock file if you decide to change the allowed provider versions.
+
+*Note: It only includes provider version tracking **not** Terraform cli nor modules.*
 
 ## Provider Badges
 
@@ -78,6 +82,32 @@ When you navigate to the [terraform registry list of providers](https://registry
 - Community
 
 # Resource Block Syntax
+
+It contains:
+- Resource type based on infrastructure object it can create.
+- Arguments - input details to create resource.
+- Resource local name - reference within existing module so you can call values elsewhere in your code.
+- Meta-arguments - they allow you to change behaviour of arguments e.g. count.
+
+```
+resource "azurerm_resource_group" "resource_group" {
+  location = "uksouth"
+  name = "rg-01"  
+}
+```
+
+## Internal Block
+
+A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_interface` resource.
+
+*Note: Whereas, tag **=** {} is an argument using a map value.*
+
+## Resource Behaviour
+
+- Create
+- Destroy - when the resource exists in state but not in config.
+- Update in place - where arguments for a resource have changed.
+- Destroy and recreate - when an argument has changed but can not perform an in place update e.g. location changed. It first destroys and then recreates. You can change this behaviour using meta-arguments.
 
 # State
 
