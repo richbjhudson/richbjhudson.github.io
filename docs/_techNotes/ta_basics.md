@@ -5,7 +5,7 @@ title: Basics
 ---
 # Workflow
 
-- `terraform init` - initialises working directory by downloading provider plugins and source modules.
+- `terraform init` - initialises the working directory by downloading provider plugins and source modules.
 - `terraform validate` - checks configuration file syntax.
 - `terraform fmt` -- formats configuration files.
 - `terraform plan` - creates an execution plan that compares the desired state to the known state.
@@ -14,17 +14,18 @@ title: Basics
 
 # Blocks
 
-Fundamental blocks - terraform, provider and resource
-Variable blocks - input, output and local
-Calling/ referencing - data sources and module
+## 3 Fundamental Block Types:
+- **Terraform** includes:
+    -  terraform cli version, terraform provider and version, and also the backend block that holds the terraform state in a remote location.
+    - Only constant values are allowed in this block no variable references.
+- **Provider** includes provider configuration in root module.
+- **Resource** is used to create infrastructure objects including:
+    - resource syntax and behaviour.
+    - provisioners - post creation actions.
 
-Ctrl+ space for intellisense to work within TF extension
-
-Terraform Block - cli version + provider and version + backend block - hold state in remote location
-Only constant value allowed no variables
-
-Provider block - provider configuration in root module
-Resource block - create infra objects, resource syntax and behaviour, provisioners - post creation actions
+## Additional Block Types:
+- Variable blocks - input, output and local
+- Calling/ referencing - data sources and module
 
 # Providers
 
