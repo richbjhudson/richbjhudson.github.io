@@ -218,7 +218,7 @@ lifecycle {
 
 # Functions
 
-- Functions allow you to combine and transform values e.g. join to value together.
+- Functions allow you to combine and transform values e.g. join two values together.
 - The terraform console is an interactive console great for testing functions.
 
 ## file function
@@ -234,7 +234,7 @@ admin_ssh_key {
 
 ## filebase64
 
-This can be used to read the contents of a file but returns file Base64-encoded e.g. used by **Custom_data** argument within `azurerm_linux_virtual_machine` resource block to reference cloud init file that can configure a VM.
+This can be used to read the contents of a file Base64-encoded e.g. used by the **Custom_data** argument within `azurerm_linux_virtual_machine` resource block to reference cloud init file that can configure a VM.
 
 ```
 custom_data = filebase64("${path.module}/scripts/cloud_init.txt")
@@ -252,14 +252,14 @@ red
 
 ## Length
 
-- This return the length of the list, map or string, for example:
+- This returns the length of the list, map or string, for example:
 
 ```
 length(["blue","red","green"])
 3
 ```
 
-# Toset 
+## Toset 
 
 - This function converts values to strings and removes duplicates.
 - It sorts alphabetically and number strings are returned 1st.
@@ -276,8 +276,6 @@ resource "azurerm_resource_group" "rg" {
 
 - A more concise representation of a **for** expression.
 - [For o in var.list : o.id] --> Var.list[*].id.
-- Please see [terraform documentation]("https://www.terraform.io/language/expressions/splat").
+- Please see [terraform documentation](https://www.terraform.io/language/expressions/splat).
 
 # Provisioners
-
-

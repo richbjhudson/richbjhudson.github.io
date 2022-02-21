@@ -3,7 +3,8 @@ layout: techNote
 category: Terraform
 title: Configuration
 ---
-# Input
+# Input Variables
+
 
 # Environment 
 
