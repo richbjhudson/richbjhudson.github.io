@@ -355,7 +355,63 @@ threat_detection_policy {
 
 - Almost the same as lists and tuples, except any duplicate values are removed and any ordering is lost.
 
-# Output
+# Output Variables
+
+- Output values produced primarily to share output between a parent and child module.
+- You can use `terraform_remote_state` data source to access outputs that are using remote state.
+- Outputs can be used with arguments or attributes of a resource type.
+
+```
+output "resource_group_id" {
+  description = "Resource Group ID"
+  # Attribute Reference
+  value = azurerm_resource_group.rg.id 
+}
+```
+
+- `terraform output` - this shows the output from the local state file.
+- When you set an output variable as sentitive it is not honored and will show the value when you explicitly call an output variable e.g. `terraform output virtual_network_name`.
+
+## Count & Splat Expression
+
+- Splat expression `var.list[*].id` is a concide way to express a common expression.
+- This only works with lists, tuples and sets.
+- Here is an example `azurerm_virtual_network` resource block:
+
+```
+resource "azurerm_virtual_network" "vnet" {
+  count = 4
+  name                = "vnet-${count.index}"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.myrg.location
+  resource_group_name = azurerm_resource_group.myrg.name
+}
+```
+
+- Here is an example output using the splat expression:
+
+```
+output "virtual_network_name" {
+  description = "Virtual Network Name"
+  value = azurerm_virtual_network.vnet[*].name 
+}
+```
+*Note: count.index cannot not be used in an output block.*
+
+- Here is how the output looks:
+
+```
+terraform output
+virtual_network_name = [
+  "it-dev-vnet-0",
+  "it-dev-vnet-1",
+  "it-dev-vnet-2",
+  "it-dev-vnet-3",
+]
+```
+
+## for_each
+
 
 # Locals
 
