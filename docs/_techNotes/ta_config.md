@@ -282,7 +282,78 @@ terraform plan -var-file="secrets.tfvars"
 
 *Note: Environment variable values will appear in command line history.*
 
-# Structural
+# Structural Variable Types
+
+## Object
+
+- This is a map with different types of key value pairs. 
+
+```
+variable "mysql_policy" {
+  description = "Azure MySQL DB Threat Detection Policy"
+  type = object({
+    enabled = bool,
+    retention_days = number
+    email_account_admins = bool
+    email_addresses = list(string)
+  })
+}
+
+```
+
+- You can set a value for the variable type in a .tfvars files as follows:
+
+```
+mysql_policy = {
+    enabled = true,
+    retention_days = 10,
+    email_account_admins = true,
+    email_addresses = [ "email1@gmail.com", "email2@gmail.com" ]
+  }
+
+```
+- You can reference an object variable type in a `azurerm_mysql_server` resource block as follows:
+
+```
+threat_detection_policy {
+    enabled = var.mysql_policy.enabled
+    retention_days = var.mysql_policy.retention_days
+    email_account_admins = var.mysql_policy.email_account_admins
+    email_addresses = var.mysql_policy.email_addresses
+  } 
+```
+
+## Tuple
+
+- A list with values of different types.
+
+```
+variable "mysql_policy" {
+  description = "Azure MySQL DB Threat Detection Policy"
+  type = tuple([ bool, number, bool, list(string) ])
+}
+```
+- You can set a value for the variable type in a .tfvars files as follows:
+
+```
+mysql_policy = [true, 10, true, [ "email1@gmail.com", "email2@gmail.com" ]]
+```
+- You can reference a tuple variable type in a `azurerm_mysql_server` resource block as follows:
+
+```
+threat_detection_policy {
+    enabled = var.mysql_policy[0]
+    retention_days = var.mysql_policy[1]
+    email_account_admins = var.mysql_policy[2]
+    email_addresses = var.mysql_policy[3]
+  }  
+}
+
+```
+
+## Sets
+
+- Almost the same as lists and tuples, except any duplicate values are removed and any ordering is lost.
 
 # Output
 
