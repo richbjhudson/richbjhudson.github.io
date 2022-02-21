@@ -357,8 +357,8 @@ threat_detection_policy {
 
 # Output Variables
 
-- Output values produced primarily to share output between a parent and child module.
-- You can use `terraform_remote_state` data source to access outputs that are using remote state.
+- Output values are produced primarily to share output between a parent and child module.
+- You can use the `terraform_remote_state` data source to access outputs that are using remote state.
 - Outputs can be used with arguments or attributes of a resource type.
 
 ```
@@ -374,7 +374,7 @@ output "resource_group_id" {
 
 ## Count & Splat Expression
 
-- Splat expression `var.list[*].id` is a concide way to express a common expression.
+- Splat expression `var.list[*].id` is a concise way to express a common expression.
 - This only works with lists, tuples and sets.
 - Here is an example `azurerm_virtual_network` resource block:
 
@@ -388,7 +388,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 ```
 
-- Here is an example output using the splat expression:
+- Here is an example output variable using the splat expression:
 
 ```
 output "virtual_network_name" {
