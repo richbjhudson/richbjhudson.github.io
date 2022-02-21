@@ -181,8 +181,8 @@ Each.key = dev
 Each.value = myapp1
 ```
 
-- You cannot use both count and for_each in the same resource block/ module.*
-- You can reference a resource that is already configured to use a for_each and use these resource instances within an additional resource block referecning the instance using what is termed **for_each chaining**:
+- You cannot use both count and for_each in the same resource block/ module.
+- You can reference a resource that is already configured to use a for_each and use these resource instances within an additional resource block referencing the instance using what is termed **for_each chaining**:
 
 ```
  for_each = azurerm_network_interface.nic
@@ -192,7 +192,7 @@ Each.value = myapp1
 
 - It features as a nested block within a resource block.
 - There are 3 types of lifecyle blocks:  
-  - Create_before_destroy - create new resource before destroying existing resource
+  - Create_before_destroy - create new resource before destroying existing resource.
 
 ```
 lifecycle {
@@ -217,24 +217,66 @@ lifecycle {
 ```
 
 # Functions
-File function can be used to obtain ssh public key
-Custom_data - use filebase64 function to reference cloud init file that can configure a VM
 
-Splat expression
-Terraform console - interactive console to test functions
-[For o in var.list : o.id] --> Var.list[*].id
-public_ip_address_id = element(azurerm_public_ip.mypublicip[*].id, count.index)  
+- Functions allow you to combine and transform values e.g. join to value together.
+- The terraform console is an interactive console great for testing functions.
 
-Element function - element(list, index) -- element(["blue","red","green"], 1) --> red
-Length function - length(["blue","red","green"]) -- > 3
-element(["blue","red","green"], length(["blue","red","green"])-1) --> green
+## file function
 
-Toset function converts values to strings and there cannot be duplicates - they are removed, sorts alphabetically, number string 1st
-resource "azurerm_resource_group" "myrg" {
-  for_each = toset([ "eastus", "eastus2", "westus" ])
-  name = "myrg-${each.value}"
+This can be used to read the contents of a file e.g. obtain ssh public key within `azurerm_linux_virtual_machine` resource block.
+
+```
+admin_ssh_key {
+    username = "localadmin"
+    public_key = file("${path.module}/ssh-keys/key.pub")
+  }
+```  
+
+## filebase64
+
+This can be used to read the contents of a file but returns file Base64-encoded e.g. used by **Custom_data** argument within `azurerm_linux_virtual_machine` resource block to reference cloud init file that can configure a VM.
+
+```
+custom_data = filebase64("${path.module}/scripts/cloud_init.txt")
+```
+
+## Element
+
+- This is used to return a value from a list.
+- `element(list, index)`, for example:
+
+```
+element(["blue","red","green"], 1)
+red
+```
+
+## Length
+
+- This return the length of the list, map or string, for example:
+
+```
+length(["blue","red","green"])
+3
+```
+
+# Toset 
+
+- This function converts values to strings and removes duplicates.
+- It sorts alphabetically and number strings are returned 1st.
+
+```
+resource "azurerm_resource_group" "rg" {
+  for_each = toset([ "uksouth", "ukwest" ])
+  name = "rg-${each.key}"
   location = each.key 
+}
+```
 
+# Splat expression
+
+- A more concise representation of a **for** expression.
+- [For o in var.list : o.id] --> Var.list[*].id.
+- Please see [terraform documentation]("https://www.terraform.io/language/expressions/splat").
 
 # Provisioners
 
