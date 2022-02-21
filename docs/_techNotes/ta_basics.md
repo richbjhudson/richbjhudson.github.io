@@ -114,13 +114,22 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 # State
 
 - Once `terraform apply` is executed a state file is created - **terraform.tfstate**.
-  - Desired state is contained within local .ft files.
-  - Current state is the real resources in cloud that is held in state file.
+  - Desired state is contained within local .tf files.
+  - Current state is the real resources in the cloud that are recorded in the state file.
 - `terraform destroy` will remove configuration from the Cloud environment that is contained within the state file.
-- It is stored locally by default.
-- The state file holds all details about a resource not just what was set using arguments.
-- It is not recommended to manually edit the state file nor store it locally.
+- The state file is stored locally by default.
+- The state file holds all of the details about a resource not just what was set using arguments.
+
+*Note: It is not recommended to manually edit the state file nor store it locally.*
 
 # Meta-arguments
+
+Changes behaviour of resource blocks:
+- Depends_on - handle dependencies terraform cannot infer.
+- Count - create mutliple instance of a resource based on value.
+- For_each - create multiple instances of a resource according to map or strings.
+- Provider - select non default provider config.
+- Lifecycle - resource lifecycle management e.g. in a destroy and recreate scenario, you could 1st create and then destroy a resource.
+- *Provisioners & Connections (not meta-argument)* - extra actions after resource creation e.g. install app on VM.
 
 # Provisioners
