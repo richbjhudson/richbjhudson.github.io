@@ -167,6 +167,27 @@ resource "azurerm_public_ip" "pip" {
 
 ## for_each
 
+- for_each may be used with either a map of values or a set of strings.
+  - A set of strings is just a list of strings - each.key and each.value return the same string.
+  - Map is a key value pair, for example:
+
+``
+For_each = {
+Dev = "myapp1"
+}
+
+Each.key = dev
+
+Each.value = myapp1
+``
+*Note: You cannot use both count and for_each in the same resource block/ module.*
+
+- You can reference a resource that is already configured to use a for_each and use these resource instances within an additional resource block referecning the instance using what is termed **for_each chaining**:
+
+```
+ for_each = azurerm_network_interface.nic
+ ```
+
 # Functions
 File function can be used to obtain ssh public key
 Custom_data - use filebase64 function to reference cloud init file that can configure a VM
@@ -179,6 +200,12 @@ public_ip_address_id = element(azurerm_public_ip.mypublicip[*].id, count.index)
 Element function - element(list, index) -- element(["blue","red","green"], 1) --> red
 Length function - length(["blue","red","green"]) -- > 3
 element(["blue","red","green"], length(["blue","red","green"])-1) --> green
+
+Toset function converts values to strings and there cannot be duplicates - they are removed, sorts alphabetically, number string 1st
+resource "azurerm_resource_group" "myrg" {
+  for_each = toset([ "eastus", "eastus2", "westus" ])
+  name = "myrg-${each.value}"
+  location = each.key 
 
 
 # Provisioners
