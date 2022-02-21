@@ -188,6 +188,34 @@ Each.value = myapp1
  for_each = azurerm_network_interface.nic
  ```
 
+## lifecycle
+
+- It features as a nested block within a resource block.
+- There are 3 types of lifecyle blocks:  
+  - Create_before_destroy - create new resource before destroying existing resource
+
+```
+lifecycle {
+    create_before_destroy = true
+  }
+```
+
+  - Prevent_destroy - database/ disk that you do not want to be removed.
+
+```
+lifecycle {
+    prevent_destroy = true
+  }
+```
+
+  - Ignore_changes - ignore change made within Azure portal e.g. tags.
+
+```
+lifecycle {
+    ignore_changes = [ tags, ]
+  }
+```
+
 # Functions
 File function can be used to obtain ssh public key
 Custom_data - use filebase64 function to reference cloud init file that can configure a VM
