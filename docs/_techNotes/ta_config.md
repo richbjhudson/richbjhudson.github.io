@@ -45,6 +45,15 @@ terraform show v1.plan
 terraform apply v1.plan
 ```
 
+## Variable Definition Precedence
+
+- From High to low:
+    1. var or -var-file
+    2. *.auto.tfvars
+    3. Terraform.tfvars.json
+    4. Terraform.tfvars
+    5. Environment variable
+
 ## Environment Variables
 
 - These values override default variable values.
