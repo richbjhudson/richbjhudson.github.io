@@ -113,6 +113,14 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 
 # State
 
+- Once `terraform apply` is executed a state file is created - **terraform.tfstate**.
+  - Desired state is contained within local .ft files.
+  - Current state is the real resources in cloud that is held in state file.
+- `terraform destroy` will remove configuration from the Cloud environment that is contained within the state file.
+- It is stored locally by default.
+- The state file holds all details about a resource not just what was set using arguments.
+- It is not recommended to manually edit the state file nor store it locally.
+
 # Meta-arguments
 
 # Provisioners
