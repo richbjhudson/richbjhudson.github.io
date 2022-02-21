@@ -167,11 +167,11 @@ resource "azurerm_public_ip" "pip" {
 
 ## for_each
 
-- for_each may be used with either a map of values or a set of strings.
+- for_each may be used with either a a set of strings or map of values.
   - A set of strings is just a list of strings - each.key and each.value return the same string.
   - Map is a key value pair, for example:
 
-``
+```
 For_each = {
 Dev = "myapp1"
 }
@@ -179,9 +179,9 @@ Dev = "myapp1"
 Each.key = dev
 
 Each.value = myapp1
-``
-*Note: You cannot use both count and for_each in the same resource block/ module.*
+```
 
+- You cannot use both count and for_each in the same resource block/ module.*
 - You can reference a resource that is already configured to use a for_each and use these resource instances within an additional resource block referecning the instance using what is termed **for_each chaining**:
 
 ```
