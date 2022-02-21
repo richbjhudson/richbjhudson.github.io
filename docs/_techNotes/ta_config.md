@@ -131,6 +131,8 @@ default_tags = {
 ```
 - You can reference a map variable type in a resource block simply using `var.default_tags`.
 
+*Note: If a key value starts with a number you must use `:` instead of `=` when setting a value.*
+
 ## Lookup Function
 
 - A lookup function gets a value from a map.
@@ -154,9 +156,100 @@ variable "public_ip_sku" {
 sku = lookup(var.public_ip_sku, var.resoure_group_location, "Basic")
 ```
 
-- In this example the SKU is set based on the Resource Group Location matching the key value, otherwise a default value of **Basic** is set.
+- In this example the `sku` is set based on the `resoure_group_location` matching the key value `ukwest` or `uksouth`, otherwise a default value of **Basic** is set.
 
 # Validation Rules in Variables
+
+- A validation rule consists of a `condition` and an `error_message`.
+- The `condition` makes use of functions such as `contains`, `substr`, `length` and `lower`.
+- `error_message` must end string with `.` Or `?`.
+
+## Examples of Function Use
+
+- length function:
+
+```
+Length ("hi")
+2
+Length(["a","b"])
+2
+Length ({"key" = "value"})
+1
+```
+
+- Substring function extracts a substring from a given string - `Substr(string, offset, length)`:
+
+```
+Substr("hello world", 1, 4)
+ello
+```
+
+- Contains function - `Contains(list, value)`:
+
+```
+Contains (["a","b"], "a")
+true
+```
+
+- Lower/ Upper function
+
+```
+Lower("ABC")
+abc
+```
+
+- [Regex](https://www.terraform.io/language/functions/regex) function applies a regular expression to a string and returns the matching substring - `Regex(pattern, string)`:
+
+```
+regex("india$", "westindia")
+india
+```
+
+- Can function evaluates the given expression and returns a boolean value based on result without error.
+
+```
+Can(regex("india$", "westindia"))
+true
+```
+
+## Validation Rule Examples
+
+- Two examples of setting explicit allowed values for a variable:
+```
+variable "resoure_group_location" {
+  description = "Resource Group Location"
+  type = string
+  default = "uksouth"
+  validation {
+    condition = var.resoure_group_location == "uksouth" || var.resoure_group_location =="ukwest"
+    error_message = "We only allow Resources to be created in uksouth or ukwest locations."
+  }
+```
+
+
+```
+variable "resoure_group_location" {
+  description = "Resource Group Location"
+  type = string
+  default = "uksouth"
+  validation {
+    condition = contains(["uksouth", "ukwest"], var.resoure_group_location)
+    error_message = "We only allow Resources to be created in uksouth or ukwest locations."
+  }
+```
+- Example of providing more flexibility using regex expression:
+```
+variable "resoure_group_location" {
+  description = "Resource Group Location"
+  type = string
+  default = "eastus"
+  validation {
+    condition = can(regex("india$", var.resoure_group_location))
+    error_message = "We only allow Resources to be created in westindia or southindia locations."
+  }
+```
+
+# Sensitive Input Variables
 
 
 # Structural
