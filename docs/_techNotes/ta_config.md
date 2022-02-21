@@ -251,6 +251,27 @@ variable "resoure_group_location" {
 
 # Sensitive Input Variables
 
+- Terraform will redact values in command output and log files for variables defined as `sensitive = true`.
+- It is important to recognise that terraform state **shows** values of sensitive variables.
+- How to set a variable as sensitive:
+
+```
+variable "localadmin_password" {
+  description = "Local Administrator Password"
+  type = string  
+  sensitive = true
+}
+```
+
+- Set values for sensitive variables using file `secrets.tfvars`.
+- Never check-in `secrets.tfvars` to your code repository.
+- How to execute terraform cli against the variable file:
+
+```
+terraform plan -var-file="secrets.tfvars"
+```
+
+*Note: Environment variable values will appear in command line history.*
 
 # Structural
 
