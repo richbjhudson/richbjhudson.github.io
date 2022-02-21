@@ -125,11 +125,62 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 # Meta-arguments
 
 Changes behaviour of resource blocks:
-- Depends_on - handle dependencies terraform cannot infer.
-- Count - create mutliple instance of a resource based on value.
-- For_each - create multiple instances of a resource according to map or strings.
-- Provider - select non default provider config.
-- Lifecycle - resource lifecycle management e.g. in a destroy and recreate scenario, you could 1st create and then destroy a resource.
+- depends_on - handle dependencies terraform cannot infer.
+- count - create mutliple instance of a resource based on value.
+- for_each - create multiple instances of a resource according to map or strings.
+- provider - select non default provider config.
+- lifecycle - resource lifecycle management e.g. in a destroy and recreate scenario, you could 1st create and then destroy a resource.
 - *Provisioners & Connections (not meta-argument)* - extra actions after resource creation e.g. install app on VM.
 
+## depends_on
+
+- This is not required if you create a resource that references another resource's data as an implicit dependancy is created.
+- It can be used in resource/ module blocks - it contains a list of resources or child modules.
+- It should only ever be used as a last resort.
+- You list which resources should be created before it actions the resource block. As such it is placed  at the top of the given resource block:
+
+```
+depends_on = [
+    azurerm_virtual_network.vnet1,
+    azurerm_subnet.subnet1
+  ]
+```
+
+## Count
+
+- The number of instances that will be created within a resource block.
+- It can be used in resource/ module blocks.
+- You cannot use count and for_each in the same resource block.
+-  `${Count.index}` -- can be used to set a value based on the instance number:
+
+```
+resource "azurerm_public_ip" "pip" {
+  count = 2
+  name                = "pip-${count.index}"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Static" 
+}
+```
+
+- You can reference an instance of the resource by using `azurerm_public_ip.pip[0]`.
+
+## for_each
+
+# Functions
+File function can be used to obtain ssh public key
+Custom_data - use filebase64 function to reference cloud init file that can configure a VM
+
+Splat expression
+Terraform console - interactive console to test functions
+[For o in var.list : o.id] --> Var.list[*].id
+public_ip_address_id = element(azurerm_public_ip.mypublicip[*].id, count.index)  
+
+Element function - element(list, index) -- element(["blue","red","green"], 1) --> red
+Length function - length(["blue","red","green"]) -- > 3
+element(["blue","red","green"], length(["blue","red","green"])-1) --> green
+
+
 # Provisioners
+
+
