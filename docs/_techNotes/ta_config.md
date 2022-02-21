@@ -74,11 +74,90 @@ environment = "prod"
 terraform plan -var-file="dev.tfvars"
 ```
 
-*Note: If run the same code against multiple .tfvars in the same working directory, the state file uses the same local names for a resource so would attempt to replace the resources. This is what terraform workspaces is for to create separate state files.*
+*Note: If you run the same code against multiple .tfvars in the same working directory, the state file uses the same local names for a resource so would attempt to replace the resources. This is what terraform workspaces is for to create separate state files.*
 
 - `filename.auto.tfvars` autoloads the variable values from a file replacing any default values. You do not need to use the cli argument `-var-file`. Common use case is to separate variable input based on resource type.
 
-# Complex
+# Complex Variable Types
+
+## List
+
+- Square `[]` brackets are used to define a list type variable.
+
+```
+variable "virtual_network_address_space" {
+  description = "Virtual Network Address Space"
+  type        = list(string)
+  default     = ["10.0.0.0/16", "10.1.0.0/16", "10.2.0.0/16"]
+}
+```
+
+- You can set a value for the variable type in a .tfvars files as follows:
+
+```
+virtual_network_address_space = ["10.3.0.0/16", "10.4.0.0/16", "10.5.0.0/16"]
+```
+
+- You can reference a list variable type in a resource block simply using `var.virtual_network_address_space`.
+
+- If you wish to reference a single value you can use:
+
+```
+address_space = [var.virtual_network_address_space[0]]
+```
+
+## Maps
+
+- Flower `{}` brackets are used to define a map type variable.
+
+```
+variable "default_tags" {
+  description = "Default Tags for Azure Resources"
+  type = map(string)
+  default = {
+    "deploymentType" = "Terraform",
+    "costCentre" = "0001"
+  }
+}
+```
+
+- You can set a value for the variable type in a .tfvars files as follows:
+
+```
+default_tags = {
+    "deploymentType" = "Terraform",
+    "costCentre" = "1234"
+}
+```
+- You can reference a map variable type in a resource block simply using `var.default_tags`.
+
+## Lookup Function
+
+- A lookup function gets a value from a map.
+- `Lookup(map, key, default)`
+- Variable set as:
+
+```
+variable "public_ip_sku" {
+  description = "Azure Public IP Address SKU"
+  type = map(string)
+  default = {
+    "ukwest" = "Basic",
+    "uksouth" = "Standard"
+  }
+}
+```
+
+- `azurerm_public_ip` resource block set as:  
+
+```
+sku = lookup(var.public_ip_sku, var.resoure_group_location, "Basic")
+```
+
+- In this example the SKU is set based on the Resource Group Location matching the key value, otherwise a default value of **Basic** is set.
+
+# Validation Rules in Variables
+
 
 # Structural
 
