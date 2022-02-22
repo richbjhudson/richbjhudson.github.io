@@ -536,7 +536,7 @@ locals {
 ## Conditional Expression
 
 - You cannot write conditional expressions within a variable definition, you can only use them with locals.
-- `condition ? true_val : false_val`
+- `condition ? true_val : false_val`.
 
 - Example use of conditional expression within locals:
 
@@ -558,7 +558,8 @@ variable "vnet_address_space_all" {
   type = list(string)
   default = [ "10.1.0.0/16", "10.2.0.0/16", "10.3.0.0/16"  ]
 }
-
+```
+```
 locals {
 vnet_address_space = (var.environment == "dev" ? var.vnet_address_space_dev : var.vnet_address_space_all)
 }
