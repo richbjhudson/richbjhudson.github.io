@@ -376,7 +376,7 @@ output "resource_group_id" {
 
 - Splat expression `var.list[*].id` is a concise way to express a common expression.
 - This only works with lists, tuples and sets.
-- Here is an example `azurerm_virtual_network` resource block:
+- Here is an example `azurerm_virtual_network` resource block that is using `count`:
 
 ```
 resource "azurerm_virtual_network" "vnet" {
@@ -412,6 +412,102 @@ virtual_network_name = [
 
 ## for_each
 
+- Resource blocks that use the`for_each` meta-argument will create a map of objects so you cannot use a splat expression as above.
+- You need to use a `for` in the output value.
+- Here is an example where a VNET is created for each environment.
+
+```
+variable "environment" {
+  description = "Environment Name"
+  type = set(string)
+  default = ["dev1", "qa1", "staging1", "prod1" ]
+}
+```
+
+```
+resource "azurerm_virtual_network" "vnet" {
+  for_each = var.environment
+  name                = "vnet-${each.key}"
+  address_space       = ["10.0.0.0/16"]
+  location            = "UKSouth"
+  resource_group_name = "rg-${each.key}"
+}
+```
+
+- Example 1
+
+```
+output "virtual_network_name_list_one_input" {
+  description = "Virtual Network - For Loop One Input and List Output with VNET Name "
+  value = [for vnet in azurerm_virtual_network.vnet: vnet.name ]  
+}
+
+terraform output virtual_network_name_list_one_input
+[
+  "it-dev2-vnet",
+  "it-prod2-vnet",
+  "it-qa2-vnet",
+  "it-staging2-vnet",
+]
+
+```
+
+- Example 2
+
+```
+# Output - For Loop Two Inputs, List Output which is Iterator i (var.environment)
+output "virtual_network_name_list_two_inputs" {
+  description = "Virtual Network - For Loop Two Inputs, List Output which is Iterator i (var.environment)"  
+  value = [for env, vnet in azurerm_virtual_network.vnet: env ]
+}
+
+terraform output virtual_network_name_list_two_inputs
+[
+  "dev2",
+  "prod2",
+  "qa2",
+  "staging2",
+]
+
+```
+
+- Example 3
+
+```
+# Output - For Loop One Input and Map Output with VNET ID and VNET Name
+output "virtual_network_name_map_one_input" {
+  description = "Virtual Network - For Loop One Input and Map Output with VNET ID and VNET Name"
+  value = {for vnet in azurerm_virtual_network.vnet: vnet.id => vnet.name }
+}
+
+terraform output virtual_network_name_map_one_input  
+{
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-dev2-vnet" = "it-dev2-vnet" 
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-prod2-vnet" = "it-prod2-vnet"
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-qa2-vnet" = "it-qa2-vnet"   
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-staging2-vnet" = "it-staging2-vnet"
+}
+
+```
+
+- Example 4
+
+```
+# Output - For Loop Two Inputs and Map Output with Iterator env and VNET Name
+output "virtual_network_name_map_two_inputs" {
+  description = "Virtual Network - For Loop Two Inputs and Map Output with Iterator env and VNET Name"
+  value = {for env, vnet in azurerm_virtual_network.vnet: env => vnet.name }
+}
+
+terraform output virtual_network_name_map_two_inputs 
+{
+  "dev2" = "it-dev2-vnet"
+  "prod2" = "it-prod2-vnet"
+  "qa2" = "it-qa2-vnet"
+  "staging2" = "it-staging2-vnet"
+}
+
+```
 
 # Locals
 
