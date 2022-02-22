@@ -444,10 +444,10 @@ output "virtual_network_name_list_one_input" {
 
 terraform output virtual_network_name_list_one_input
 [
-  "it-dev2-vnet",
-  "it-prod2-vnet",
-  "it-qa2-vnet",
-  "it-staging2-vnet",
+  "vnet-dev1",
+  "vnet-prod1",
+  "vnet-qa1",
+  "vnet-staging1",
 ]
 
 ```
@@ -463,10 +463,10 @@ output "virtual_network_name_list_two_inputs" {
 
 terraform output virtual_network_name_list_two_inputs
 [
-  "dev2",
-  "prod2",
-  "qa2",
-  "staging2",
+  "dev1",
+  "prod1",
+  "qa1",
+  "staging1",
 ]
 
 ```
@@ -482,10 +482,10 @@ output "virtual_network_name_map_one_input" {
 
 terraform output virtual_network_name_map_one_input  
 {
-  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-dev2-vnet" = "it-dev2-vnet" 
-  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-prod2-vnet" = "it-prod2-vnet"
-  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-qa2-vnet" = "it-qa2-vnet"   
-  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/myrg1-demo/providers/Microsoft.Network/virtualNetworks/it-staging2-vnet" = "it-staging2-vnet"
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/vnet-dev1" = "vnet-dev1" 
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/vnet-prod1" = "vnet-prod1"
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/vnet-qa1" = "vnet-qa1"   
+  "/subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/vnet-staging1" = "vnet-staging1"
 }
 
 ```
@@ -501,10 +501,10 @@ output "virtual_network_name_map_two_inputs" {
 
 terraform output virtual_network_name_map_two_inputs 
 {
-  "dev2" = "it-dev2-vnet"
-  "prod2" = "it-prod2-vnet"
-  "qa2" = "it-qa2-vnet"
-  "staging2" = "it-staging2-vnet"
+  "dev1" = "vnet-dev1"
+  "prod1" = "vnet-prod1"
+  "qa1" = "vnet-qa1"
+  "staging1" = "vnet-staging1"
 }
 
 ```
