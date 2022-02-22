@@ -594,6 +594,25 @@ output "current_subscription_display_name" {
 
 # CLI Workspaces
 
+- Named workspaces allow you to conveniently switch between multiple instances of a single configuration within a single backend.
+- Common use case: create a parallel distinct copy of a set of infrastructure in order to test a set of changes before applying to the main production infrastructure.
+- HashiCorp do not recommend using workspaces for large infrastructures. They recommend using separate configuration directories for each environment - dev, qa, staging and production.
+
+*Note: They are not related to terraform cloud workspaces.*
+
+- `${terraform.workspace}`  - it will get the workspace name, you can use it in your naming and tagging e.g. `rg_name = "${var.business_unit}-${terraform.workspace}-${var.resoure_group_name}"`.
+
+- `terraform workspace list` - shows all workspaces and the current workspace has a `*` next to it.
+- `terraform workspace show` - shows current workspace.
+- `terraform workspace new ws_name` - create a new workspace.
+- None default states are placed in `.\terraform.tfstate.d\ws_name`.
+- `terraform workspace select ws_name` - this is how you switch workspaces.
+- `terraform workspace delete ws_name` - you cannot delete a workspace that has existing resources.
+  - You can force the deletion but then only the state will be removed and all the resources will remain in the cloud. 
+  - Also you cannot delete active workspace nor default.
+
+- When a remote backend is configured the same behaviour as local state except how the directory and file name is handled e.g. a new workspace state file is placed in the same Azure storage account container with a suffix of `env:ws_name` e.g. `terraform.tfstateenv:dev`.
+
 # Provisioners
 
 # Null Resource
