@@ -26,6 +26,31 @@ title: Commands
 
 # Remote State Data Source
 
+- `terraform_remote_state` data source retrieves the root module output values from some other terraform configuration.
+- Example Scenario:
+    - Project-1/terraform.tfstate - VNET + RG
+    - Project-2/terraform.tfstate - to build a VM, it needs details regarding VNET + RG
+- Within dependant Project-1 you must define outputs that may be used by Project-2 e.g. VNET + RG.
+- Then within Project-2 you access the remote state of Project-1 as a data source to use its outputs.
+- Here is an example of the `terraform_remote_state` block configuration used by Project-2 to access the output values defined in Project-1.
+
+```
+data "terraform_remote_state" "Project-1" {
+  backend = "azurerm"
+  config = {
+    resource_group_name   = "rg1"
+    storage_account_name  = "sta1"
+    container_name        = "tfstatefiles"
+    key                   = "terraform.tfstate"
+  }
+}
+```
+- At this point you may reference the outputs defined in Project-1 from a Project-2 `azurerm_linux_virtual_machine` resource block as follows:
+
+```
+resource_group_name = data.terraform_remote_state.Project-1.outputs.resource_group_name
+```
+
 # Commands
 
 # Apply Refresh-only
