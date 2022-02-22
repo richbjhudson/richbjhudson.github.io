@@ -51,7 +51,7 @@ data "terraform_remote_state" "Project-1" {
 resource_group_name = data.terraform_remote_state.Project-1.outputs.resource_group_name
 ```
 
-# Commands
+# State Commands
 
 # Apply Refresh-only
 
