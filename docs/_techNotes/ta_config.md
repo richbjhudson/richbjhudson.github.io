@@ -609,9 +609,9 @@ output "current_subscription_display_name" {
 - `terraform workspace select ws_name` - this is how you switch workspaces.
 - `terraform workspace delete ws_name` - you cannot delete a workspace that has existing resources.
   - You can force the deletion but then only the state will be removed and all the resources will remain in the cloud. 
-  - Also you cannot delete active workspace nor default.
+  - Also you cannot delete an active workspace nor the default.
 
-- When a remote backend is configured the same behaviour as local state except how the directory and file name is handled e.g. a new workspace state file is placed in the same Azure storage account container with a suffix of `env:ws_name` e.g. `terraform.tfstateenv:dev`.
+- When a remote backend is configured the same behaviour applies as above except how the directory and file name is handled e.g. a new workspace state file is placed in the same Azure storage account container with a suffix of `env:ws_name` e.g. `terraform.tfstateenv:dev`.
 
 # Provisioners
 
