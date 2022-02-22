@@ -523,7 +523,7 @@ locals {
   businessService = "Reporting"
   owner = "IT"
   default_tags = {
-    Service = local.service_name
+    Service = local.businessService
     Owner = local.owner
   }
 ```
@@ -539,6 +539,7 @@ locals {
 - `condition ? true_val : false_val`
 
 - Example use of conditional expression within locals:
+
 ```
 variable "environment" {
   description = "Environment Name"
