@@ -511,6 +511,51 @@ terraform output virtual_network_name_map_two_inputs
 
 # Locals
 
+- DRY principle - don't repeat yourself.
+- Local value - you can assign a name to an expression, you can then use that name multiple times within a module.
+- Reference using `local.name`.
+- You can use in combination with conditional expressions to dynamically set the value.
+- Example locals definition:
+
+```
+locals {
+  # Default tags to be assigned to all resources
+  businessService = "Reporting"
+  owner = "IT"
+  default_tags = {
+    Service = local.service_name
+    Owner = local.owner
+  }
+```
+- Example of how to reference a local within a `azurerm_resource_group` resource block:
+
+```
+  tags = local.default_tags
+```
+
+## Conditional Expression
+
+- You cannot write conditional expressions within a variable definition, you can only use them with locals.
+- `condition ? true_val : false_val`
+- Example use within conditional expression within locals:
+```
+variable "environment" {
+  description = "Environment Name"
+  type = string
+  default = "qa"
+}
+
+locals {
+vnet_address_space = (var.environment == "dev" ? var.vnet_address_space_dev : var.vnet_address_space_all)
+}
+```
+
+- Example use of conditional expression within a `azurerm_virtual_network` resource block to manipulate count:
+
+```
+count = var.environment == "dev" ? 1 : 5
+```
+
 # Data Sources
 
 # CLI Workspaces
