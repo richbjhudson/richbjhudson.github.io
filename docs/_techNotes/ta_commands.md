@@ -53,6 +53,57 @@ resource_group_name = data.terraform_remote_state.Project-1.outputs.resource_gro
 
 # State Commands
 
+- `terraform show` by default outputs the local terraform.tfstate file contents.
+- `terraform plan -out="v1plan.out"` - write a terraform plan out to a file.
+    - `terraform show "v1plan.out"` - view contents of terraform plan output file.
+    - `terraform show -json "v1plan.out"` - as above but in json format.
+- `terraform apply "v1plan.out"` - this applies the terraform plan without re-running a plan.
+
+- `terraform state list` - list resources in a state file. *Note: data sources appear as resources.*
+- `terraform state show data.azurerm_subscription.current` - shows attributes of a single resource in the state file.
+
+- `terraform state mv` this allows you to change local resource names, for eaxmple:
+```
+terraform state list
+terraform state mv -dry-run azurerm_virtual_network.myvnet azurerm_virtual_network.myvnet-new
+terraform state mv azurerm_virtual_network.myvnet azurerm_virtual_network.myvnet-new
+terraform state list
+```
+- If configuration has different local names then it will see that it needs to create a new resource and destroy the incorrectly named local named resource. They need to match.
+
+- `terraform apply -refresh-only` - refreshes the state file to match the terraform configuration.
+
+- `terraform state rm` - remove resources from the terraform state e.g. `terraform state rm azurerm_virtual_network.myvnet-new`.
+    - If still present in configuration , it will recreate.
+    - If you do not want a resource to be managed by terraform you need to remove it from both the configuration and state file.
+
+- `terraform state replace-provider` - you may download a copy of the provider plugin and store in internal repository and access it from an internal source.
+
+>>terraform state pull -- download and output state file to cli
+You could copy and paste into a file - terraform.tfstate
+>>terraform state push terraform.tfstate
+Used to migrate local state to remote state.
+
+>>terraform force-unlock <LOCK_ID> -- only apply's to aws dynamo db
+
+>>terraform taint -- force the re-creation of resources, it marks the resources as tainted so that they are destroyed and then created.
+Real world example would be where the cloud-init file has been changed, so you need to recreate the VM to re-apply the bootstrap file.
+>>terraform untaint -- remove tain mark on resource
+
+>>terraform taint azurerm_virtual_network.myvnet-new
+Recreate VNET on next terraform apply
+# azurerm_virtual_network.myvnet-new is tainted, so must be replaced
+-/+ resource "azurerm_virtual_network" "myvnet-new" {
+
+>>terraform untaint azurerm_virtual_network.myvnet-new
+
+>>terraform plan/appy -target -- for exceptional circumstances, recover from mistakes or work around limitations
+>>terraform plan -target="azurerm_virtual_network.myvnet-new"
+
+If multiple changes have been made to configuration but you only want to apply changes made to 1.
+>>terraform apply -auto-approve -target="azurerm_virtual_network.myvnet-new"
+
+
 # Apply Refresh-only
 
 # Import
