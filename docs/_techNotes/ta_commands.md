@@ -77,32 +77,19 @@ terraform state list
     - If still present in configuration , it will recreate.
     - If you do not want a resource to be managed by terraform you need to remove it from both the configuration and state file.
 
-- `terraform state replace-provider` - you may download a copy of the provider plugin and store in internal repository and access it from an internal source.
+- `terraform state replace-provider` - you may download a copy of a provider plugin and store it in an internal repository and access it from an internal source.
 
->>terraform state pull -- download and output state file to cli
-You could copy and paste into a file - terraform.tfstate
->>terraform state push terraform.tfstate
-Used to migrate local state to remote state.
+- `terraform state pull` - download and output state file to cli. You could copy and paste the contents into a file to make a local terraform.tfstate.
+- `terraform state push terraform.tfstate` - used to migrate local state to remote state.
 
->>terraform force-unlock <LOCK_ID> -- only apply's to aws dynamo db
+- `terraform force-unlock LOCK_ID` - only apply's to AWS Dynamo DB.
 
->>terraform taint -- force the re-creation of resources, it marks the resources as tainted so that they are destroyed and then created.
-Real world example would be where the cloud-init file has been changed, so you need to recreate the VM to re-apply the bootstrap file.
->>terraform untaint -- remove tain mark on resource
+- `terraform taint` - force the re-creation of resources. It marks the resources as tainted so that they are destroyed and then created.
+    - Real world example would be where the cloud-init file has been changed, so you need to recreate the VM to re-apply the bootstrap file.
+    - Example: `terraform taint azurerm_virtual_network.myvnet-new` would result in the recreation of the VNET on the next `terraform apply`.
+- `terraform untaint` - remove tain mark on resource.
 
->>terraform taint azurerm_virtual_network.myvnet-new
-Recreate VNET on next terraform apply
-# azurerm_virtual_network.myvnet-new is tainted, so must be replaced
--/+ resource "azurerm_virtual_network" "myvnet-new" {
-
->>terraform untaint azurerm_virtual_network.myvnet-new
-
->>terraform plan/appy -target -- for exceptional circumstances, recover from mistakes or work around limitations
->>terraform plan -target="azurerm_virtual_network.myvnet-new"
-
-If multiple changes have been made to configuration but you only want to apply changes made to 1.
->>terraform apply -auto-approve -target="azurerm_virtual_network.myvnet-new"
-
+- `terraform plan/appy -target` - for exceptional circumstances, recover from mistakes or work around limitations.
 
 # Apply Refresh-only
 
