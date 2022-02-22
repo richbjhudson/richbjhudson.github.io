@@ -62,7 +62,7 @@ resource_group_name = data.terraform_remote_state.Project-1.outputs.resource_gro
 - `terraform state list` - list resources in a state file. *Note: data sources appear as resources.*
 - `terraform state show data.azurerm_subscription.current` - shows attributes of a single resource in the state file.
 
-- `terraform state mv` this allows you to change local resource names, for eaxmple:
+- `terraform state mv` this allows you to change local resource names, for example:
 ```
 terraform state list
 terraform state mv -dry-run azurerm_virtual_network.myvnet azurerm_virtual_network.myvnet-new
@@ -77,19 +77,19 @@ terraform state list
     - If still present in configuration , it will recreate.
     - If you do not want a resource to be managed by terraform you need to remove it from both the configuration and state file.
 
-- `terraform state replace-provider` - you may download a copy of a provider plugin and store it in an internal repository and access it from an internal source.
+- `terraform state replace-provider` - you may download a copy of a provider plugin and store it in an internal repository and access it from an internal source. This command allows you to update the configuration to use an internal source e.g. [terraform state replace-provider hashicorp/aws registry.acme.corp/acme/aws](https://www.terraform.io/cli/commands/state/replace-provider).
 
 - `terraform state pull` - download and output state file to cli. You could copy and paste the contents into a file to make a local terraform.tfstate.
 - `terraform state push terraform.tfstate` - used to migrate local state to remote state.
 
 - `terraform force-unlock LOCK_ID` - only apply's to AWS Dynamo DB.
 
-- `terraform taint` - force the re-creation of resources. It marks the resources as tainted so that they are destroyed and then created.
+- `terraform taint` - force the re-creation of resources. It marks a resource as tainted so that it is destroyed and then created.
     - Real world example would be where the cloud-init file has been changed, so you need to recreate the VM to re-apply the bootstrap file.
     - Example: `terraform taint azurerm_virtual_network.myvnet-new` would result in the recreation of the VNET on the next `terraform apply`.
 - `terraform untaint` - remove tain mark on resource.
 
-- `terraform plan/appy -target` - for exceptional circumstances, recover from mistakes or work around limitations.
+- `terraform plan/appy -target` - apply configuration to a specific resource. It is only used in exceptional circumstances e.g. recover from mistakes or work around limitations.
 
 # Apply Refresh-only
 
