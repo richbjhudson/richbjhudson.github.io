@@ -573,6 +573,25 @@ count = var.environment == "dev" ? 1 : 5
 
 # Data Sources
 
+- Data sources allow data to be fetched/ computed for use elsewhere in your Terraform configuration.
+- Use when you need to make use of information defined outside of Terraform or from another terraform configuration.
+- A data resource is known as a data block.
+
+*Note: Lifecycle meta-arguments are not supported.*
+ 
+```
+data "azurerm_subscription" "current" {
+}
+```
+
+- You can test data sources using outputs:
+
+```
+output "current_subscription_display_name" {
+  value = data.azurerm_subscription.current.display_name
+}
+```
+
 # CLI Workspaces
 
 # Provisioners
