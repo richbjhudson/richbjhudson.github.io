@@ -430,7 +430,7 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-${each.key}"
   address_space       = ["10.0.0.0/16"]
   location            = "UKSouth"
-  resource_group_name = "rg-${each.key}"
+  resource_group_name = "rg1"
 }
 ```
 
