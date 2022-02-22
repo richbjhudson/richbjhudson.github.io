@@ -71,7 +71,9 @@ terraform state list
 ```
 - If configuration has different local names then it will see that it needs to create a new resource and destroy the incorrectly named local named resource. They need to match.
 
-- `terraform apply -refresh-only` - refreshes the state file to match the terraform configuration.
+- `terraform apply -refresh-only` - refreshes the state file to match the current settings of managed remote objects.
+    - This command updates the state file only it does not make any changes to the cloud resources.
+    - `terraform refresh` - This is now deprecated as default behaviour is unsafe, it is the equivalent to `terraform apply -refresh-only -auto-approve`.
 
 - `terraform state rm` - remove resources from the terraform state e.g. `terraform state rm azurerm_virtual_network.myvnet-new`.
     - If still present in configuration , it will recreate.
@@ -90,8 +92,6 @@ terraform state list
 - `terraform untaint` - remove tain mark on resource.
 
 - `terraform plan/appy -target` - apply configuration to a specific resource. It is only used in exceptional circumstances e.g. recover from mistakes or work around limitations.
-
-# Apply Refresh-only
 
 # Import
 
