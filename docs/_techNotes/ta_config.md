@@ -573,7 +573,7 @@ count = var.environment == "dev" ? 1 : 5
 
 # Data Sources
 
-- Data sources allow data to be fetched/ computed for use elsewhere in your Terraform configuration.
+- Data sources allow data to be fetched/ computed for use elsewhere in your terraform configuration.
 - Use when you need to make use of information defined outside of Terraform or from another terraform configuration.
 - A data resource is known as a data block.
 
