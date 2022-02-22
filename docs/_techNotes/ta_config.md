@@ -537,12 +537,25 @@ locals {
 
 - You cannot write conditional expressions within a variable definition, you can only use them with locals.
 - `condition ? true_val : false_val`
-- Example use within conditional expression within locals:
+
+- Example use of conditional expression within locals:
 ```
 variable "environment" {
   description = "Environment Name"
   type = string
   default = "qa"
+}
+
+variable "vnet_address_space_dev" {
+  description = "Virtual Network Address Space for Dev Environment"
+  type = list(string)
+  default = [ "10.0.0.0/16" ]
+}
+
+variable "vnet_address_space_all" {
+  description = "Virtual Network Address Space for All Environments except dev"
+  type = list(string)
+  default = [ "10.1.0.0/16", "10.2.0.0/16", "10.3.0.0/16"  ]
 }
 
 locals {
