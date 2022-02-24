@@ -618,24 +618,58 @@ output "current_subscription_display_name" {
 - Provisioners can be used to execute specific actions on the local machine or on a remote machine in order to prepare servers.
   - Passing data into VMs. 
   - Running configuration management software e.g. packer, chef or ansible
+
+- Provisioners are at creation time type by default, usually used for bootstrapping. You can use the `when` attribute to change this.
+
 - Provisioners should be perceived as a last resort.
+
+- Most provisioners require access to remote resources via a `ssh` or `winrm` using a nested `connection` block.
+- `connection` blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
+
+- `null_resource` & `provisioner` - if you wish to run a provisioner that is not directly associate with a resource you can associate them with a null resource - `null_resource`.
+  - Example - you may create a time resource to wait 90 secs after VM creation, then create a `null_resources` that depends on the time resource and create the connection and provisioner block as part of the `null_resource`.
 
 - Types - Creation-time or destroy-time provisioners
 	- File - copy files from terraform executing machine into newly created resource using ssh or winrm.
-	- Remote-exec - invokes a local executable after a resource is created on the machine running terraform. By default a provisioner fires during the creation of the resource. Otherwise set `when = destroy`.
+	- Remote-exec - invokes a local executable after a resource is created on the machine running terraform.
 	- Local-exec - invokes a script on the remote resource after it is created. Used to run a configuration management tool or bootstrap into a cluster.
 
-- Failure behaviour - continue/ fail (default). The latter taints resources if creation type.
-- Most provisioners require access to remote resources via a `ssh` or `winrm` nested `connection` block.
-- `connection` blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
-- `null_resource` & `provisioner` - if you wish to run a provisioner that is not directly associate with a resource you can associate them with a null resource - `null_resource`.
-  - Example - you may create a time resource to wait 90 secs after VM creation, then create a `null_resources` that depends on the time resource and create the connection and provisioner block as part of the `null_resource`.
+## Failure behaviour
+
+- **Continue** - on error continue with creation or destruction.
+- **Fail (default)** - raise error and stop applying, if creation time it will taint the resource.
+- If provisioner marks a resource as tainted the resource is recreated on the next `terraform apply` and therefore the provisioner re-run.
+- You can change the tainted behaviour using `on_failure` attribute.
+- Example file provisoner error: `Upload failed: scp: /var/www/html/file-copy.html: Permission denied`.
+- Extract from `terraform.tfstate` showing tainted resource: 
+
+```
+"resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "mylinuxvm",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "status": "tainted"
+```
+- Example of setting provisoner to continue on error:
+
+```
+provisioner "file" {
+    source      = "files/index.html"
+    destination = "/var/www/html/index.html"
+    on_failure  = continue
+   } 
+```
 
 ## File Provisioner
 
 - Copy files from machine executing terraform to newly created resource.
 - A `connection` block is used to connect to the Windows or Linux VM using winrm and ssh respectively.
   - You can place in resource block or provisioning block.
+  - `azurerm_linux_virtual_machine` resource block example:
 
 ```
 connection {
@@ -647,6 +681,60 @@ connection {
   provisioner "file" {
     source = "files/index.html"
     destination = "/tmp/index.html"
+  }
+```
+*Note: You have to use a self object otherwise you would create an implicit dependency with itself. e.g. the `azurerm_linux_virtual_machine` resource would have to be created to use the `user` argument within the `connection` block.*
+
+- Copies text into a file on a VM resource:
+
+```
+  provisioner "file" {
+    content = "VM Host name: ${self.computer_name}"
+    destination = "/vm_folder/file.log"
+  }
+```
+
+- Copies subfolder into a folder on a VM resource:
+
+```
+  provisioner "file" {
+    source = "folder/subfolder"
+    destination = "/vm_folder"
+  }
+```
+
+- Copies all files and folders from the subfolder into a folder on a VM reosurce:
+
+```
+  provisioner "file" {
+    source = "folder/subfolder/"
+    destination = "/vm_folder"
+  }
+```
+
+## Remote-exec
+
+- Invokes a script on a remote resource after it is created.
+- You can invoke inline, script or scripts.
+- Example that copies a file on the VM resource to another folder.
+```
+  provisioner "remote-exec" {
+    inline = [
+      "sudo cp /tmp/index.html /var/www/html"
+    ]
+  }
+```
+
+## Local-exec
+
+- Invokes a process on the machine running terraform.
+- `Command is required argument` and `working_dir` and `interpreter` are key optional arguments.
+
+```
+  provisioner "local-exec" {
+    when    = destroy
+    command = "echo Destroy-time provisioner Instance Destroyed at `date` >> destroy-time.txt"
+    working_dir = "terraformhostfolder/"
   }
 ```
 
