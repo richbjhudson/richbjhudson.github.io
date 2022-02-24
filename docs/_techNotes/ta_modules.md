@@ -55,9 +55,14 @@ output "virtual_network_name" {
     - Public modules are downloaded into a sub folder e.g. modules\vnet.
     - Private modules are referenced only in the modules.json file.
 
-# Tainting Resources
+# Taint Resource
+
+- Use `terraform state list` to identify the resource that you wish to taint.
+- Run `terraform taint` command e.g. `terraform taint module.vnet.azurerm_subnet.subnet[2]` and then `terraform apply`. At this point on the next terraform apply the tainted resource will be recreated.
 
 # Child Module
+
+
 
 # Get Command
 
