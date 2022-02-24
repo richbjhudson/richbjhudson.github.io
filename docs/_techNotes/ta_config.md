@@ -627,8 +627,6 @@ output "current_subscription_display_name" {
 - `connection` blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
 
 - If you wish to use a `provisioner` block that is not directly associated with a resource use a `null_resource`.
-  - For example - you may create a time resource to wait 90 secs after VM creation, then create a `null_resources` that depends on the time resource and create the connection and provisioner block as part of the `null_resource`.
-  - This `provisioner` could be used to upload the latest application code to the VM and so by updating the code the entire VM is **not** re-provisioned.
 
 - Types - Creation-time or destroy-time provisioners
 	- File - copy files from terraform executing machine into newly created resource using ssh or winrm.
@@ -740,6 +738,73 @@ connection {
 ```
 
 # Null Resource
+
+- `null` resource does nothing.
+- This `provisioner` could be used to upload the latest application code to the VM and so by updating the code the entire VM is **not** re-provisioned.
+- It uses a provider:
+
+```
+null = {
+      source = "hashicorp/null"
+      version = ">= 3.1.0"
+    }  
+```
+
+- In this example it will be used in conjunction with the `time` provider.
+
+```
+time = {
+      source = "hashicorp/time"
+      version = ">= 0.7.2"
+    }  
+```
+
+- Create time sleep resource to wait 90 seconds after VM creation before triggering null resource:
+
+```
+resource "time_sleep" "wait_90_seconds" {
+  depends_on = [azurerm_linux_virtual_machine.mylinuxvm]
+  create_duration = "90s"
+}
+```
+
+- As connection block and provisioner is in null resource you must reference the VM resource rather than use `self`:
+
+```
+resource "null_resource" "sync_app1_static" {
+  depends_on = [time_sleep.wait_90_seconds]
+  triggers = {
+    always-update = timestamp() 
+  }
+
+  connection {
+    type = "ssh"
+    host = azurerm_linux_virtual_machine.mylinuxvm.public_ip_address
+    user = azurerm_linux_virtual_machine.mylinuxvm.admin_username
+    private_key = file("${path.module}/ssh-keys/terraform-azure.pem")
+  }
+
+  provisioner "file" {
+    source = "apps/app1"
+    destination = "/tmp"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo cp -r /tmp/app1 /var/www/html"
+    ]    
+  }
+}
+```
+
+- This part of the resource block ensures that everytime a terraform apply is completed the resource block is re-applied, in this scenario therefore will copy the files:
+
+```
+triggers = {
+    always-update = timestamp() 
+  }
+```
+
 
 # Dynamic Blocks
 
