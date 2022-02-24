@@ -615,24 +615,40 @@ output "current_subscription_display_name" {
 
 # Provisioners
 
-- Provisioners can be used to model specific actions on the local machine or on a remote machine in order to prepare servers.
+- Provisioners can be used to execute specific actions on the local machine or on a remote machine in order to prepare servers.
   - Passing data into VMs. 
   - Running configuration management software e.g. packer, chef or ansible
-- Provisioners are a last resort.
+- Provisioners should be perceived as a last resort.
 
 - Types - Creation-time or destroy-time provisioners
 	- File - copy files from terraform executing machine into newly created resource using ssh or winrm.
 	- Remote-exec - invokes a local executable after a resource is created on the machine running terraform. By default a provisioner fires during the creation of the resource. Otherwise set `when = destroy`.
-	- Local-exec - invokes a script on the remote resource after it is created. Used to run a configuration management tool or bootstrap into cluster etc…
+	- Local-exec - invokes a script on the remote resource after it is created. Used to run a configuration management tool or bootstrap into a cluster.
 
 - Failure behaviour - continue/ fail (default). The latter taints resources if creation type.
-- Most provisioners require access to remote resources via a `ssh` or `winrm` nested connection block.
-- Connection blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
-- Null resource & provisioners - if you wish to run a provisioner that is not directly associate with a resource you can associate them with a null resource - `null_resource`.
-  - Example - you may create a time resource to wait 90 secs after VM creation, then create a null_resources that depends on the time resource and create connection and provisioner block accordingly.
+- Most provisioners require access to remote resources via a `ssh` or `winrm` nested `connection` block.
+- `connection` blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
+- `null_resource` & `provisioner` - if you wish to run a provisioner that is not directly associate with a resource you can associate them with a null resource - `null_resource`.
+  - Example - you may create a time resource to wait 90 secs after VM creation, then create a `null_resources` that depends on the time resource and create the connection and provisioner block as part of the `null_resource`.
 
 ## File Provisioner
 
+- Copy files from machine executing terraform to newly created resource.
+- A `connection` block is used to connect to the Windows or Linux VM using winrm and ssh respectively.
+  - You can place in resource block or provisioning block.
+
+```
+connection {
+    type = "ssh"
+    host = self.public_ip_address
+    user = self.admin_username
+    private_key = file("${path.module}/ssh-keys/key.pem")
+  }  
+  provisioner "file" {
+    source = "files/index.html"
+    destination = "/tmp/index.html"
+  }
+```
 
 # Null Resource
 
