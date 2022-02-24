@@ -626,8 +626,9 @@ output "current_subscription_display_name" {
 - Most provisioners require access to remote resources via a `ssh` or `winrm` using a nested `connection` block.
 - `connection` blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
 
-- `null_resource` & `provisioner` - if you wish to run a provisioner that is not directly associate with a resource you can associate them with a null resource - `null_resource`.
-  - Example - you may create a time resource to wait 90 secs after VM creation, then create a `null_resources` that depends on the time resource and create the connection and provisioner block as part of the `null_resource`.
+- If you wish to use a `provisioner` block that is not directly associated with a resource use a `null_resource`.
+  - For example - you may create a time resource to wait 90 secs after VM creation, then create a `null_resources` that depends on the time resource and create the connection and provisioner block as part of the `null_resource`.
+  - This `provisioner` could be used to upload the latest application code to the VM and so by updating the code the entire VM is **not** re-provisioned.
 
 - Types - Creation-time or destroy-time provisioners
 	- File - copy files from terraform executing machine into newly created resource using ssh or winrm.
@@ -703,7 +704,7 @@ connection {
   }
 ```
 
-- Copies all files and folders from the subfolder into a folder on a VM reosurce:
+- Copies all files and folders from the subfolder into a folder on a VM resource:
 
 ```
   provisioner "file" {
@@ -715,7 +716,7 @@ connection {
 ## Remote-exec
 
 - Invokes a script on a remote resource after it is created.
-- You can invoke inline, script or scripts.
+- You can invoke inline or a script.
 - Example that copies a file on the VM resource to another folder.
 ```
   provisioner "remote-exec" {
@@ -728,7 +729,7 @@ connection {
 ## Local-exec
 
 - Invokes a process on the machine running terraform.
-- `Command is required argument` and `working_dir` and `interpreter` are key optional arguments.
+- `Command` is required argument and `working_dir` and `interpreter` are key optional arguments.
 
 ```
   provisioner "local-exec" {
