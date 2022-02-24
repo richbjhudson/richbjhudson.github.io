@@ -77,7 +77,7 @@ module "resource_group" {
 
 - Variables in the child module become the arguments in the parent module.
 - Configure outputs in parent module using outputs from child module:
-  - from child module that uses `azurerm_resource_group` resource block attribute `id`:
+  - From child module that uses `azurerm_resource_group` resource block attribute `id`:
   ```
   output "resource_group_id" {
   description = "resource group id"
