@@ -96,4 +96,12 @@ module "resource_group" {
 
 # Get Command
 
+- `terraform get` will get the modules and update the `.terraform/modules/module_name/modules.json` file, it does **not** initialize the backend.
+- Terraform will automatically notice changes to modules when it is local, when remote you would need to redownload using the `terraform get` command.
+- If you add a new local module then you would have to run the `terraform get` command.
+
+# Publishing a Module
+
+
+
 # Module Source
