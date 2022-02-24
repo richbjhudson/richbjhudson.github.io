@@ -13,7 +13,7 @@ title: Modules
 # Terraform Registry - Public
 
 - [Terraform Public Registry](https://registry.terraform.io/browse/modules?provider=azurerm)
-- A tick next to module means that it is from a verified partner.
+- A tick next to a module means that it is from a verified partner.
     - Inputs - variables.tf
     - Outputs - outputs.tf
     - Dependencies - versions.tf
@@ -35,7 +35,7 @@ module "vnet" {
 }
 ```
 
-- Example resource block argument referencing a value used by module - review [output](https://registry.terraform.io/modules/Azure/vnet/azurerm/latest?tab=outputs) references of the module:
+- Example resource block argument referencing a value output by a module - see [output](https://registry.terraform.io/modules/Azure/vnet/azurerm/latest?tab=outputs):
 
 ```
 subnet_id = module.vnet.vnet_subnets[0]
@@ -51,9 +51,9 @@ output "virtual_network_name" {
 ```
 
 - `terraform init` downloads the modules into .terraform directory prior to downloading the provider plugins.
-    - Creates a modules folder including modules.json file that hold details of the modules. 
+    - Creates a modules folder including modules.json file that contains details of the modules. 
     - Public modules are downloaded into a sub folder e.g. modules\vnet.
-    - Private module would be referenced only in the modules.json file.
+    - Private modules are referenced only in the modules.json file.
 
 # Tainting Resources
 
