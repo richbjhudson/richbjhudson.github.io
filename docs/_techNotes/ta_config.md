@@ -740,7 +740,8 @@ connection {
 # Null Resource
 
 - `null` resource does nothing.
-- This `provisioner` could be used to upload the latest application code to the VM and so by updating the code the entire VM is **not** re-provisioned.
+- This `provisioner` example is used to upload the latest application code to a VM with causing the VM to be re-provisioned.
+
 - It uses a provider:
 
 ```
@@ -759,7 +760,7 @@ time = {
     }  
 ```
 
-- Create time sleep resource to wait 90 seconds after VM creation before triggering null resource:
+- Create `time_sleep` resource to wait 90 seconds after VM creation before triggering `null_resource`:
 
 ```
 resource "time_sleep" "wait_90_seconds" {
@@ -768,7 +769,7 @@ resource "time_sleep" "wait_90_seconds" {
 }
 ```
 
-- As connection block and provisioner is in null resource you must reference the VM resource rather than use `self`:
+- As the `connection` and `provisioner` blocks are in `null_resource` you must reference the VM resource rather than use `self`:
 
 ```
 resource "null_resource" "sync_app1_static" {
@@ -781,30 +782,29 @@ resource "null_resource" "sync_app1_static" {
     type = "ssh"
     host = azurerm_linux_virtual_machine.mylinuxvm.public_ip_address
     user = azurerm_linux_virtual_machine.mylinuxvm.admin_username
-    private_key = file("${path.module}/ssh-keys/terraform-azure.pem")
+    private_key = file("${path.module}/ssh-keys/key.pem")
   }
 
   provisioner "file" {
-    source = "apps/app1"
+    source = "folder/subfolder"
     destination = "/tmp"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo cp -r /tmp/app1 /var/www/html"
+      "sudo cp -r /tmp/subfolder /var/www/html"
     ]    
   }
 }
 ```
 
-- This part of the resource block ensures that everytime a terraform apply is completed the resource block is re-applied, in this scenario therefore will copy the files:
+- This part of the resource block ensures that everytime a `terraform apply` is completed the resource block is re-applied, in this scenario therefore will copy the files:
 
 ```
 triggers = {
     always-update = timestamp() 
   }
 ```
-
 
 # Dynamic Blocks
 
