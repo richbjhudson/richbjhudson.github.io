@@ -95,6 +95,24 @@ terraform state list
 
 # Import
 
+- Import existing infrastructure into the state.
+- It does not generate the configuration - in the future it will.
+- Example use:
+  - Create dummy resource:
+  ```
+  resource "azurerm_resource_group" "rg1" {
+   }
+  ```
+  - Import existing resource into state file:
+  ```
+  terraform init
+  terraform import azurerm_resource_group.rg1 /subscriptions/a529f686-82de-4a8d-b643-747ed505372a/resourceGroups/rg1
+  ```
+  - At this point the state file is created.
+
+- You would need to use the state file as a reference to create the respective configuration files.
+- Make sure you create an argument for **all** resource attributes shown in the state file.
+
 # Debug
 
 # CLI User Settings
