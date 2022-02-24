@@ -277,5 +277,3 @@ resource "azurerm_resource_group" "rg" {
 - A more concise representation of a **for** expression.
 - [For o in var.list : o.id] --> Var.list[*].id.
 - Please see [terraform documentation](https://www.terraform.io/language/expressions/splat).
-
-# Provisioners
