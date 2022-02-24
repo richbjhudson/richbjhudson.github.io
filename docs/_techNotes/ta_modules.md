@@ -62,7 +62,37 @@ output "virtual_network_name" {
 
 # Child Module
 
+- Create a subdirectory `modules\module_name`.
+- Add `main.tf`, `outputs.tf`, `variables.tf` and `versions.tf` files.
+- Create a `README.md`.
+- Here is an example of how to reference a child module from a parent module in root directory '/':
 
+```
+module "resource_group" {
+  source = "./modules/resource_group"
+  location                          = "uksouth"
+  resource_group_name               = "rg1" 
+}
+```
+
+- Variables in the child module become the arguments in the parent module.
+- Configure outputs in parent module using outputs from child module:
+  - from child module that uses `azurerm_resource_group` resource block attribute `id`:
+  ```
+  output "resource_group_id" {
+  description = "resource group id"
+  value       = azurerm_resource_group.resource_group.id
+  }
+  ```
+
+  - From parent module that uses child module output `resource_group_id`:   
+  ```
+  output "resource_group_id" {
+  description = "resource group id"
+  value       = module.resource_group.resource_group_id
+  }
+  ```
+*Note: `terraform init` simply initialises the module it does not download it.*
 
 # Get Command
 
