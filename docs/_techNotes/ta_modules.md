@@ -102,6 +102,39 @@ module "resource_group" {
 
 # Publishing a Module
 
+- Recommended naming convention: terraform-provider-module_name e.g. terraform-azurerm-staticwebsitepublic.
+- Create a new Github repository and upload module code.
+- Create a release on the Github repository.
+- Publish the GitHub repository on [terraform registry](https://registry.terraform.io)
+  - Sign in with your GitHub account.
+  - Navigate to Modules> publish and then select the repository from GitHub.
+- At this point if you have created a `Readme.md`, `variables.tf`, `versions.tf` and `outputs.tf` it will populate the Readme, Inputs, Outputs and Dependency tabs respectively.
+- You will also notice that it will create **Provision Instructions**, here is an example:
 
+```
+module "staticwebsitepublic" {
+  source  = "richbjhudson/staticwebsitepublic/azurerm"
+  version = "1.0.0"
+  # insert the 8 required variables here
+}
+```
 
 # Module Source
+
+- Module sources can be Local, terraform registry public/ private or from an online code repository.
+- `sources` argument assumes prefix "https://registry.terraform.io/modules/"
+- Example of using terraform private registry to store module: 
+
+```
+module "s3-bucket" {
+  source  = "app.terraform.io/richbjhudson/s3-bucket/aws"
+  version = "2.13.0"
+  # insert required variables here
+}
+```
+
+- Example of using GitHub to store module: `source = "github.com/richbjhudson/terraform-azurerm-staticwebsitepublic"`.
+
+- Example of using GitHub to store module - with SSH connectivity: `source = "git@github.com:richbjhudson/terraform-azurerm-staticwebsitepublic.git"`.
+
+- Example of using GitHub to store module and selecting a specific release: `source = "git::https://github.com/stacksimplify/terraform-azurerm-staticwebsitepublic.git?ref=1.0.0"`.
