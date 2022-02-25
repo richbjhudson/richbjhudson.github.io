@@ -102,7 +102,7 @@ module "resource_group" {
 
 # Publishing a Module
 
-- Recommended naming convention: terraform-provider-module_name e.g. terraform-azurerm-staticwebsitepublic.
+- Recommended naming convention: **terraform-provider-module_name** e.g. terraform-azurerm-staticwebsitepublic.
 - Create a new Github repository and upload module code.
 - Create a release on the Github repository.
 - Publish the GitHub repository on [terraform registry](https://registry.terraform.io)
