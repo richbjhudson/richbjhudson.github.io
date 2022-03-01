@@ -67,7 +67,7 @@ ARM_SUBSCRIPTION_ID=12345686-82de-4a8d-b643-12345605372a
 
 # Private Module Registry
 
-- They allow you to share modules across your organisation and includes:
+- They allow you to share modules across your organisation.
 	- Module versioning
 	- Configuration designer
 	- Works similar to public registry
@@ -87,7 +87,7 @@ ARM_SUBSCRIPTION_ID=12345686-82de-4a8d-b643-12345605372a
 	
 *Note: In a private module it did not pull in the `versions.tf` configuration into the dependency tab.*
 
-- The terraform private registry genrates a snippet of how to use the module:
+- The terraform private registry generates a snippet of how to use the module:
 
 ```
 module "staticwebsiteprivate" {
@@ -97,14 +97,9 @@ module "staticwebsiteprivate" {
 }
 ```
 
-- The module may be referenced using `source  = "app.terraform.io/richbjhudson/staticwebsiteprivate/azurerm"`.
-- You need to authenticate to the private registry using:
-
-```
-terraform login  -- credentials.tfrc.json is stored in plain text
-```
-
-*Note: this prompts you to create an API token with access to the private registry.*
+- You need to authenticate to the private registry using `terraform login`.
+	- This command prompts you to create an API token with access to the private registry.
+	- `credentials.tfrc.json` is stored in plain text.
 
 # CLI Driven Workflow
 
@@ -123,20 +118,16 @@ backend "remote" {
     workspaces {
       name = "cli-driven-azure-demo"
     }
-    #hostname = "value"  # defaults to app.terraform.io but for Enterprise customers it is going to be where you hosted TF Cloud related binary
-    #token = "value" # Hard Code TF Cloud Token - Not recommended use from TF CLI only 
   }
 ```
 
 - Alternative method:
 
 ```
-terraform { 
 cloud { 
 organization = "richbjhudson" workspaces 
 { name = "cli-driven-azure-demo" }
  } 
-}
 ```
 
 - Make sure you add the environment variables to your workspace so that TFC can connect to your azure subscription.
