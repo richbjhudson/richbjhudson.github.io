@@ -877,12 +877,3 @@ output "public_key" {
 ```
 
 *Note: After destroy, the files remain but the reference to the files and contents are removed from the state.*
-
-- Example of how to reference output within resource block
-
-```
-admin_ssh_key {
-    username = "azureuser"
-    public_key = data.external.ssh_key_generator.result.public_key
-  }
-```
