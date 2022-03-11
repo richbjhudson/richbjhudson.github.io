@@ -847,3 +847,42 @@ resource "azurerm_network_security_group" "nsg" {
 - `fileName_override.tf` works as above.
 
 *Note: If you need to use override.tf files make sure you modify `.gitignore` as it will ignore this type of file my default.* 
+
+# External Providers & Data Sources
+
+- A **Provider** helps provide an interface between terraform and external programs.
+
+
+- Here is an example where the input is captured by the script using the query block.
+
+```
+data "external" "ssh_key_generator" {
+  program = ["bash", "${path.module}/shell-scripts/ssh_key_generator.sh"]
+  
+  query = {
+    key_name = "terraformdemo"
+    key_environment = "dev"
+  }
+}
+```
+
+- You can then capture the output to use in the terraform code. It is important to note that the output of the script must generate a json object.
+- Then the output may be referenced as follows:
+
+```
+output "public_key" {
+  description = "public_key"
+  value = data.external.ssh_key_generator.result.public_key
+}
+```
+
+*Note: After destroy, the files remain but the reference to the files and contents are removed from the state.*
+
+- Example of how to reference output within resource block
+
+```
+admin_ssh_key {
+    username = "azureuser"
+    public_key = data.external.ssh_key_generator.result.public_key
+  }
+```
