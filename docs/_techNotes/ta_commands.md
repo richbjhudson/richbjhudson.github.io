@@ -172,3 +172,11 @@ Terraform has been successfully initialized!
 ```
 
 # Manage Providers
+
+- `terraform providers` - show which providers are required for the configuration.
+- `terraform version` - current version of terraform cli, it will also show plugin versions after `terraform init` has run.
+- `terraform providers lock` - gathers information regarding providers and inserts it into `.terraform.lock.hcl`.
+- You should create `.terraform.lock.hcl` for all plaforms that you intend to execute code from: `terraform providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64`.
+- `terraform providers mirror .\mirror1\`  - downloads the providers required for the current configuration and copies them into a directory.
+  - For multiple platforms: `terraform providers mirror -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64 .\mirror2multiplatform\`.
+- `terraform providers schema -json | jq`  - print detailed schemas, this can be used to understand what resources and arguments may be used with the provider.
