@@ -138,4 +138,40 @@ organization = "richbjhudson" workspaces
 
 # Migrate State
 
+- You may create your terraform configuration and state locally and then decide you wish to migrate the state to terraform cloud.
+- This can be achieved by configuring a `backend`/ `cloud` block within a `terraform` block.
+
+```
+cloud { 
+        organization = "richbjhudson" 
+        workspaces { 
+          name = "terraformCloudWorkspaceName"
+          }
+        } 
+```
+ - You must login to terraform cloud using `terraform login`.
+	- This places a credentials file locally on your machine so that you do not need to perform this step moving forward - it can be found `C:\Users\username\AppData\Roaming\terraform.d\credentials.tfrc.json`.
+- `terraform init` will result in a prompt to ask if you would like to migrate the local state to a terraform cloud workspace:
+
+```
+Do you wish to proceed?
+  As part of migrating to Terraform Cloud, Terraform can optionally copy your
+  current workspace state to the configured Terraform Cloud workspace.
+
+  Answer "yes" to copy the latest state snapshot to the configured
+  Terraform Cloud workspace.
+
+  Answer "no" to ignore the existing state and just activate the configured
+  Terraform Cloud workspace with its existing state, if any.
+
+  Should Terraform migrate your existing state?
+
+  Enter a value: yes
+
+```
+*Note: After this step it creates the workspace if it did not already exist. The workspace is built to use the terraform cli version that you migrated from.*
+
+- At this point you need to create the environment variables in the workspace.
+
+
 # Sentinel Policies
