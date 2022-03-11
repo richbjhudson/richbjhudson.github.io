@@ -115,7 +115,7 @@ terraform state list
 
 # Debug
 
-- You may enable terraform cli logging to help with troubleshooting. It is enable using environment variables - `$env:TF_VAR_variable_name=value`.
+- You may enable terraform cli logging to help with troubleshooting. It is enabled using environment variables - `$env:TF_VAR_variable_name=value`.
 - TF_LOG sets the logging level: 
 	- TRACE -- verbose output
 	- DEBUG -- concise version of TRACE
@@ -137,5 +137,38 @@ Dir env:
 - Crash.log file will hold terraform panic errors that should be reported to hashicorp.
 
 # CLI User Settings
+
+- Per user settings for CLI behaviours
+  - Windows location of `terraform.rc` in `$env:APPDATA` --> `C:\Users\userName\AppData\Roaming`.
+  - Linux - Otherwise `.terraformrc` in `$home`.
+- Settings that can be included in the file:
+  - `credentials_block` - add terraform cloud token.
+  - `credentials_helper` - you can retrieve credentials using external source.
+  - `disable_checkpoint` - if true disables upgrade and security check to hashicorp, if used in conjuction with `plugin_cache_dir` terraform cli will not reach out to hashicorp network services.
+  - `plugin_cache_dir` - store plugins that are downloaded into a central place as well as terraform working directory.
+  - `disable_checkpoint_signature` - disables use of anonymous id used to de-duplicate warning messages.
+  - `Provider_installation` - default uses registry.terraform.io, you may wish to use another path.
+
+- Example configuration:
+  - Create directory for cached plugins `mkdir -p $HOME/.terraform.d/plugin-cache`
+  - Sample file contents
+  
+  ```
+  plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
+  disable_checkpoint = true
+  ```
+- `terraform init` output demonstrating use of plugin-cache:
+
+```
+Initializing provider plugins...
+- Reusing previous version of hashicorp/external from the dependency lock file
+- Reusing previous version of hashicorp/azurerm from the dependency lock file
+- Reusing previous version of hashicorp/random from the dependency lock file
+- Using previously-installed hashicorp/external v2.2.0
+- Using previously-installed hashicorp/azurerm v2.93.1
+- Using previously-installed hashicorp/random v3.1.0
+
+Terraform has been successfully initialized!
+```
 
 # Manage Providers
