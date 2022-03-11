@@ -140,18 +140,18 @@ Dir env:
 
 - Per user settings for CLI behaviours
   - Windows location of `terraform.rc` in `$env:APPDATA` --> `C:\Users\userName\AppData\Roaming`.
-  - Linux - Otherwise `.terraformrc` in `$home`.
+  - Otherwise `.terraformrc` in `$home`.
 - Settings that can be included in the file:
   - `credentials_block` - add terraform cloud token.
   - `credentials_helper` - you can retrieve credentials using external source.
-  - `disable_checkpoint` - if true disables upgrade and security check to hashicorp, if used in conjuction with `plugin_cache_dir` terraform cli will not reach out to hashicorp network services.
+  - `disable_checkpoint` - if true disables upgrade and security check to HashiCorp, if used in conjuction with `plugin_cache_dir` terraform cli will not reach out to HashiCorp network services.
   - `plugin_cache_dir` - store plugins that are downloaded into a central place as well as terraform working directory.
   - `disable_checkpoint_signature` - disables use of anonymous id used to de-duplicate warning messages.
   - `Provider_installation` - default uses registry.terraform.io, you may wish to use another path.
 
 - Example configuration:
   - Create directory for cached plugins `mkdir -p $HOME/.terraform.d/plugin-cache`
-  - Sample file contents
+  - Sample `.terraformrc` file contents
   
   ```
   plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
