@@ -115,6 +115,27 @@ terraform state list
 
 # Debug
 
+- You may enable terraform cli logging to help with troubleshooting. It is enable using environment variables - `$env:TF_VAR_variable_name=value`.
+- TF_LOG sets the logging level: 
+	- TRACE -- verbose output
+	- DEBUG -- concise version of TRACE
+	- ERROR -- show errors that prevent terraform from continuing
+	- WARN - warning for mistakes that do not prevent execution
+	- INFO - general high level messages about execution process
+- TF_LOG_PATH sets the location of where to hold the log file.
+- Here is an example of how to configure for a Windows client:
+
+```
+
+$env:TF_LOG='TRACE'
+$env:TF_LOG_PATH='terraform-trace.log'
+Dir env:
+
+```
+
+- You can permenantly set the environment variables in Linux by adding the configuration to `.bashrc`. In windows open `$profile` (opens Microsoft.Powershell_profile.ps1) and add the lines above.
+- Crash.log file will hold terraform panic errors that should be reported to hashicorp.
+
 # CLI User Settings
 
 # Manage Providers
