@@ -808,6 +808,38 @@ triggers = {
 
 # Dynamic Blocks
 
+- Some resources include repeatable nested blocks in their arguments e.g. [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) includes `security_rule {}`.
+- Dynamic blocks in this example allow you use a `for_each` loop to simplify your code by prefixing the block `security_rule` with `dynamic`:
+
+```
+
+locals {
+  ports = [22, 80, 8080, 8081, 7080, 7081]
+}
+
+resource "azurerm_network_security_group" "nsg" {
+  name                = "nsg"
+  location            = azurerm_resource_group.myrg.location
+  resource_group_name = azurerm_resource_group.myrg.name
+  dynamic "security_rule" {
+    for_each = local.ports 
+    content {
+      name                       = "inbound-rule-${security_rule.key}"
+      description                = "Inbound Rule ${security_rule.key}"    
+      priority                   = sum([100, security_rule.key])
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = security_rule.value
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"      
+    }
+  }
+}
+
+```
+
 # Override Files
 
 # External Providers & Data Sources
