@@ -170,5 +170,45 @@ Do you wish to proceed?
 
 - At this point you need to create the environment variables in the workspace.
 
-
 # Sentinel Policies
+
+- **Policy as-code** - the policy is evaluated after `terraform plan` but before `terraform apply`.
+- Enforcement modes: 
+	- advisory 
+	- soft mandatory - option to *override & continue*.
+	- hard mandatory 
+
+*Note: Mandatory policy check will not pass onto the next stage if they are not compliant. The stage of the check is based on the functions e.g. tfconfig, tfrun, tfplan etc…* 
+- Center for internet security policies are provided as foundation policies.
+- TFC needs to be setup with the team and governance plan.
+- [Terraform Governance Guides](https://github.com/hashicorp/terraform-guides/tree/master/governance) are a standard set of policies created by hashicorp that may be used for common use cases.
+
+- Sentinel policy language allows you to define policy rules for tfplan, tfconfig, tfstate or tfrun.
+	- It includes common functions.
+	- There are some Cloud agnostic policies e.g. based around spend.
+	- `.sentinel` files include policy configuration that reference the functions that stipulate when the policy should be applied e.g. cost limit policy at tfrun.
+	- `Sentinel.hcl` - import modules (functions) and reference policies by source and enforcement_level.
+
+*Note: You may installed hashicorp sentinel extension in vscode to make it easier to understand the syntax.*
+
+## Steps
+- Create new terraform cli workspace
+- Update code backend
+- Setup environment variables in workspace
+- Create new github repo for sentinel policies
+- Create a policy set in TFC - org>settings> policy sets
+	- Use VCS connection and select repo in github
+	- Select workspaces
+	- Then connect policy set
+	- `terraform login`
+	
+	
+- Sentinel foundational policies based on [CIS control](https://github.com/hashicorp/terraform-foundational-policies-library).You may reference policies directly within `sentinel.hcl` file.
+	- Example:
+```
+policy "azure-cis-6.4-networking-enforce-network-watcher-flow-log-retention-period" {
+  source = "https://raw.githubusercontent.com/hashicorp/terraform-foundational-policies-library/master/cis/azure/networking/azure-cis-6.4-networking-enforce-network-watcher-flow-log-retention-period/azure-cis-6.4-networking-enforce-network-watcher-flow-log-retention-period.sentinel"
+  enforcement_level = "advisory"
+}
+
+```
