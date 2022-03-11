@@ -842,4 +842,8 @@ resource "azurerm_network_security_group" "nsg" {
 
 # Override Files
 
-# External Providers & Data Sources
+- If two resources attempt to use the same local name terraform will return an error - the local name of a resource should be unique.
+- `override.tf` - you can reference a local name a 2nd time and this configuration will override the initial configuration of the object.
+- `fileName_override.tf` works as above.
+
+*Note: If you need to use override.tf files make sure you modify `.gitignore` as it will ignore this type of file my default.* 
