@@ -99,7 +99,7 @@ module "staticwebsiteprivate" {
 
 - You need to authenticate to the private registry using `terraform login`.
 	- This command prompts you to create an API token with access to the private registry.
-	- `credentials.tfrc.json` is stored in plain text.
+	- The API token is stored in `credentials.tfrc.json` as plain text.
 
 # CLI Driven Workflow
 
@@ -125,12 +125,13 @@ backend "remote" {
 
 ```
 cloud { 
-organization = "richbjhudson" workspaces 
-{ name = "cli-driven-azure-demo" }
- } 
+	organization = "richbjhudson" 
+	workspaces 
+		{ name = "cli-driven-azure-demo" }
+	} 
 ```
 
-- Make sure you add the environment variables to your workspace so that TFC can connect to your azure subscription.
+- Make sure you add the environment variables to your workspace so that TFC can connect to your Azure subscription.
 
 - `terraform plan` - this gets added to TFC runs tab you have to click on link from your local machine.
 - `terraform apply` - this gets recorded in TFC.
@@ -181,7 +182,7 @@ Do you wish to proceed?
 *Note: Mandatory policy checks will not pass onto the next stage if they are not compliant. The stage of the check is based on the functions e.g. tfconfig, tfrun, tfplan etc…* 
 - Center for internet security policies are provided as foundation policies.
 - TFC needs to be setup with the team and governance plan.
-- [Terraform Governance Guides](https://github.com/hashicorp/terraform-guides/tree/master/governance) are a standard set of policies created by hashicorp that may be used for common use cases.
+- [Terraform Governance Guides](https://github.com/hashicorp/terraform-guides/tree/master/governance) are a standard set of policies created by Hashicorp that may be used for common use cases.
 
 - Sentinel policy language allows you to define policy rules for tfplan, tfconfig, tfstate or tfrun.
 	- It includes common functions.
@@ -189,7 +190,7 @@ Do you wish to proceed?
 	- `.sentinel` files include policy configuration that reference the functions that stipulate when the policy should be applied e.g. cost limit policy at tfrun.
 	- `Sentinel.hcl` - import modules (functions) and reference policies by source and enforcement_level.
 
-*Note: You may install the hashicorp sentinel extension in vscode to make it easier to understand the syntax.*
+*Note: You may install the HashiCorp sentinel extension in vscode to make it easier to understand the syntax.*
 
 ## Steps
 - Create new terraform cli workspace
