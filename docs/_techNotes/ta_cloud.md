@@ -44,7 +44,7 @@ ARM_TENANT_ID=65123456-faea-4b9d-a488-123456123456
 ARM_SUBSCRIPTION_ID=12345686-82de-4a8d-b643-12345605372a
 ```
 
-- You can use a .tfvars file in your the repository so that there is no need to define terraform variables in the workspace.
+- You can use a [.auto.tfvars](https://www.terraform.io/cloud-docs/workspaces/variables/managing-variables#loading-variables-from-files) file in your the repository so that there is no need to define terraform variables in the workspace.
 
 # Workspace - General Settings
 
