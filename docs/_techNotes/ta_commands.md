@@ -5,11 +5,12 @@ title: Commands
 ---
 # Remote State Storage & Locking
 
-- A `backend` block is within a `terraform` block usually in a `version.tf` file.
+- A `backend` block is within a `terraform` block usually in a `versions.tf` file.
 - Backend blocks are responsible for storing state and providing an API for state locking.
-- Azure Storage Accounts support both state storage and locking (supported on all operations that may write state).  
+- Azure Storage Accounts support both state storage and locking (supported on all operations that may write state).
+- When managing IaC in a Team:  
     - A local state file needs to be accessible to all members of a Team and stored in a shared location.
-    - If two members of a Team run terraform at the same time it may create a race condition. Multiple updates to a state file may lead to conflicts, data loss or corruption.
+    - If two members of a Team run terraform at the same time it may create a race condition. Multiple updates to a state file may lead to conflicts, data loss or corruption. Locking prevents this scenario.
 - When you create an Azure storage account - enable versioning for blobs. This will allow you to rollback to a previous version of the state file.
 - When you run `terraform plan` the blob container goes into a lease state of **leased**, once activity is finished it goes into an **available** state.
 - Here is an example of how to configure a `backend` block within a `terraform` block to use an Azure storage account:
@@ -69,7 +70,7 @@ terraform state mv -dry-run azurerm_virtual_network.myvnet azurerm_virtual_netwo
 terraform state mv azurerm_virtual_network.myvnet azurerm_virtual_network.myvnet-new
 terraform state list
 ```
-- If configuration has different local names then it will see that it needs to create a new resource and destroy the incorrectly named local named resource. They need to match.
+*Note: If configuration has different local names then it will see that it needs to create a new resource and destroy the incorrectly named local named resource. They need to match.*
 
 - `terraform apply -refresh-only` - refreshes the state file to match the current settings of managed remote objects.
     - This command updates the state file only it does not make any changes to the cloud resources.
@@ -115,7 +116,10 @@ terraform state list
 
 # Debug
 
-- You may enable terraform cli logging to help with troubleshooting. It is enabled using environment variables - `$env:TF_VAR_variable_name=value`.
+- You may enable terraform cli logging to help with troubleshooting. It is enabled using environment variables. 
+
+*Note: The typical format of  `$env:TF_VAR_<variable_name>=value` that is the equivalent to `.tfvars` does not apply.*
+
 - TF_LOG sets the logging level: 
 	- TRACE -- verbose output
 	- DEBUG -- concise version of TRACE
