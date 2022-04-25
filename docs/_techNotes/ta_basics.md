@@ -16,12 +16,16 @@ title: Basics
 
 ## 3 Fundamental Block Types:
 - **Terraform** includes:
-    -  terraform cli version, terraform provider and version, and also the backend block that holds the terraform state in a remote location.
-    - Only constant values are allowed in this block no variable references.
+    -  terraform cli version
+    -  terraform provider(s) and version(s)
+    -  backend block that holds the terraform state in a remote location
+
+*Note: Only constant values are allowed in this block no variable references.*
+
 - **Provider** includes provider configuration in root module.
 - **Resource** is used to create infrastructure objects including:
-    - resource syntax and behaviour.
-    - provisioners - post creation actions.
+    - resource syntax and behaviour
+    - provisioners - post creation actions
 
 ## Additional Block Types:
 - Variable blocks including input, output and local.
@@ -29,7 +33,7 @@ title: Basics
 
 # Providers
 
-Provider plugins are downloaded by terraform cli and used to interact with Cloud APIs e.g. the azure provider communicates with Microsoft Azure API. 
+Provider plugins are downloaded by terraform cli and used to interact with Cloud APIs e.g. the azure provider communicates with the Microsoft Azure API. 
 They have their own release cycles and version numbers.
 
 ## Required Provider Block
@@ -51,7 +55,7 @@ The source is prefixed with *registry.terraform.io* by default.
 
 ## Provider block
 
-This block allows you to configure a provider such as:
+This block allows you to change the default behaviour of a provider such as:
 - Add features e.g. set service principal to use a key vault.
 - Set default behaviour of when you delete a VM so that you do not delete the OS disk.
 - You may wish to create multiple provider feature blocks so that you have different defaults per azure region e.g. do not delete OS disk with VMs for a region.
@@ -63,14 +67,14 @@ provider "azurerm" {
   features {}
 }
 ```
-*Note: Local names should match between the **required_providers** and **provider** block. It is recommended to use the vendor preferred name but you could use anything in theory.*
+*Note: Local names should match between the **required_providers** and **provider** block. It is recommended to use the vendor preferred name e.g. **azurerm** but you could use anything in theory.*
 
 ## Dependency Lock File
 
 It prevents you from updating a provider plugin version.
 It is best practice to check in the lock file into your code repository.
 
-`terraform init upgrade` - this will upgrade the lock file if you decide to change the allowed provider versions.
+`terraform init -upgrade` - this will upgrade the lock file if you decide to change the allowed provider versions.
 
 *Note: It only includes provider version tracking **not** Terraform cli nor modules.*
 
@@ -105,7 +109,7 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 ## Resource Behaviour
 
 - Create
-- Destroy - when the resource exists in state but not in config.
+- Destroy - triggered when the resource(s) exist in the state file but not in the configuration files.
 - Update in place - where arguments for a resource have changed.
 - Destroy and recreate - when an argument has changed but can not perform an in place update e.g. location changed. 
 
@@ -116,11 +120,11 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 - Once `terraform apply` is executed a state file is created - **terraform.tfstate**.
   - Desired state is contained within local .tf files.
   - Current state is the real resources in the cloud that are recorded in the state file.
-- `terraform destroy` will remove configuration from the Cloud environment that is contained within the state file.
+- `terraform destroy` will remove configuration from the Cloud environment for the resource(s) that are contained within the state file.
 - The state file is stored locally by default.
 - The state file holds all of the details about a resource not just what was set using arguments.
 
-*Note: It is not recommended to manually edit the state file nor store it locally.*
+*Note: It is **not** recommended to manually edit the state file nor store it locally.*
 
 # Meta-arguments
 
@@ -130,11 +134,12 @@ Changes behaviour of resource blocks:
 - for_each - create multiple instances of a resource according to map or strings.
 - provider - select non default provider config.
 - lifecycle - resource lifecycle management e.g. in a destroy and recreate scenario, you could 1st create and then destroy a resource.
-- *Provisioners & Connections (not meta-argument)* - extra actions after resource creation e.g. install app on VM.
+
+*Note: Provisioners & Connections are not meta-arguments, they can invoke extra actions after resource creation or destruction e.g. install app on VM.*
 
 ## depends_on
 
-- This is not required if you create a resource that references another resource's data as an implicit dependancy is created.
+- This is not required if you create a resource that references another resource's data, as an implicit dependancy is created.
 - It can be used in resource/ module blocks - it contains a list of resources or child modules.
 - It should only ever be used as a last resort.
 - You list which resources should be created before it actions the resource block. As such it is placed  at the top of the given resource block:
@@ -181,7 +186,6 @@ Each.key = dev
 Each.value = myapp1
 ```
 
-- You cannot use both count and for_each in the same resource block/ module.
 - You can reference a resource that is already configured to use a for_each and use these resource instances within an additional resource block referencing the instance using what is termed **for_each chaining**:
 
 ```
@@ -192,7 +196,7 @@ Each.value = myapp1
 
 - It features as a nested block within a resource block.
 - There are 3 types of lifecyle blocks:  
-  - Create_before_destroy - create new resource before destroying existing resource.
+  1. Create_before_destroy - create new resource before destroying existing resource.
 
 ```
 lifecycle {
@@ -200,7 +204,7 @@ lifecycle {
   }
 ```
 
-  - Prevent_destroy - database/ disk that you do not want to be removed.
+  2. Prevent_destroy - database/ disk that you do not want to be removed.
 
 ```
 lifecycle {
@@ -208,7 +212,7 @@ lifecycle {
   }
 ```
 
-  - Ignore_changes - ignore change made within Azure portal e.g. tags.
+  3. Ignore_changes - ignore change made within Azure portal e.g. tags.
 
 ```
 lifecycle {
@@ -277,3 +281,10 @@ resource "azurerm_resource_group" "rg" {
 - A more concise representation of a **for** expression.
 - [For o in var.list : o.id] --> Var.list[*].id.
 - Please see [terraform documentation](https://www.terraform.io/language/expressions/splat).
+
+The following example illustrates how to reference an instance of a NIC when both resource block `azurerm_windows_virtual_machine` and `azurerm_network_interface` are using the `count` meta-argument from within the `azurerm_windows_virtual_machine` resource block:
+```
+network_interface_ids = [
+    element(azurerm_network_interface.winvm_nic[*].id, count.index)
+  ]
+```
