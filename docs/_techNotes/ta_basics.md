@@ -282,7 +282,7 @@ resource "azurerm_resource_group" "rg" {
 - [For o in var.list : o.id] --> Var.list[*].id.
 - Please see [terraform documentation](https://www.terraform.io/language/expressions/splat).
 
-The following example illustrates how to reference an instance of a NIC when both resource block `azurerm_windows_virtual_machine` and `azurerm_network_interface` are using the `count` meta-argument from within the `azurerm_windows_virtual_machine` resource block:
+The following example illustrates how to reference an instance of a NIC when both resource block `azurerm_windows_virtual_machine` and `azurerm_network_interface` are using the `count` meta-argument:
 ```
 network_interface_ids = [
     element(azurerm_network_interface.winvm_nic[*].id, count.index)
