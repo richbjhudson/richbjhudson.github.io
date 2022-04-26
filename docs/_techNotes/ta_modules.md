@@ -13,7 +13,7 @@ title: Modules
 # Terraform Registry - Public
 
 - [Terraform Public Registry](https://registry.terraform.io/browse/modules?provider=azurerm)
-- A tick next to a module means that it is from a verified partner.
+- Each tab within the context of a public terraform registry module maps to a `.tf` file:
     - Inputs - variables.tf
     - Outputs - outputs.tf
     - Dependencies - versions.tf
@@ -52,13 +52,15 @@ output "virtual_network_name" {
 
 - `terraform init` downloads the modules into .terraform directory prior to downloading the provider plugins.
     - Creates a modules folder including modules.json file that contains details of the modules. 
-    - Public modules are downloaded into a sub folder e.g. modules\vnet.
-    - Private modules are referenced only in the modules.json file.
+    - External modules are downloaded into a sub folder e.g. modules\vnet.
+    - Internal modules (those within a subfolder from the working directory) are referenced only in the modules.json file.
 
 # Taint Resource
 
 - Use `terraform state list` to identify the resource that you wish to taint.
 - Run `terraform taint` command e.g. `terraform taint module.vnet.azurerm_subnet.subnet[2]` and then `terraform apply`. At this point on the next terraform apply the tainted resource will be recreated.
+
+*Note: HashiCorp now recommend the use of `terraform apply -replace='module.vnet.azurerm_subnet.subnet[2]'` instead of the `[terraform taint](https://www.terraform.io/cli/commands/taint)` command.*
 
 # Child Module
 
@@ -76,8 +78,8 @@ module "resource_group" {
 ```
 
 - Variables in the child module become the arguments in the parent module.
-- Configure outputs in parent module using outputs from child module:
-  - From child module that uses `azurerm_resource_group` resource block attribute `id`:
+- Configure outputs in parent module that use outputs from child module:
+  - From child module:
   ```
   output "resource_group_id" {
   description = "resource group id"
@@ -85,14 +87,13 @@ module "resource_group" {
   }
   ```
 
-  - From parent module that uses child module output `resource_group_id`:   
+  - From parent module:   
   ```
   output "resource_group_id" {
   description = "resource group id"
   value       = module.resource_group.resource_group_id
   }
   ```
-*Note: `terraform init` simply initialises the module it does not download it.*
 
 # Get Command
 
