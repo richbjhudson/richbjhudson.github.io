@@ -662,9 +662,9 @@ provisioner "file" {
 
 ## File Provisioner
 
-- Copy files from machine executing terraform to newly created resource.
+- Copy files from the machine executing terraform to a newly created virtual machine resource.
 - A `connection` block is used to connect to the Windows or Linux VM using winrm and ssh respectively.
-  - You can place in resource block or provisioning block.
+  - You can place it in a resource block or provisioning block.
   - `azurerm_linux_virtual_machine` resource block example:
 
 ```
@@ -736,8 +736,8 @@ connection {
 
 # Null Resource
 
-- `null` resource does nothing.
-- This `provisioner` example is used to upload the latest application code to a VM with causing the VM to be re-provisioned.
+- A `null` resource does nothing.
+- This `provisioner` example is used to upload the latest application code to a VM without causing the VM to be re-provisioned.
 
 - It uses a provider:
 
@@ -836,6 +836,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 ```
+*Note: security_rule.key is the same as security_rule.value because local.ports is a list.*
 
 # Override Files
 
@@ -850,7 +851,7 @@ resource "azurerm_network_security_group" "nsg" {
 - A **Provider** helps provide an interface between terraform and external programs.
 
 
-- Here is an example where the input is captured by the script using the query block.
+- Here is an example where the input is captured by the script using the `query` block.
 
 ```
 data "external" "ssh_key_generator" {
