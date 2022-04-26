@@ -24,7 +24,6 @@ location = var.resource_group_location
 ```
 
 - If you do not set a default value you will be prompted for the value when you run `terraform plan` or `terraform apply`. The variable description appears in the prompt.
-- When running a `terraform destroy` you will also be prompted for the input variable.
 - You can combine variables and local names:
 
 ```
@@ -45,7 +44,7 @@ terraform show v1.plan
 terraform apply v1.plan
 ```
 
-## Variable Definition Precedence
+## [Variable Definition Precedence](https://www.terraform.io/language/values/variables#variable-definition-precedence)
 
 - From High to low:
     1. var or -var-file
@@ -66,9 +65,9 @@ $env:TF_VAR_resoure_group_location='uksouth'
 
 - You can check the values that have been set on Windows using `dir env:`.
 
-## terraform.tfvars
+## tfvars Files
 
-- This file may be used to autoload the variable values replacing any default values.
+- A `terraform.tfvars` file may be used to autoload the variable values replacing any default values.
 - You do not have to reference the file during terraform cli commands.
 - The contents of `terraform.tfvars` may look like:
 
@@ -83,7 +82,7 @@ environment = "prod"
 terraform plan -var-file="dev.tfvars"
 ```
 
-*Note: If you run the same code against multiple .tfvars in the same working directory, the state file uses the same local names for a resource so would attempt to replace the resources. This is what terraform workspaces is for to create separate state files.*
+*Note: If you run the same code against multiple .tfvars in the same working directory, the state file uses the same local names for a resource so would attempt to replace the resources. **This is what terraform workspaces is for to create separate state files.***
 
 - `filename.auto.tfvars` autoloads the variable values from a file replacing any default values. You do not need to use the cli argument `-var-file`. Common use case is to separate variable input based on resource type.
 
@@ -272,7 +271,7 @@ variable "localadmin_password" {
 }
 ```
 
-- Set values for sensitive variables using file `secrets.tfvars`.
+- It is good practice to set values for sensitive variables using file `secrets.tfvars`.
 - Never check-in `secrets.tfvars` to your code repository.
 - How to execute terraform cli against the variable file:
 
@@ -358,7 +357,7 @@ threat_detection_policy {
 # Output Variables
 
 - Output values are produced primarily to share output between a parent and child module.
-- You can use the `terraform_remote_state` data source to access outputs that are using remote state.
+- You can use the `terraform_remote_state` data source to access outputs that are stored in another project's remote state.
 - Outputs can be used with arguments or attributes of a resource type.
 
 ```
@@ -434,11 +433,11 @@ resource "azurerm_virtual_network" "vnet" {
 }
 ```
 
-- Example 1
+- Example 1 - Loop through resource block and return a list of vnet names:
 
 ```
 output "virtual_network_name_list_one_input" {
-  description = "Virtual Network - For Loop One Input and List Output with VNET Name "
+  description = "Virtual Network - Loop through resource block and return a list of vnet names"
   value = [for vnet in azurerm_virtual_network.vnet: vnet.name ]  
 }
 
@@ -452,12 +451,11 @@ terraform output virtual_network_name_list_one_input
 
 ```
 
-- Example 2
+- Example 2 - Loop through the iterator used by the resource block (var.environment) and return a list of the iterator:
 
 ```
-# Output - For Loop Two Inputs, List Output which is Iterator i (var.environment)
 output "virtual_network_name_list_two_inputs" {
-  description = "Virtual Network - For Loop Two Inputs, List Output which is Iterator i (var.environment)"  
+  description = "Virtual Network - Loop through the iterator used by the resource block (var.environment) and return a list of the iterator"  
   value = [for env, vnet in azurerm_virtual_network.vnet: env ]
 }
 
@@ -471,12 +469,11 @@ terraform output virtual_network_name_list_two_inputs
 
 ```
 
-- Example 3
+- Example 3 - Loop through resource block and return a map of vnet id = vnet name:
 
 ```
-# Output - For Loop One Input and Map Output with VNET ID and VNET Name
 output "virtual_network_name_map_one_input" {
-  description = "Virtual Network - For Loop One Input and Map Output with VNET ID and VNET Name"
+  description = "Virtual Network - Loop through resource block and return a map of vnet id = vnet name"
   value = {for vnet in azurerm_virtual_network.vnet: vnet.id => vnet.name }
 }
 
@@ -490,12 +487,11 @@ terraform output virtual_network_name_map_one_input
 
 ```
 
-- Example 4
+- Example 4 - Loop through the iterator used by the resource block (var.environment) and use to loop through the resource block and map iterator = vnet name:
 
 ```
-# Output - For Loop Two Inputs and Map Output with Iterator env and VNET Name
 output "virtual_network_name_map_two_inputs" {
-  description = "Virtual Network - For Loop Two Inputs and Map Output with Iterator env and VNET Name"
+  description = "Virtual Network - Loop through the iterator used by the resource block (var.environment) and use to loop through the resource block and map iterator = vnet name"
   value = {for env, vnet in azurerm_virtual_network.vnet: env => vnet.name }
 }
 
@@ -591,16 +587,17 @@ output "current_subscription_display_name" {
   value = data.azurerm_subscription.current.display_name
 }
 ```
+*Note: display name is an [attribute reference](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription).*
 
 # CLI Workspaces
 
-- Named workspaces allow you to conveniently switch between multiple instances of a single configuration within a single backend.
+- Named workspaces allow you to conveniently switch between multiple instances of a **single configuration** within a **single backend**.
 - Common use case: create a parallel distinct copy of a set of infrastructure in order to test a set of changes before applying to the main production infrastructure.
 - HashiCorp do not recommend using workspaces for large infrastructures. They recommend using separate configuration directories for each environment - dev, qa, staging and production.
 
-*Note: They are not related to terraform cloud workspaces.*
+*Note: They are **not** related to terraform cloud workspaces.*
 
-- `${terraform.workspace}`  - it will get the workspace name, you can use it in your naming and tagging e.g. `rg_name = "${var.business_unit}-${terraform.workspace}-${var.resoure_group_name}"`.
+- You may reference the workspace name using `${terraform.workspace}`. It can be used in your naming and tagging e.g. `rg_name = "${var.business_unit}-${terraform.workspace}-${var.resoure_group_name}"`.
 
 - `terraform workspace list` - shows all workspaces and the current workspace has a `*` next to it.
 - `terraform workspace show` - shows current workspace.
@@ -617,21 +614,21 @@ output "current_subscription_display_name" {
 
 - Provisioners can be used to execute specific actions on the local machine or on a remote machine in order to prepare servers.
   - Passing data into VMs. 
-  - Running configuration management software e.g. packer, chef or ansible
+  - Running configuration management software e.g. packer, chef or ansible.
 
-- Provisioners are at creation time type by default, usually used for bootstrapping. You can use the `when` attribute to change this.
+- Provisioners are at **creation time** type by default, usually used for bootstrapping. You can use the `when` attribute to change this.
 
 - Provisioners should be perceived as a last resort.
 
-- Most provisioners require access to remote resources via a `ssh` or `winrm` using a nested `connection` block.
+- Most provisioners require access to remote resources via `ssh` or `winrm` using a nested `connection` block.
 - `connection` blocks cannot refer to a parent resource by local name and use a special self object e.g `user = self.admin_username`.
 
 - If you wish to use a `provisioner` block that is not directly associated with a resource use a `null_resource`.
 
 - Types - Creation-time or destroy-time provisioners
-	- File - copy files from terraform executing machine into newly created resource using ssh or winrm.
-	- Remote-exec - invokes a local executable after a resource is created on the machine running terraform.
-	- Local-exec - invokes a script on the remote resource after it is created. Used to run a configuration management tool or bootstrap into a cluster.
+	- **File** - copy files from terraform executing machine into newly created resource using ssh or winrm.
+	- **Remote-exec** - invokes a script on the remote resource after it is created. Used to run a configuration management tool or bootstrap into a cluster.
+	- **Local-exec** - invokes a local executable after a resource is created on the machine running terraform.
 
 ## Failure behaviour
 
@@ -653,7 +650,7 @@ output "current_subscription_display_name" {
         {
           "status": "tainted"
 ```
-- Example of setting provisoner to continue on error:
+- Example of setting provisioner to continue on error:
 
 ```
 provisioner "file" {
