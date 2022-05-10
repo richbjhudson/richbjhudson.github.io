@@ -26,6 +26,7 @@ I am a strong advocate of vendor certifications paths, without them you quite of
     <img src="/badges/citrix-certified-professional-virtualization-ccp-v.5.png" alt="Citrix Certified Professional - Virtualization (CCP - V)">
     </td>
     <td>
+    <img src="/badges/hashicorp-certified-terraform-associate153x153.png" alt="HashiCorp Certified: Terraform Associate">
     <img src="/badges/microsoft-certified-azure-network-engineer-associate144x144.png" alt="Microsoft Certified: Azure Network Engineer Associate">
     <img src="/badges/microsoft-certified-azure-administrator-associate144x144.png" alt="Microsoft Certified: Azure Administrator Associate">
     <img src="/badges/microsoft-certified-azure-security-engineer-associate144x144.png" alt="Microsoft Certified: Azure Security Engineer Associate">
