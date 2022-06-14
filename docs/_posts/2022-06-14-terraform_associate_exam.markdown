@@ -26,7 +26,7 @@ categories: Terraform
 # Notes
 
 - [Terraform Basics]({{ site.baseurl }}/_techNotes/ta_basics.md)
-- [Terraform Cloud]({{ site.baseurl }}/_techNotes/ta_cloud.md)
-- [Terraform Commands](../_techNotes/ta_commands.md)
+- [Terraform Cloud](% post_url 2022-06-14-terraform_associate_exam)
+- [Terraform Commands](% link _techNotes/ta_commands.md)
 - [Terraform Config](../_techNotes/ta_config.md)
 - [Terraform Modules](../_techNotes/ta_modules.md)
