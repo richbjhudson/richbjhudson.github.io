@@ -15,18 +15,18 @@ categories: Terraform
 
 # Key Study Material 
 
-[HashiCorp Certified: Terraform Associate Course - Microsoft Azure](https://www.udemy.com/course/hashicorp-certified-terraform-associate-on-azure-cloud/)
+- [HashiCorp Certified: Terraform Associate Course - Microsoft Azure](https://www.udemy.com/course/hashicorp-certified-terraform-associate-on-azure-cloud/)
 
-[Sample Code](https://github.com/stacksimplify/hashicorp-certified-terraform-associate-on-azure)
+- [Sample Code](https://github.com/stacksimplify/hashicorp-certified-terraform-associate-on-azure)
 
-[Official Documentation](https://learn.hashicorp.com/tutorials/terraform/associate-review)
+- [Official Documentation](https://learn.hashicorp.com/tutorials/terraform/associate-review)
 
-[Practice Exams](https://www.whizlabs.com/hashicorp-certified-terraform-associate/)
+- [Practice Exams](https://www.whizlabs.com/hashicorp-certified-terraform-associate/)
 
 # Notes
 
-- [Terraform Basics](../_techNotes/ta_basics.md)
-- [Terraform Cloud](../_techNotes/ta_cloud.md)
+- [Terraform Basics]({{ site.baseurl }}/_techNotes/ta_basics.md)
+- [Terraform Cloud]({{ site.baseurl }}/_techNotes/ta_cloud.md)
 - [Terraform Commands](../_techNotes/ta_commands.md)
 - [Terraform Config](../_techNotes/ta_config.md)
 - [Terraform Modules](../_techNotes/ta_modules.md)
