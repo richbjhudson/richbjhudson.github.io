@@ -25,8 +25,8 @@ categories: Terraform
 
 # Notes
 
-- [Terraform Basics]({{ site.baseurl }}/techNotes/ta_basics.md)
-- [Terraform Cloud]({{ site.baseurl }}/techNotes/ta_cloud.md)
-- [Terraform Commands]({{ site.baseurl }}/techNotes/ta_commands.md)
-- [Terraform Config]({{ site.baseurl }}/techNotes/ta_config.md)
-- [Terraform Modules]({{ site.baseurl }}/techNotes/ta_modules.md)
+- [Terraform Basics]({{ site.baseurl }}/techNotes/ta_basics/)
+- [Terraform Cloud]({{ site.baseurl }}/techNotes/ta_cloud/)
+- [Terraform Commands]({{ site.baseurl }}/techNotes/ta_commands/)
+- [Terraform Config]({{ site.baseurl }}/techNotes/ta_config/)
+- [Terraform Modules]({{ site.baseurl }}/techNotes/ta_modules/)
