@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Terraform Associate Exam Experience"
-date:   2022-02-05 18:59:00 +0000
+date:   2022-06-14 18:59:00 +0000
 categories: Terraform
 ---
 # Exam Experience
@@ -25,8 +25,8 @@ categories: Terraform
 
 # Notes
 
-- [Terraform Basics](/_techNotes/ta_basics.md)
-- [Terraform Cloud](/_techNotes/ta_cloud.md)
-- [Terraform Commands](/_techNotes/ta_commands.md)
-- [Terraform Config](/_techNotes/ta_config.md)
-- [Terraform Modules](/_techNotes/ta_modules.md)
+- [Terraform Basics](../_techNotes/ta_basics.md)
+- [Terraform Cloud](../_techNotes/ta_cloud.md)
+- [Terraform Commands](../_techNotes/ta_commands.md)
+- [Terraform Config](../_techNotes/ta_config.md)
+- [Terraform Modules](../_techNotes/ta_modules.md)
