@@ -18,7 +18,7 @@ sudo zypper install hyper-v-enhanced-session
 ```
 openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365
 ```
-- Edit `suso vi /etc/xrdp/xrdp.ini` file to use the `cert.pem` and `key.pem` files from previous step.
+- Edit `sudo vi /etc/xrdp/xrdp.ini` file to use the `cert.pem` and `key.pem` files from previous step.
 - Create xrdp session preference file `startwm.sh`:
 ```
 cp /etc/xrdp/startwm.sh.userwindowmanager-sample ~/
