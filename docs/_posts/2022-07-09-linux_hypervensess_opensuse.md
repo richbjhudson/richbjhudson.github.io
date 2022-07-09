@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Linux OpenSUSE - Hyper-V Enhanced Session"
-date:   2022-07-09 20:00 +0000
+date:   2022-07-08 20:00 +0000
 categories: Linux
 ---
 # Assumptions
