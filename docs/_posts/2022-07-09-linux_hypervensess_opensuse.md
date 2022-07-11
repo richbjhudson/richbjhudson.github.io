@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "Linux OpenSUSE - Hyper-V Enhanced Session"
+title:  "Linux OpenSUSE - Enable Hyper-V Enhanced Session"
 date:   2022-07-08 20:00 +0000
 categories: Linux
 ---
 # Assumptions
 - A Linux OpenSUSE Virtual Machine is already configured and working using a console connection.
+- Wayland is in use as the Windowing System.
 - A GNOME desktop environment is being used.
 
 # Steps
@@ -13,7 +14,7 @@ categories: Linux
 ```
 sudo zypper install hyper-v-enhanced-session
 ```
-- [Configure Xorg as the default GNOME session](https://docs.fedoraproject.org/en-US/quick-docs/configuring-xorg-as-default-gnome-session/).
+- [Configure Xorg as the Windowing System](https://docs.fedoraproject.org/en-US/quick-docs/configuring-xorg-as-default-gnome-session/).
 - Create a certificate and private key for xrdp:
 ```
 openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365
