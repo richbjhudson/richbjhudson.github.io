@@ -3,16 +3,16 @@ layout: techNote
 category: Linux - Ubuntu Server
 title: Storage
 ---
-# Configure and manage LVM storage
+## Configure and manage LVM storage
 
-# Manage and configure the virtual file system
+## Manage and configure the virtual file system
 
-# Create, manage, and troubleshoot filesystems
+## Create, manage, and troubleshoot filesystems
 
-# Use remote filesystems and network block devices
+## Use remote filesystems and network block devices
 
-# Configure and manage swap space
+## Configure and manage swap space
 
-# Configure filesystem automounters
+## Configure filesystem automounters
 
-# Monitor storage performance
+## Monitor storage performance

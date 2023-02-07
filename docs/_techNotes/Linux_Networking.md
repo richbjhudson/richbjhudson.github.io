@@ -3,18 +3,18 @@ layout: techNote
 category: Linux - Ubuntu Server
 title: Networking
 ---
-# Configure IPv4 and IPv6 networking and hostname resolution
+## Configure IPv4 and IPv6 networking and hostname resolution
 
-# Set and synchronize system time using time servers
+## Set and synchronize system time using time servers
 
-# Monitor and troubleshoot networking
+## Monitor and troubleshoot networking
 
-# Configure the OpenSSH server and client
+## Configure the OpenSSH server and client
 
-# Configure packet filtering, port redirection, and NAT
+## Configure packet filtering, port redirection, and NAT
 
-# Configure static routing
+## Configure static routing
 
-# Configure bridge and bonding devices
+## Configure bridge and bonding devices
 
-# Implement reverse proxies and load balancers
+## Implement reverse proxies and load balancers

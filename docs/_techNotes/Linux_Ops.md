@@ -3,18 +3,18 @@ layout: techNote
 category: Linux - Ubuntu Server
 title: Operations and Deployment
 ---
-# Configure kernel parameters, persistent and non-persistent
+## Configure kernel parameters, persistent and non-persistent
 
-# Diagnose, identify, manage, and troubleshoot processes and services
+## Diagnose, identify, manage, and troubleshoot processes and services
 
-# Manage or schedule jobs for executing commands
+## Manage or schedule jobs for executing commands
 
-# Search for, install, validate, and maintain software packages or repositories
+## Search for, install, validate, and maintain software packages or repositories
 
-# Recover from hardware, operating system, or filesystem failures
+## Recover from hardware, operating system, or filesystem failures
 
-# Manage Virtual Machines (libvirt)
+## Manage Virtual Machines (libvirt)
 
-# Configure container engines, create and manage containers
+## Configure container engines, create and manage containers
 
-# Create and enforce MAC using SELinux
+## Create and enforce MAC using SELinux
