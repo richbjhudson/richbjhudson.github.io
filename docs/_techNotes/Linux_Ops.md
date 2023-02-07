@@ -11,6 +11,7 @@ title: Operations and Deployment
 ## Diagnose, identify, manage, and troubleshoot processes and services
 - `htop` is an interactive process viewer:
 <img src="/linux_screenshots/htop.png" alt="htop">
+- The priority of an existing and new process can be managed using `nice` and `renice` respectively. You may view the priority using `ps -l`.
 
 ## Manage or schedule jobs for executing commands
 
