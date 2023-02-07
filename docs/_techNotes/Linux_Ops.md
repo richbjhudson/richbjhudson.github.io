@@ -9,6 +9,8 @@ title: Operations and Deployment
 - Configure a kernel parameter persistently within `/etc/sysctl.conf` and apply the configuration without a reboot using `sysctl -p`.
 
 ## Diagnose, identify, manage, and troubleshoot processes and services
+- `htop` is an interactive process viewer:
+<img src="/linux_screenshots/htop.png" alt="htop">
 
 ## Manage or schedule jobs for executing commands
 
