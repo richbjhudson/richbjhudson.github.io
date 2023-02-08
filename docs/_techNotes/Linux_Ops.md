@@ -35,7 +35,16 @@ title: Operations and Deployment
 - You can configure cron for the logged in user with `crontab -e` that will create a configuration file under `/var/spool/cron/crontabs/rich`.
 
 ## Search for, install, validate, and maintain software packages or repositories
+### apt
+- `sudo apt update` is used to download package information from sources configured in `/etc/apt/source.list.d`.
+- `apt search htop` is used to search for available packages. Whereas `apt list --installed` shows the packages already installed.
+- You may add, remove or remove a package and its configuration with the following command `apt [install/remove/purge] htop`.
+- `apt show htop` display verbose information about a package including dependencies.
+- `sudo apt upgrade` can be used to upgrade existing packages, `sudo apt dist-upgrade` in addition upgrades the Kernel and adds/removes dependant packages automatically.
 
+### dpkg
+
+### snap
 
 ## Recover from hardware, operating system, or filesystem failures
 
