@@ -15,7 +15,7 @@ title: Operations and Deployment
 - You may view the *nice value* (default 0) and *priority* (default 80) of a process using `ps -l`. 
     - The priority of an existing and new process can be managed using `nice -n +20 top` and `sudo renice -n 0 1190` respectively.
     - The niceness value may range between -20 to +19, the value is added to the priority (80 + nice value) so a high nice value will lower the priority of a process.
-- You may send a *signal* to a process to notify the instruct the process to take an action, `kill -l` displays the signal types.
+- You may send a *signal* to a process to instruct the process to take an action, `kill -l` displays the signal types.
     - `kill 1190` may be used to send a signal to a process ID, it uses the default signal SIGTERM that attempts to gracefully terminate a process. You may force a process to terminate using `kill -9 1190`.
     - `killall top` may be used to send a signal to processes by name.
 - <kbd>Ctrl</kbd> + <kbd>Z</kbd> places a process/*job* into a stopped state.
@@ -24,11 +24,18 @@ title: Operations and Deployment
     - <kbd>Ctrl</kbd> + <kbd>C</kbd> terminates a process.
 
 ### Services
-- A *daemon/ service* is 
+- You may perform service/daemon management tasks using `systemctl`.
+    - `systemctl list-units -t service` display all active services.
+    - `systemctl status ssh` shows the status of a service including recent log information that may also be gathered using `journalctl -u ssh`.
+    - You can change the running state of a service using `systemctl [start/stop] ssh` and change the startup mode with `systemctl [enable/disable] ssh`.
 
 ## Manage or schedule jobs for executing commands
+- *cron* automatically runs commands in the background under the user context that created the job.
+- `sudo crontab -u root -l` may be used to view system-wide scheduled jobs for a user.
+- You can configure cron for the logged in user with `crontab -e` that will create a configuration file under `/var/spool/cron/crontabs/rich`.
 
 ## Search for, install, validate, and maintain software packages or repositories
+
 
 ## Recover from hardware, operating system, or filesystem failures
 
