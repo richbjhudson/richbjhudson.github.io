@@ -3,7 +3,7 @@ layout: techNote
 category: Terraform
 title: Configuration
 ---
-# Input Variables
+## Input Variables
 
 - They serve as parameters.
 - `variables.tf` file includes variables that typically have a name, description, type and default value.
@@ -44,7 +44,7 @@ terraform show v1.plan
 terraform apply v1.plan
 ```
 
-## [Variable Definition Precedence](https://www.terraform.io/language/values/variables#variable-definition-precedence)
+### [Variable Definition Precedence](https://www.terraform.io/language/values/variables#variable-definition-precedence)
 
 - From High to low:
     1. var or -var-file
@@ -53,7 +53,7 @@ terraform apply v1.plan
     4. Terraform.tfvars
     5. Environment variable
 
-## Environment Variables
+### Environment Variables
 
 - These values override default variable values.
 - You can create them on Windows using `$env:TF_VAR_variable_name=value
@@ -65,7 +65,7 @@ $env:TF_VAR_resoure_group_location='uksouth'
 
 - You can check the values that have been set on Windows using `dir env:`.
 
-## tfvars Files
+### tfvars Files
 
 - A `terraform.tfvars` file may be used to autoload the variable values replacing any default values.
 - You do not have to reference the file during terraform cli commands.
@@ -86,9 +86,9 @@ terraform plan -var-file="dev.tfvars"
 
 - `filename.auto.tfvars` autoloads the variable values from a file replacing any default values. You do not need to use the cli argument `-var-file`. Common use case is to separate variable input based on resource type.
 
-# Complex Variable Types
+## Complex Variable Types
 
-## List
+### List
 
 - Square `[]` brackets are used to define a list type variable.
 
@@ -114,7 +114,7 @@ virtual_network_address_space = ["10.3.0.0/16", "10.4.0.0/16", "10.5.0.0/16"]
 address_space = [var.virtual_network_address_space[0]]
 ```
 
-## Maps
+### Maps
 
 - Flower `{}` brackets are used to define a map type variable.
 
@@ -141,7 +141,7 @@ default_tags = {
 
 *Note: If a key value starts with a number you must use `:` instead of `=` when setting a value.*
 
-## Lookup Function
+### Lookup Function
 
 - A lookup function gets a value from a map.
 - `Lookup(map, key, default)`
@@ -166,13 +166,13 @@ sku = lookup(var.public_ip_sku, var.resoure_group_location, "Basic")
 
 - In this example the `sku` is set based on the `resoure_group_location` matching the key value `ukwest` or `uksouth`, otherwise a default value of **Basic** is set.
 
-# Validation Rules in Variables
+## Validation Rules in Variables
 
 - A validation rule consists of a `condition` and an `error_message`.
 - The `condition` makes use of functions such as `contains`, `substr`, `length` and `lower`.
 - `error_message` must end string with `.` Or `?`.
 
-## Examples of Function Use
+### Examples of Function Use
 
 - length function:
 
@@ -220,7 +220,7 @@ Can(regex("india$", "westindia"))
 true
 ```
 
-## Validation Rule Examples
+### Validation Rule Examples
 
 - Two examples of setting explicit allowed values for a variable:
 ```
@@ -257,7 +257,7 @@ variable "resoure_group_location" {
   }
 ```
 
-# Sensitive Input Variables
+## Sensitive Input Variables
 
 - Terraform will redact values in command output and log files for variables defined as `sensitive = true`.
 - It is important to recognise that terraform state **shows** values of sensitive variables.
@@ -281,9 +281,9 @@ terraform plan -var-file="secrets.tfvars"
 
 *Note: Environment variable values will appear in command line history.*
 
-# Structural Variable Types
+## Structural Variable Types
 
-## Object
+### Object
 
 - This is a map with different types of key value pairs. 
 
@@ -322,7 +322,7 @@ threat_detection_policy {
   } 
 ```
 
-## Tuple
+### Tuple
 
 - A list with values of different types.
 
@@ -350,11 +350,11 @@ threat_detection_policy {
 
 ```
 
-## Sets
+### Sets
 
 - Almost the same as lists and tuples, except any duplicate values are removed and any ordering is lost.
 
-# Output Variables
+## Output Variables
 
 - Output values are produced primarily to share output between a parent and child module.
 - You can use the `terraform_remote_state` data source to access outputs that are stored in another project's remote state.
@@ -371,7 +371,7 @@ output "resource_group_id" {
 - `terraform output` - this shows the output from the local state file.
 - When you set an output variable as sentitive it is not honored and will show the value when you explicitly call an output variable e.g. `terraform output virtual_network_name`.
 
-## Count & Splat Expression
+### Count & Splat Expression
 
 - Splat expression `var.list[*].id` is a concise way to express a common expression.
 - This only works with lists, tuples and sets.
@@ -409,7 +409,7 @@ virtual_network_name = [
 ]
 ```
 
-## for_each
+### for_each
 
 - Resource blocks that use the`for_each` meta-argument will create a map of objects so you cannot use a splat expression as above.
 - You need to use a `for` in the output value.
@@ -505,7 +505,7 @@ terraform output virtual_network_name_map_two_inputs
 
 ```
 
-# Locals
+## Locals
 
 - DRY principle - don't repeat yourself.
 - Local value - you can assign a name to an expression, you can then use that name multiple times within a module.
@@ -529,7 +529,7 @@ locals {
   tags = local.default_tags
 ```
 
-## Conditional Expression
+### Conditional Expression
 
 - You cannot write conditional expressions within a variable definition, you can only use them with locals.
 - `condition ? true_val : false_val`.
@@ -567,7 +567,7 @@ vnet_address_space = (var.environment == "dev" ? var.vnet_address_space_dev : va
 count = var.environment == "dev" ? 1 : 5
 ```
 
-# Data Sources
+## Data Sources
 
 - Data sources allow data to be fetched/ computed for use elsewhere in your terraform configuration.
 - Use when you need to make use of information defined outside of Terraform or from another terraform configuration.
@@ -589,7 +589,7 @@ output "current_subscription_display_name" {
 ```
 *Note: display name is an [attribute reference](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription).*
 
-# CLI Workspaces
+## CLI Workspaces
 
 - Named workspaces allow you to conveniently switch between multiple instances of a **single configuration** within a **single backend**.
 - Common use case: create a parallel distinct copy of a set of infrastructure in order to test a set of changes before applying to the main production infrastructure.
@@ -610,7 +610,7 @@ output "current_subscription_display_name" {
 
 - When a remote backend is configured the same behaviour applies as above except how the directory and file name is handled e.g. a new workspace state file is placed in the same Azure storage account container with a suffix of `env:ws_name` e.g. `terraform.tfstateenv:dev`.
 
-# Provisioners
+## Provisioners
 
 - Provisioners can be used to execute specific actions on the local machine or on a remote machine in order to prepare servers.
   - Passing data into VMs. 
@@ -630,7 +630,7 @@ output "current_subscription_display_name" {
 	- **Remote-exec** - invokes a script on the remote resource after it is created. Used to run a configuration management tool or bootstrap into a cluster.
 	- **Local-exec** - invokes a local executable after a resource is created on the machine running terraform.
 
-## Failure behaviour
+### Failure behaviour
 
 - **Continue** - on error continue with creation or destruction.
 - **Fail (default)** - raise error and stop applying, if creation time it will taint the resource.
@@ -660,7 +660,7 @@ provisioner "file" {
    } 
 ```
 
-## File Provisioner
+### File Provisioner
 
 - Copy files from the machine executing terraform to a newly created virtual machine resource.
 - A `connection` block is used to connect to the Windows or Linux VM using winrm and ssh respectively.
@@ -708,7 +708,7 @@ connection {
   }
 ```
 
-## Remote-exec
+### Remote-exec
 
 - Invokes a script on a remote resource after it is created.
 - You can invoke inline or a script.
@@ -721,7 +721,7 @@ connection {
   }
 ```
 
-## Local-exec
+### Local-exec
 
 - Invokes a process on the machine running terraform.
 - `Command` is required argument and `working_dir` and `interpreter` are key optional arguments.
@@ -734,7 +734,7 @@ connection {
   }
 ```
 
-# Null Resource
+## Null Resource
 
 - A `null` resource does nothing.
 - This `provisioner` example is used to upload the latest application code to a VM without causing the VM to be re-provisioned.
@@ -803,7 +803,7 @@ triggers = {
   }
 ```
 
-# Dynamic Blocks
+## Dynamic Blocks
 
 - Some resources include repeatable nested blocks in their arguments e.g. [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) includes `security_rule {}`.
 - Dynamic blocks in this example allow you use a `for_each` loop to simplify your code by prefixing the block `security_rule` with `dynamic`:
@@ -838,7 +838,7 @@ resource "azurerm_network_security_group" "nsg" {
 ```
 *Note: security_rule.key is the same as security_rule.value because local.ports is a list.*
 
-# Override Files
+## Override Files
 
 - If two resources attempt to use the same local name terraform will return an error - the local name of a resource should be unique.
 - `override.tf` - you can reference a local name a 2nd time and this configuration will override the initial configuration of the object.
@@ -846,7 +846,7 @@ resource "azurerm_network_security_group" "nsg" {
 
 *Note: If you need to use override.tf files make sure you modify `.gitignore` as it will ignore this type of file my default.* 
 
-# External Providers & Data Sources
+## External Providers & Data Sources
 
 - A **Provider** helps provide an interface between terraform and external programs.
 

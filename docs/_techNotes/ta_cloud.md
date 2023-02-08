@@ -3,7 +3,7 @@ layout: techNote
 category: Terraform
 title: Cloud
 ---
-# Overview
+## Overview
 
 - [Terraform Cloud](https://app.terraform.io ) is a cloud version of Terraform Enterprise (on-premise).
 - It manages: 
@@ -17,7 +17,7 @@ title: Cloud
     - Version Control Workflow - check code into GitHub that triggers terraform runs.
     - CLI driven - runs and state are executed and stored in Terraform Cloud.
 
-# Version Control Workflow
+## Version Control Workflow
 
 - Equivalent to Azure pipeline.
 - Runs and state version created for every run.
@@ -46,7 +46,7 @@ ARM_SUBSCRIPTION_ID=12345686-82de-4a8d-b643-12345605372a
 
 - You can use a [.auto.tfvars](https://www.terraform.io/cloud-docs/workspaces/variables/managing-variables#loading-variables-from-files) file in your the repository so that there is no need to define terraform variables in the workspace.
 
-# Workspace - General Settings
+## Workspace - General Settings
 
 - Execution mode
 	- local - use TFC for state storage only
@@ -65,7 +65,7 @@ ARM_SUBSCRIPTION_ID=12345686-82de-4a8d-b643-12345605372a
 	- Destruction and deletion - allow destroy. 
 	- Manual destroy - queue destroy and provide workspace name.
 
-# Private Module Registry
+## Private Module Registry
 
 - They allow you to share modules across your organisation.
 	- Module versioning
@@ -73,7 +73,7 @@ ARM_SUBSCRIPTION_ID=12345686-82de-4a8d-b643-12345605372a
 	- Works similar to public registry
 - Module naming convention - **terraform-PROVIDER-MODULE_NAME**
 
-## Steps
+### Steps
 
 1. Create private repository in GitHub.
 2. Upload code including `main.tf`, `versions.tf`, `outputs.tf`, `variables.tf` and `readme.md` files.
@@ -101,7 +101,7 @@ module "staticwebsiteprivate" {
 	- This command prompts you to create an API token with access to the private registry.
 	- The API token is stored in `credentials.tfrc.json` as plain text.
 
-# CLI Driven Workflow
+## CLI Driven Workflow
 
 The CLI driven workflow allows you to:
 - Use terraform remote backend 
@@ -137,7 +137,7 @@ cloud {
 - `terraform apply` - this gets recorded in TFC.
 - `terraform destroy`  - this gets recorded in TFC.
 
-# Migrate State
+## Migrate State
 
 - You may create your terraform configuration and state locally and then decide you wish to migrate the state to terraform cloud.
 - This can be achieved by configuring a `backend`/ `cloud` block within a `terraform` block.
@@ -171,7 +171,7 @@ Do you wish to proceed?
 
 - At this point you need to create the environment variables in the workspace.
 
-# Sentinel Policies
+## Sentinel Policies
 
 - **Policy as-code** - the policy is evaluated after `terraform plan` but before `terraform apply`.
 - Enforcement modes: 
@@ -192,7 +192,7 @@ Do you wish to proceed?
 
 *Note: You may install the HashiCorp sentinel extension in vscode to make it easier to understand the syntax.*
 
-## Steps
+### Steps
 - Create new terraform cli workspace
 - Update code backend
 - Setup environment variables in workspace

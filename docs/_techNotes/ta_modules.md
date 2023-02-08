@@ -3,14 +3,14 @@ layout: techNote
 category: Terraform
 title: Modules
 ---
-# Overview
+## Overview
 
 - Modules are containers for multiple resources that are used together - a collection of .tf files kept together in a directory.
 - A root module calls child modules (they can be called multiple times).
 - You can load modules from the local file system, public or private registries.
 - You can publish modules for others to use.
 
-# Terraform Registry - Public
+## Terraform Registry - Public
 
 - [Terraform Public Registry](https://registry.terraform.io/browse/modules?provider=azurerm)
 - Each tab within the context of a public terraform registry module maps to a `.tf` file:
@@ -55,14 +55,14 @@ output "virtual_network_name" {
     - External modules are downloaded into a sub folder e.g. modules\vnet.
     - Internal modules (those within a subfolder from the working directory) are referenced only in the modules.json file.
 
-# Taint Resource
+## Taint Resource
 
 - Use `terraform state list` to identify the resource that you wish to taint.
 - Run `terraform taint` command e.g. `terraform taint module.vnet.azurerm_subnet.subnet[2]` and then `terraform apply`. At this point on the next terraform apply the tainted resource will be recreated.
 
 *Note: HashiCorp now recommend the use of `terraform apply -replace='module.vnet.azurerm_subnet.subnet[2]'` instead of the `[terraform taint](https://www.terraform.io/cli/commands/taint)` command.*
 
-# Child Module
+## Child Module
 
 - Create a subdirectory `modules\module_name`.
 - Add `main.tf`, `outputs.tf`, `variables.tf` and `versions.tf` files.
@@ -95,13 +95,13 @@ module "resource_group" {
   }
   ```
 
-# Get Command
+## Get Command
 
 - `terraform get` will get the modules and update the `.terraform/modules/module_name/modules.json` file, it does **not** initialize the backend.
 - Terraform will automatically notice changes to modules when it is local, when remote you would need to redownload using the `terraform get` command.
 - If you add a new local module then you would have to run the `terraform get` command.
 
-# Publishing a Module
+## Publishing a Module
 
 - Recommended naming convention: **terraform-provider-module_name** e.g. terraform-azurerm-staticwebsitepublic.
 - Create a new Github repository and upload module code.
@@ -120,7 +120,7 @@ module "staticwebsitepublic" {
 }
 ```
 
-# Module Source
+## Module Source
 
 - Module sources can be Local, terraform registry public/ private or from an online code repository.
 - `sources` argument assumes prefix "https://registry.terraform.io/modules/"

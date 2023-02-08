@@ -3,7 +3,7 @@ layout: techNote
 category: Terraform
 title: Commands
 ---
-# Remote State Storage & Locking
+## Remote State Storage & Locking
 
 - A `backend` block is within a `terraform` block usually in a `versions.tf` file.
 - Backend blocks are responsible for storing state and providing an API for state locking.
@@ -25,7 +25,7 @@ title: Commands
   } 
 ```
 
-# Remote State Data Source
+## Remote State Data Source
 
 - `terraform_remote_state` data source retrieves the root module output values from some other terraform configuration.
 - Example Scenario:
@@ -52,7 +52,7 @@ data "terraform_remote_state" "Project-1" {
 resource_group_name = data.terraform_remote_state.Project-1.outputs.resource_group_name
 ```
 
-# State Commands
+## State Commands
 
 - `terraform show` by default outputs the local terraform.tfstate file contents.
 - `terraform plan -out="v1plan.out"` - write a terraform plan out to a file.
@@ -94,7 +94,7 @@ terraform state list
 
 - `terraform plan/appy -target` - apply configuration to a specific resource. It is only used in exceptional circumstances e.g. recover from mistakes or work around limitations.
 
-# Import
+## Import
 
 - Import existing infrastructure into the state.
 - It does not generate the configuration - in the future it will.
@@ -114,7 +114,7 @@ terraform state list
 - You would need to use the state file as a reference to create the respective configuration files.
 - Make sure you create an argument for **all** resource attributes shown in the state file.
 
-# Debug
+## Debug
 
 - You may enable terraform cli logging to help with troubleshooting. It is enabled using environment variables. 
 
@@ -140,7 +140,7 @@ Dir env:
 - You can permenantly set the environment variables in Linux by adding the configuration to `.bashrc`. In windows open `$profile` (opens Microsoft.Powershell_profile.ps1) and add the lines above.
 - Crash.log file will hold terraform panic errors that should be reported to hashicorp.
 
-# CLI User Settings
+## CLI User Settings
 
 - Per user settings for CLI behaviours
   - Windows location of `terraform.rc` in `$env:APPDATA` --> `C:\Users\userName\AppData\Roaming`.
@@ -175,7 +175,7 @@ Initializing provider plugins...
 Terraform has been successfully initialized!
 ```
 
-# Manage Providers
+## Manage Providers
 
 - `terraform providers` - show which providers are required for the configuration.
 - `terraform version` - current version of terraform cli, it will also show plugin versions after `terraform init` has run.

@@ -3,7 +3,7 @@ layout: techNote
 category: Terraform
 title: Basics
 ---
-# Workflow
+## Workflow
 
 - `terraform init` - initialises the working directory by downloading provider plugins and source modules.
 - `terraform validate` - checks configuration file syntax.
@@ -12,9 +12,9 @@ title: Basics
 - `terraform apply` - core command used to create resources according to plan.
 - `terraform destroy` - removes resources according to known state.
 
-# Blocks
+## Blocks
 
-## 3 Fundamental Block Types:
+### 3 Fundamental Block Types:
 - **Terraform** includes:
     -  terraform cli version
     -  terraform provider(s) and version(s)
@@ -27,16 +27,16 @@ title: Basics
     - resource syntax and behaviour
     - provisioners - post creation actions
 
-## Additional Block Types:
+### Additional Block Types:
 - Variable blocks including input, output and local.
 - Calling/ referencing such as data sources and module.
 
-# Providers
+## Providers
 
 Provider plugins are downloaded by terraform cli and used to interact with Cloud APIs e.g. the azure provider communicates with the Microsoft Azure API. 
 They have their own release cycles and version numbers.
 
-## Required Provider Block
+### Required Provider Block
 
 This is contained within the **terraform** block and includes the source and version as shown below:
 
@@ -53,7 +53,7 @@ terraform {
 ```
 The source is prefixed with *registry.terraform.io* by default.
 
-## Provider block
+### Provider block
 
 This block allows you to change the default behaviour of a provider such as:
 - Add features e.g. set service principal to use a key vault.
@@ -69,7 +69,7 @@ provider "azurerm" {
 ```
 *Note: Local names should match between the **required_providers** and **provider** block. It is recommended to use the vendor preferred name e.g. **azurerm** but you could use anything in theory.*
 
-## Dependency Lock File
+### Dependency Lock File
 
 It prevents you from updating a provider plugin version.
 It is best practice to check in the lock file into your code repository.
@@ -78,14 +78,14 @@ It is best practice to check in the lock file into your code repository.
 
 *Note: It only includes provider version tracking **not** Terraform cli nor modules.*
 
-## Provider Badges
+### Provider Badges
 
 When you navigate to the [terraform registry list of providers](https://registry.terraform.io/browse/providers) you will notice they have 1 of 3 badges:
 - Official - owned and maintained by hashicorp.
 - Verified - owned by vendor.
 - Community
 
-# Resource Block Syntax
+## Resource Block Syntax
 
 It contains:
 - Resource type based on infrastructure object it can create.
@@ -100,13 +100,13 @@ resource "azurerm_resource_group" "resource_group" {
 }
 ```
 
-## Internal Block
+### Internal Block
 
 A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_interface` resource.
 
 *Note: Whereas, tag **=** {} is an argument using a map value.*
 
-## Resource Behaviour
+### Resource Behaviour
 
 - Create
 - Destroy - triggered when the resource(s) exist in the state file but not in the configuration files.
@@ -115,7 +115,7 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 
 *Note: It first destroys and then recreates. You can change this behaviour using meta-arguments.*
 
-# State
+## State
 
 - Once `terraform apply` is executed a state file is created - **terraform.tfstate**.
   - Desired state is contained within local .tf files.
@@ -126,7 +126,7 @@ A block within a resource block e.g. `Ip_configuration {}` in `azurerm_network_i
 
 *Note: It is **not** recommended to manually edit the state file nor store it locally.*
 
-# Meta-arguments
+## Meta-arguments
 
 Changes behaviour of resource blocks:
 - depends_on - handle dependencies terraform cannot infer.
@@ -137,7 +137,7 @@ Changes behaviour of resource blocks:
 
 *Note: Provisioners & Connections are not meta-arguments, they can invoke extra actions after resource creation or destruction e.g. install app on VM.*
 
-## depends_on
+### depends_on
 
 - This is not required if you create a resource that references another resource's data, as an implicit dependancy is created.
 - It can be used in resource/ module blocks - it contains a list of resources or child modules.
@@ -151,7 +151,7 @@ depends_on = [
   ]
 ```
 
-## Count
+### Count
 
 - The number of instances that will be created within a resource block.
 - It can be used in resource/ module blocks.
@@ -170,7 +170,7 @@ resource "azurerm_public_ip" "pip" {
 
 - You can reference an instance of the resource by using `azurerm_public_ip.pip[0]`.
 
-## for_each
+### for_each
 
 - for_each may be used with either a a set of strings or map of values.
   - A set of strings is just a list of strings - each.key and each.value return the same string.
@@ -192,7 +192,7 @@ Each.value = myapp1
  for_each = azurerm_network_interface.nic
  ```
 
-## lifecycle
+### lifecycle
 
 - It features as a nested block within a resource block.
 - There are 3 types of lifecyle blocks:  
@@ -220,12 +220,12 @@ lifecycle {
   }
 ```
 
-# Functions
+## Functions
 
 - Functions allow you to combine and transform values e.g. join two values together.
 - The terraform console is an interactive console great for testing functions.
 
-## file function
+### file function
 
 This can be used to read the contents of a file e.g. obtain ssh public key within `azurerm_linux_virtual_machine` resource block.
 
@@ -236,7 +236,7 @@ admin_ssh_key {
   }
 ```  
 
-## filebase64
+### filebase64
 
 This can be used to read the contents of a file Base64-encoded e.g. used by the **Custom_data** argument within `azurerm_linux_virtual_machine` resource block to reference cloud init file that can configure a VM.
 
@@ -244,7 +244,7 @@ This can be used to read the contents of a file Base64-encoded e.g. used by the 
 custom_data = filebase64("${path.module}/scripts/cloud_init.txt")
 ```
 
-## Element
+### Element
 
 - This is used to return a value from a list.
 - `element(list, index)`, for example:
@@ -254,7 +254,7 @@ element(["blue","red","green"], 1)
 red
 ```
 
-## Length
+### Length
 
 - This returns the length of the list, map or string, for example:
 
@@ -263,7 +263,7 @@ length(["blue","red","green"])
 3
 ```
 
-## Toset 
+### Toset 
 
 - This function converts values to strings and removes duplicates.
 - It sorts alphabetically and number strings are returned 1st.
@@ -276,7 +276,7 @@ resource "azurerm_resource_group" "rg" {
 }
 ```
 
-# Splat expression
+## Splat expression
 
 - A more concise representation of a **for** expression.
 - [For o in var.list : o.id] --> Var.list[*].id.
