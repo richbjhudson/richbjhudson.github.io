@@ -35,18 +35,22 @@ title: Operations and Deployment
 - You can configure cron for the logged in user with `crontab -e` that will create a configuration file under `/var/spool/cron/crontabs/rich`.
 
 ## Search for, install, validate, and maintain software packages or repositories
-### apt
+### APT
 - `sudo apt update` is used to download package information from sources configured in `/etc/apt/source.list.d`.
 - `apt search htop` is used to search for available packages. Whereas `apt list --installed` shows the packages already installed.
 - You may add, remove or remove a package and its configuration with the following command `apt [install/remove/purge] htop`.
+- You can install a specific version of a package using `sudo apt install kubelet=1.25.5-00` and then prevent the package from being upgraded using `sudo apt-mark hold kubelet`.
 - `apt show htop` display verbose information about a package including dependencies.
 - `sudo apt upgrade` can be used to upgrade existing packages, `sudo apt dist-upgrade` in addition upgrades the Kernel and adds/removes dependant packages automatically.
+- `apt` is a frontend to `dpkg`. `dpkg -V htop` is a useful command to verify package installation.
 
-### dpkg
-
-### snap
+### SNAP
+- A more modern approach to packaging software is `snap` that allows an application and its dependencies to be bundled together so that it works across Linux distros.
+- You can serach for available packages using `snap find firefox`.
+- I package may be installed, removed or updated with the following commands `sudo snap [install/remove/refresh] firefox`. If `sudo snap refresh` is run without specifying a package name all packages on the system are updated.
 
 ## Recover from hardware, operating system, or filesystem failures
+
 
 ## Manage Virtual Machines (libvirt)
 
