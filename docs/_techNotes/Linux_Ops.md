@@ -50,9 +50,27 @@ title: Operations and Deployment
 - A package may be installed, removed or updated with the following command `sudo snap [install/remove/refresh] firefox`. If `sudo snap refresh` is run without specifying a package name all packages on the system are updated.
 
 ## Recover from hardware, operating system, or filesystem failures
+### Live Media 
+- Boot Virtual Machine from ISO image and choose *Try or Install Ubuntu Server*.
+    - From the *Welcome!* screen select *Help* followed by *Enter Shell*.
+    - Determine the logical volume path of the existing filesystem with `lvdisplay`.
+    - Make a directory ready to mount the filesystem using `sudo mkdir /mnt/sysimage`.
+    - Mount the existing filesystem `sudo mount /dev/ubuntu-vg/ubuntu-lv /mnt/sysimage`
+    - Change context into the existing filesystem using `sudo chroot /mnt/sysimage`.
+    - Perform maintenance task e.g. reset root password: `passwd root`.
 
+### Grub Menu
+- *Single User Mode* is typically used when Ubuntu can't boot normally. *Emergency Mode* is used as a last attempt to retrieve data before re-install. 
+- Power off and then on your Virtual Machine for the *GRUB Menu* to display, select the *Ubuntu* option and press <kbd>E</kbd>.
+- Enter *emergency/ single user boot mode* by appending `emergency` or `single` (and a space) to the kernel command that starts with `linux` respectively. Then <kbd>F10</kbd> to boot.
+
+### Check and Repair Filesystem
+- `sudo fsck.ext4 /dev/sda1` may be used to run a filesystem check against an unmounted filesystem.
+- `sudo touch /forcefsck` may be used to run a filesystem check against a mounted filesystem at the next reboot.
+- You can review `fsck` activity in `/run/initramfs/fsck.log`.
 
 ## Manage Virtual Machines (libvirt)
+- 
 
 ## Configure container engines, create and manage containers
 
