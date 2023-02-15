@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Linux - How to Setup Virtual Machine Server"
+title:  "Linux - How to a Setup Virtual Machine Server"
 date:   2023-02-14 16:00 +0000
 categories: Linux
 ---
@@ -29,7 +29,7 @@ categories: Linux
 - Grant your user permission to manage the Virtual Machine Server:
     - `sudo usermod -aG kvm rich`
     - `sudo usermod -aG libvirt rich`
-- Update the network configuration to include a network bridge device so that Virtual Machine may connect to the network - `sudo vi /etc/netplan/00-installer-config.yaml`:
+- Update the network configuration to include a network bridge device so that Virtual Machines may connect to the network - `sudo vi /etc/netplan/00-installer-config.yaml`:
 
 ```
 network:
@@ -53,9 +53,8 @@ network:
       parameters:
         stp: false
         forward-delay: 0
-```
-    
-    - `sudo netplan apply`
+```   
+  - `sudo netplan apply`
 
 ## Virtual Machine Manager Workstation Setup
 - Install Virtual Machine Manager to connect to Virtual Machine Server:
@@ -71,12 +70,12 @@ network:
 - Make sure the permissions are set correctly for `/var/lib/libvirt/images/ISO`:
     - `sudo chown root:kvm /var/lib/libvirt/images/ISO`
     - `sudo chmod g+rw /var/lib/libvirt/images/ISO`
-- Download ISO Image to ready to create a VIrtual Machine:
+- Download ISO Image ready to create a Virtual Machine:
     - `cd /var/lib/libvirt/images/ISO`
     - `wget https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso`
 
 
-## Virtual Machine Manager Workstation Virtual Machine Deployment
+## Virtual Machine Deployment
 - Within Virtual Machine Manager, right-click a Connection and create *New VM*.
   - Use the ISO Library path to select an ISO.
   - A *Bridge device...* with *Device name: br0* should be set for your *Network selection*.
