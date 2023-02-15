@@ -42,6 +42,7 @@ title: Operations and Deployment
 - You can install a specific version of a package using `sudo apt install kubelet=1.25.5-00` and then prevent the package from being upgraded using `sudo apt-mark hold kubelet`.
 - `apt show htop` displays verbose information about a package including dependencies.
 - `sudo apt upgrade` can be used to upgrade existing packages, `sudo apt dist-upgrade` in addition upgrades the Kernel and adds/removes dependant packages automatically.
+- `sudo apt-get clean` may be used to clear the *apt cache* to reclaim valuable diskspace. 
 - `apt` is a frontend to `dpkg`. `dpkg -V htop` is a useful command to verify package installation.
 
 ### SNAP
