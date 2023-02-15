@@ -5,7 +5,7 @@ date:   2023-02-14 16:00 +0000
 categories: Linux
 ---
 # Prerequisites
-- *Ubuntu 22.04.1 LTS* installed on a computer. If you are using a Virtual Machine you must ensure that nested virtualisation is supported and enabled.
+- *Ubuntu 22.04.1 LTS* installed on a computer. If you are using a Virtual Machine you must ensure that nested virtualisation is supported and enabled. `egrep -i '(vmx|svm)' /proc/cpuinfo` will show if virtualisation is supported.
 - A Workstation to connect to the Virtual Machine Server.
 - The Virtual Machine Server should have 2 NICs, 1 for SSH connectivity and a 2nd that can be used to configure a network bridge device. If you are using a Virtual Machine you must ensure that MAC address spoofing is allowed for the 2nd NIC.
 - A DHCP Server on the same network as the 2nd NIC.

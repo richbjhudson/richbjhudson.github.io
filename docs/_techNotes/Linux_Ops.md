@@ -71,8 +71,11 @@ title: Operations and Deployment
 - You can review `fsck` activity in `/run/initramfs/fsck.log`.
 
 ## Manage Virtual Machines (libvirt)
-- 
+- Libvirt is a toolkit/ API used to interact with Virtual Machine Servers.
+- `virsh list` may display running VMs.
+- `virsh [start/shutdown/suspend/resume] VM01` may be used to change the state of a Virtual Machine.
 
 ## Configure container engines, create and manage containers
+
 
 ## Create and enforce MAC using SELinux
