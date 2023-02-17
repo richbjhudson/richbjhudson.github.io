@@ -71,6 +71,7 @@ title: Operations and Deployment
 - You can review `fsck` activity in `/run/initramfs/fsck.log`.
 
 ## Manage Virtual Machines (libvirt)
+- [Setup a Virtual Machine Server]({{ site.baseurl }}/linux/2023/02/14/setup_virtual_machine_server/)
 - Libvirt is a toolkit/ API used to interact with Virtual Machine Servers.
 - `virsh list` may display running VMs.
 - `virsh [start/shutdown/suspend/resume] VM01` may be used to change the state of a Virtual Machine.
