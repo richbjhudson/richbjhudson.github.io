@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Linux - How to Deploy Conatiners to a Kubernetes Cluster"
-date:   2023-02-17 14:00 +0000
+date:   2023-02-17 13:30 +0000
 categories: Linux
 ---
 # Prerequisites
