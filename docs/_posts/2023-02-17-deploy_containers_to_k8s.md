@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Linux - How to Deploy Conatiners to a Kubernetes Cluster"
+title:  "Linux - How to Deploy Containers to a Kubernetes Cluster"
 date:   2023-02-17 13:30 +0000
 categories: Linux
 ---
@@ -8,9 +8,10 @@ categories: Linux
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
 
 # Steps - Performed on the Controller
-## Create K8s Deployment YAML for Pod and Service
+## Create K8s Deployment YAML for a Pod and Service
 - Create a directory to store the deployment files `mkdir k8s_services`
 - Create a YAML file that describes the *Pod and Container* specification `sudo pod.yml`:
+
 ```
 apiVersion: v1
 kind: Pod
@@ -26,6 +27,7 @@ spec:
         - containerPort: 80
           name: "nginx-http"
 ```
+
 *Note: Labels are key values pairs for reference. linuxserver/nginx is the https://linuxserver.io image repo that support both x86 and ARM architectures (Pis). containerPort is the port the container exposes to the internal K8s network only at this stage.*
 
 - Create a YAML file that describes the *NodePort service* to provide the ability to map a network port on a Pod to the Node it is running on `sudo service-nodeport.yml`:
