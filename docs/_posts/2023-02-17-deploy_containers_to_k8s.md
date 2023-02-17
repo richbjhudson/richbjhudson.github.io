@@ -28,9 +28,10 @@ spec:
           name: "nginx-http"
 ```
 
-*Note: Labels are key values pairs for reference. linuxserver/nginx is the https://linuxserver.io image repo that support both x86 and ARM architectures (Pis). containerPort is the port the container exposes to the internal K8s network only at this stage.*
+*Note: labels are key values pairs for reference. linuxserver/nginx is the https://linuxserver.io image repository that support both x86 and ARM architectures (Pis). containerPort is the port the container exposes to the internal K8s network only at this stage.*
 
 - Create a YAML file that describes the *NodePort service* to provide the ability to map a network port on a Pod to the Node it is running on `sudo service-nodeport.yml`:
+
 ```
 apiVersion: v1
 kind: Service
@@ -46,6 +47,7 @@ spec:
   selector:
     app: nginx
 ```
+
 *Note: nodePort may be between 30000 - 32767. The selector value is a way to reference pods that the configuration applies to using the pod's label.*
 
 ## Apply the Deployment YAML to the K8s Cluster
