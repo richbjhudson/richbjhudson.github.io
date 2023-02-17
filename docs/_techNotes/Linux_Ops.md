@@ -77,6 +77,20 @@ title: Operations and Deployment
 - `virsh [start/shutdown/suspend/resume] VM01` may be used to change the state of a Virtual Machine.
 
 ## Configure container engines, create and manage containers
+### Docker - Managing Containers
+- Install Docker:
+```
+sudo apt install docker.io
+systemctl status docker
+```
+- Allow your user account to run *docker* commands without *sudo*: `sudo usermod -aG docker rich`.
+- Search for a *docker* image using `docker search ubuntu`. You can findout further information about an image by browsing [dockerhub](https://hub.docker.com/).
+- Download a local copy of an image for use `docker pull ubuntu`.
+- Runs the ubuntu image as a container in interactive mode `docker run -it ubuntu /bin/bash`.
+
+
+### LXD
+
 ### Kubernetes
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
 - [Deploy Containers to a K8s Cluster]({{ site.baseurl }}/linux/2023/02/17/deploy_containers_to_k8s/)
