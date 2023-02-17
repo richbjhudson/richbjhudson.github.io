@@ -83,11 +83,12 @@ title: Operations and Deployment
 sudo apt install docker.io
 systemctl status docker
 ```
-- Allow your user account to run *docker* commands without *sudo*: `sudo usermod -aG docker rich`.
+- Allow your user account to run *docker* commands without *sudo*: `sudo usermod -aG docker rich` *Note: You will have to logoff and then back in again for the permission to take effect.*
 - Search for a *docker* image using `docker search ubuntu`. You can findout further information about an image by browsing [dockerhub](https://hub.docker.com/).
 - Download a local copy of an image for use `docker pull ubuntu`.
 - Runs the ubuntu image as a container in interactive mode `docker run -it ubuntu /bin/bash`.
-
+    - Hold onto <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd> to exit the interactive shell without terminating the container.
+- List containers `docker ps`.
 
 ### LXD
 
