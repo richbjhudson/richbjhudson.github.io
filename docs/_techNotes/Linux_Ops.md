@@ -76,6 +76,8 @@ title: Operations and Deployment
 - `virsh [start/shutdown/suspend/resume] VM01` may be used to change the state of a Virtual Machine.
 
 ## Configure container engines, create and manage containers
-
+### Kubernetes
+- [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
+- [Deploy Containers to a K8s Cluster]({{ site.baseurl }}/linux/2023/02/17/deploy_containers_to_k8s/)
 
 ## Create and enforce MAC using SELinux
