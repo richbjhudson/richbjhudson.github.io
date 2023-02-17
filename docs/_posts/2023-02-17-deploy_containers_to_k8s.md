@@ -52,7 +52,7 @@ spec:
 
 ## Apply the Deployment YAML to the K8s Cluster
 - Apply the *Pod and Container* specification: `kubectl apply -f pod.yml`
-  - Check the pod status `kubectl get pods`, you can see additional field with `kubectl get pods -o wide`.
+  - Check the pod status `kubectl get pods`, you can see additional fields with `kubectl get pods -o wide`.
 - Apply the *NodePort service* specification: `kubectl apply -f service-nodeport.yml`
   - Check the status of the service `kubectl get services`
   - Test connectivity using:
@@ -61,7 +61,7 @@ spec:
   curl http://192.168.101.91:30080
   curl http://192.168.101.92:30080
   ```
-  *Note: If you browse to any node ip address in the cluster on the given port the requests are directed to the node.*
+  *Note: If you browse to any node ip address in the cluster on the given port the requests are directed to the Node that the Pod is running on.*
 
 ## Remove the Pod and Service K8s Cluster
 - Remove the *Pod and Container* specification:
