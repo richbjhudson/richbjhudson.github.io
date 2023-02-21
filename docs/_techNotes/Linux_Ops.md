@@ -77,16 +77,43 @@ title: Operations and Deployment
 - `virsh [start/shutdown/suspend/resume] VM01` may be used to change the state of a Virtual Machine.
 
 ## Configure container engines, create and manage containers
-### Docker - Managing Containers
+### Docker - Setup
 - Install Docker:
 ```
 sudo apt install docker.io
 systemctl status docker
 ```
 - Allow your user account to run *docker* commands without *sudo*: `sudo usermod -aG docker rich` *Note: You will have to logoff and then back in again for the permission to take effect.*
+
+### Docker - Managing Container Images
 - Search for a *docker* image using `docker search ubuntu`. You can findout further information about an image by browsing [dockerhub](https://hub.docker.com/).
 - Download a local copy of an image for use `docker pull ubuntu`.
-- Show local images `docker images`.
+- Show local images `docker images` and obtain the *IMAGE ID* for subsequent commands.
+- Remove an image `docker rmi 12a`.
+- You can create a *container image* by capturing the running state of a container with `docker commit c7 ubuntu/apache2:1.0`.
+    - `docker images` will confirm that a new image has been created.
+    - You can run a new container using the image `docker run -dit -p 8081:80 ubuntu/apache2:1.0 /bin/bash`.
+    - Attach your shell to the container `docker attach 7e`, start apache2 `/etc/init.d/apache2 start` and then exit the interactive shell with <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd>.
+    - Confirm that *apache2* is exposed on Host port 8081 `curl http://localhost:8081`.
+- Automate the process of building a *container image*.
+    - Create a new directory `mkdir apache_custom`.
+    - Within the new directory `sudo vi Dockerfile` and add the following:
+    ```
+    FROM ubuntu
+    MAINTAINER Rich <richard.b.j.hudson@gmail.com>
+    # Avoid confirmation messages
+    ARG DEBIAN_FRONTEND=noninteractive
+    # Update the container's packages
+    RUN apt update; apt dist-upgrade -y
+    # Install Apache and VIM
+    RUN apt install -y apache2 vim-nox
+    # Start Apache
+    ENTRYPOINT apachectl -D FOREGROUND
+    ``` 
+    - Within the new directory, build an image using the *Dockerfile* `docker build -t ubuntu/apache_custom:1.0 .`
+    - Run a container using the image `docker run -dit -p 8080:80 ubuntu/apache_custom:1.0`
+
+### Docker - Managing Containers
 - Runs the ubuntu image as a container in interactive mode `docker run -it ubuntu /bin/bash`.
     - Hold onto <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd> to exit the interactive shell without terminating the container.
 - List running containers `docker ps` or list all containers `docker ps -all`. This set of commands can be used to obtain the *CONTAINER ID* for use in subsequent commands.
@@ -105,11 +132,11 @@ systemctl status docker
     *Note: There is no init system inside a container so you cannot run systemctl commands.*
     - Hold onto <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd> to exit the interactive shell without terminating the container.
     - Confirm that *apache2* is exposed on Host port 8080 `curl http://localhost:8080`.
-- You can create a container image by capturing the running state of a container with `docker commit c7 ubuntu/apache2:1.0`.
-    - `docker images` will confirm that a new image has been created.
-    - You can run a new container using the image `docker run -dit -p 8081:80 ubuntu/apache2:1.0 /bin/bash`.
-    - Attach your shell to the container `docker attach 7e`, start apache2 `/etc/init.d/apache2 start` and then exit the interactive shell with <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd>.
-    - Confirm that *apache2* is exposed on Host port 8081 `curl http://localhost:8081`.
+- You can create a container in a stopped state with `docker create -p 8080:80 ubuntu`.
+
+
+
+
 
 
 ### LXD
