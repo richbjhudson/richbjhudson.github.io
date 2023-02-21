@@ -134,13 +134,8 @@ systemctl status docker
     - Confirm that *apache2* is exposed on Host port 8080 `curl http://localhost:8080`.
 - You can create a container in a stopped state with `docker create -p 8080:80 ubuntu`.
 
-
-
-
-
-
 ### LXD
-
+Here
 
 ### Kubernetes
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
