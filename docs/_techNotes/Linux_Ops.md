@@ -86,11 +86,34 @@ systemctl status docker
 - Allow your user account to run *docker* commands without *sudo*: `sudo usermod -aG docker rich` *Note: You will have to logoff and then back in again for the permission to take effect.*
 - Search for a *docker* image using `docker search ubuntu`. You can findout further information about an image by browsing [dockerhub](https://hub.docker.com/).
 - Download a local copy of an image for use `docker pull ubuntu`.
+- Show local images `docker images`.
 - Runs the ubuntu image as a container in interactive mode `docker run -it ubuntu /bin/bash`.
     - Hold onto <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd> to exit the interactive shell without terminating the container.
-- List containers `docker ps`.
+- List running containers `docker ps` or list all containers `docker ps -all`. This set of commands can be used to obtain the *CONTAINER ID* for use in subsequent commands.
+- Attach your shell to a running container `docker attach 3bdd9cd79b2a`. If you exit the container shell the container will be stopped.
+- You can change the running state of the container using `docker [start/stop] 3bdd9cd79b2a`
+- Remove a containers using `docker rm 3bdd9cd79b2a`. *Note: The container has to be in a stopped state.* 
+- You can execute a container in background mode and expose a listening port from within the container to the host. For example, Host port 8080 is redirected to port 80 within the container  `docker run -dit -p 8080:80 ubuntu /bin/bash`.
+    - You can install and start apache2 within the container to test with the following commands:
+    ```
+    docker ps
+    docker attach f9
+    apt update
+    apt install apache2
+    /etc/init.d/apache2 start
+    ``` 
+    *Note: There is no init system inside a container so you cannot run systemctl commands.*
+    - Hold onto <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd> to exit the interactive shell without terminating the container.
+    - Confirm that *apache2* is exposed on Host port 8080 `curl http://localhost:8080`.
+- You can create a container image by capturing the running state of a container with `docker commit c7 ubuntu/apache2:1.0`.
+    - `docker images` will confirm that a new image has been created.
+    - You can run a new container using the image `docker run -dit -p 8081:80 ubuntu/apache2:1.0 /bin/bash`.
+    - Attach your shell to the container `docker attach 7e`, start apache2 `/etc/init.d/apache2 start` and then exit the interactive shell with <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd>.
+    - Confirm that *apache2* is exposed on Host port 8081 `curl http://localhost:8081`.
+
 
 ### LXD
+
 
 ### Kubernetes
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
