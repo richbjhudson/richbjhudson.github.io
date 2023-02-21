@@ -90,14 +90,14 @@ systemctl status docker
 - Download a local copy of an image for use `docker pull ubuntu`.
 - Show local images `docker images` and obtain the *IMAGE ID* for subsequent commands.
 - Remove an image `docker rmi 12a`.
-- You can create a *container image* by capturing the running state of a container with `docker commit c7 ubuntu/apache2:1.0`.
+- You can create a *container image* by capturing the running state of a container with `docker commit c7 ubuntu/apache2:1.0`. `docker ps` would be used to obtain the *CONTAINER ID*.
     - `docker images` will confirm that a new image has been created.
     - You can run a new container using the image `docker run -dit -p 8081:80 ubuntu/apache2:1.0 /bin/bash`.
     - Attach your shell to the container `docker attach 7e`, start apache2 `/etc/init.d/apache2 start` and then exit the interactive shell with <kbd>Ctrl</kbd> then press <kbd>P</kbd> followed by <kbd>Q</kbd>.
     - Confirm that *apache2* is exposed on Host port 8081 `curl http://localhost:8081`.
 - Automate the process of building a *container image*.
     - Create a new directory `mkdir apache_custom`.
-    - Within the new directory `sudo vi Dockerfile` and add the following:
+    - Within the new directory `vi Dockerfile` and add the following:
     ```
     FROM ubuntu
     MAINTAINER Rich <richard.b.j.hudson@gmail.com>
