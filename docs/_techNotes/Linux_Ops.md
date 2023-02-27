@@ -134,8 +134,30 @@ systemctl status docker
     - Confirm that *apache2* is exposed on Host port 8080 `curl http://localhost:8080`.
 - You can create a container in a stopped state with `docker create -p 8080:80 ubuntu`.
 
-### LXD
-Here
+### LXD - Setup
+- Install LXD:
+```
+sudo snap install lxd
+snap list lxd
+```
+- Allow your user account to run *lxd and lxc* commands without *sudo*: `sudo usermod -aG lxd rich` *Note: You will have to logoff and then back in again for the permission to take effect.*
+- Initialise the setup of *LXD* e.g. setup a storage pool, using `lxd init`.
+
+### LXD - Managing Container Images
+- Pull a container image and run a container `lxc launch ubuntu:22.04 container01`.
+    - LXD does not have a concept of layers and all changes made are persistent.
+- List container images `lxc image list`, obtain the *FINGERPRINT* for further commands.
+- Remove a container image `lxc image delete 6d`. 
+
+### LXD - Managing Containers
+- List containers `lxc list`, and obtain the container name for use with further commands.
+- You can change the running state of the container using `lxc [start/stop/delete] container01`.
+- Open a shell to a container using `lxc exec container01 bash`.
+    - You can open a shell to a container with another user with `lxc exec container01 -- su --login ubuntu`.
+- Set a container to boot when the LXD Host Server starts with `lxc config set container01 boot.autostart 1`.
+- You can use a network bridge connection *br0* to provide outside access to your containers in the same way that we did to VMs using KVM.
+    - 
+
 
 ### Kubernetes
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
