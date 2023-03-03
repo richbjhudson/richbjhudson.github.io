@@ -183,4 +183,10 @@ snap list lxd
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
 - [Deploy Containers to a K8s Cluster]({{ site.baseurl }}/linux/2023/02/17/deploy_containers_to_k8s/)
 
-## Create and enforce MAC using SELinux
+## Create and enforce MAC using SELinux 
+- Display the status of *SELinux* using either `getenforce` or `sestatus`. To use the tools you may need to install *selinux-utils* or  *policycoreutils* respectively.
+- You may set the *SELinux Mode* using `sudo setenforce [Enforcing/ Permissive]`. 
+- You may set the *SELinux Mode* to disabled by editing `sudo vi /etc/selinux/config` and adding:
+```
+SELINUX=disabled 
+```
