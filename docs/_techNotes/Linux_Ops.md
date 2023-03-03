@@ -156,7 +156,7 @@ snap list lxd
     - You can open a shell to a container with another user with `lxc exec container01 -- su --login ubuntu`.
 - Set a container to boot when the LXD Host Server starts with `lxc config set container01 boot.autostart 1`.
 - You can use a network bridge connection *br0* to provide outside access to your containers in the same way that we did to VMs using KVM.
-    - The next piece of configuration assumes that you have an additional NIC (eth1) that has been setup as a network bridge device as described in the post - [Virtual Machine Server Setup]({{ site.baseurl }}linux/2023/02/14/setup_virtual_machine_server#Virtual-Machine-Server-Setup/). 
+    - The next piece of configuration assumes that you have an additional NIC (eth1) that has been setup on the Host Conatiner Server as a network bridge device as described in the post - [Virtual Machine Server Setup]({{ site.baseurl }}/linux/2023/02/14/setup_virtual_machine_server#Virtual-Machine-Server-Setup)
     - Create a *lxc profile* that may be used to map a NIC (eth1) within the container to the Container Host Server network bridge device (br0) `lxc profile create bridge-profile`.
     - Edit the *lxc profile* to enable a network bridge (br0) using an additional NIC (eth1) using `lxc profile edit bridge-profile` - the configuration should look similar to below:
     ```
