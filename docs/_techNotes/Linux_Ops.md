@@ -156,20 +156,20 @@ snap list lxd
     - You can open a shell to a container with another user with `lxc exec container01 -- su --login ubuntu`.
 - Set a container to boot when the LXD Host Server starts with `lxc config set container01 boot.autostart 1`.
 - You can use a network bridge connection *br0* to provide outside access to your containers in the same way that we did to VMs using KVM - please see: [Virtual Machine Server Setup]({{ site.baseurl }}/linux/2023/02/14/setup_virtual_machine_server#Virtual-Machine-Server-Setup).
-    - Create a *lxc profile* that may be used to map a NIC (eth1) within the container to the Container Host Server network bridge device (br0) `lxc profile create bridge-profile`.
-    - Edit the *lxc profile* to enable a network bridge (br0) using an additional NIC (eth1) using `lxc profile edit bridge-profile` - the configuration should look similar to below:
+    - Create a *lxc profile* ready to configure the container networking `lxc profile create bridge-profile`.
+    - Edit the *lxc profile* to to map a NIC (eth1) within the container to the LXD Host Server network bridge device (br0) `lxc profile edit bridge-profile` - the configuration should look similar to below:
     ```
     config: {}
     description: Network Bridge Connection Profile
     devices:
-      eth1:
-        name: eth1
-        nictype: bridged
-        parent: br0
-        type: nic
+        eth1:
+            name: eth1
+            nictype: bridged
+            parent: br0
+            type: nic
     name: bridge-profile
     used_by: []
-    ``` 
+    ```
     - Run the container using the *lxc profile* `lxc launch ubuntu:22.04 container02 -p default -p bridge-profile`. *Note: The default profile is loaded first, followed by the bridge-profile profile to ensure the latter overrides any conflicting settings.*
     - Connect to the container and install apache2:
     ```
@@ -177,7 +177,7 @@ snap list lxd
     apt install apache2
     exit
     ```
-    - Obtain the IP Address of the container `lxc list` and test connectivity `curl http://192.168.101.112`. *Note: You can add a *lxc profile* to an existing container using `lxc profile add container01 bridge-profile`.*
+    - Obtain the IP Address of the container `lxc list` and test connectivity `curl http://192.168.101.112`. *Note: You can add a lxc profile to an existing container using `lxc profile add container01 bridge-profile`.*
 
 ### Kubernetes
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
