@@ -184,8 +184,18 @@ snap list lxd
 - [Deploy Containers to a K8s Cluster]({{ site.baseurl }}/linux/2023/02/17/deploy_containers_to_k8s/)
 
 ## Create and enforce MAC using SELinux 
-- Display the status of *SELinux* using either `getenforce` or `sestatus`. To use the tools you may need to install *selinux-utils* or  *policycoreutils* respectively.
-- You may set the *SELinux Mode* using `sudo setenforce [Enforcing/ Permissive]`. 
+- Disable *apparmor* before you enable *SELinux*:
+```
+sudo systemctl stop apparmor
+sudo systemctl disable apparmor
+sudo systemctl status apparmor
+```
+- Display the status of *SELinux* using either `getenforce` or `sestatus`. To use the tools you may need to install *selinux-utils*, *policycoreutils* and *selinux-basics*: 
+```
+sudo apt install selinux-basics selinux-utils policycoreutils  
+```
+- At this stage `sestatus` will report *disabled*, enable SELinux using `sudo selinux-activate` and then reboot.
+- You may set the *SELinux Mode* using `sudo setenforce [Enforcing/ Permissive]`, it will default to *Permissive*. 
 - You may set the *SELinux Mode* to disabled by editing `sudo vi /etc/selinux/config` and adding:
 ```
 SELINUX=disabled 
