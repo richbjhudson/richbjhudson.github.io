@@ -195,8 +195,30 @@ sudo systemctl status apparmor
 sudo apt install selinux-basics selinux-utils policycoreutils  
 ```
 - At this stage `sestatus` will report *disabled*, enable SELinux using `sudo selinux-activate` and then reboot.
-- You may set the *SELinux Mode* using `sudo setenforce [Enforcing/ Permissive]`, it will default to *Permissive*. 
-- You may set the *SELinux Mode* to disabled by editing `sudo vi /etc/selinux/config` and adding:
+- You may set the *SELinux Mode* for runtime using `sudo setenforce [Enforcing/ Permissive]`, it will default to *Permissive* after SELinux has been enabled. 
+- You may set the *SELinux Mode* persistently by editing `sudo vi /etc/selinux/config` and adding:
 ```
 SELINUX=disabled 
 ```
+- `-Z` option often works with existing commands to display context/ labels, for example `ps axZ | grep apache2` and `ls -Z /var/www/html` shows that the *apache2* process runs in the context of *httpd_t* which is why it is allowed to access the files with a label of *httpd_sys_content_t*. 
+- The files within a directory will inherit the context of the directory. This can be set using `semanage fcontext -a -t httpd_sys_content_t /var/www/html`.
+    - Here is an example where a new file will inherit label *httpd_sys_content_t*:
+    ```
+    cd /var/www/html
+    sudo sh -c "echo file 1 > ./file1.html"
+    curl http://localhost/file1.html
+    ```
+- If a file is created in another directory and moved, it will not inherit the label from the destination directory and will need to be changed.
+    - Here is an example where the label is changed from *user_home_t* to *httpd_sys_content_t*:
+    ```
+    sudo sh -c "echo file2 >/root/file2.html"
+    sudo setenforce Enforcing
+    sudo mv /root/file2.html /var/www/html
+    curl http://localhost/file2.html
+    ```
+    - At this stage you will receive a *403 Forbidden* message and need to change the label on the file.
+    ```
+    sudo chcon -t httpd_sys_content_t file2.html
+    curl http://localhost/file2.html
+    ```
+    - An alternative approach is to force the files within a directory to inherit the directory label using `sudo restorecon -RFv /var/www/html`.
