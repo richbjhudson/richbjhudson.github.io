@@ -206,14 +206,15 @@ SELINUX=disabled
     ```
     cd /var/www/html
     sudo sh -c "echo file 1 > ./file1.html"
+    sudo setenforce Enforcing
     curl http://localhost/file1.html
     ```
 - If a file is created in another directory and moved, it will not inherit the label from the destination directory and will need to be changed.
     - Here is an example where the label is changed from *user_home_t* to *httpd_sys_content_t*:
     ```
     sudo sh -c "echo file2 >/root/file2.html"
-    sudo setenforce Enforcing
     sudo mv /root/file2.html /var/www/html
+    sudo setenforce Enforcing
     curl http://localhost/file2.html
     ```
     - At this stage you will receive a *403 Forbidden* message and need to change the label on the file.
