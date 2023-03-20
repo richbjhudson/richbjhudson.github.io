@@ -43,7 +43,7 @@ git status
 git commit -m "Initial commit"
 git status
 ```
-*Note: You may sign off a *git commit* using `git commit -m "Initial commit" -s`.*
+*Note: You may sign off a git commit using `git commit -m "Initial commit" -s`.*
 
 - View *git commit* history using `git log`. 
 - Create and switch to a *main* branch to replace *master*:
