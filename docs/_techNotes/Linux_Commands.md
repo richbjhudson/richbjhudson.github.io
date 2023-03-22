@@ -86,6 +86,8 @@ git branch -a
 <table>
 <tr><th>Command</th><th>Description</th><th>Package</th></tr>  
 <tr><td>htop</td><td>Interactive process viewer</td><td>htop</td></tr>
+<tr><td>pstree</td><td>Display a tree of processes</td><td>psmisc</td></tr>
+<tr><td>ps</td><td>Report a snapshot of the current processes.</td><td>procps</td></tr>
 <tr><td>uptime</td><td>Tell how long the system has been running.</td><td>procps</td></tr>
 </table>
 
