@@ -75,7 +75,70 @@ git branch -a
 - `systemctl [enable/ disable] apache2` is used to set a service to start at boot time.
 
 ## Monitor and troubleshoot system performance and services
-Here
+### System Monitoring
+<table>
+  <tr>
+    <th>Utility</th>
+    <th>Description</th>
+    <th>Package</th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+
+### Process Monitoring
+<table>
+  <tr>
+    <th>Utility</th>
+    <th>Description</th>
+    <th>Package</th>
+  </tr>
+  <tr>
+    <td>
+    htop
+    </td>
+    Interactive process viewer
+    <td>
+    </td>
+    htop
+    <td>
+    </td>
+  </tr>
+    <tr>
+    <td>
+    uptime
+    </td>
+    Tell how long the system has been running.
+    <td>
+    </td>
+    procps
+    <td>
+    </td>
+  </tr>
+</table>
+
+### Memory Monitoring
+<table>
+  <tr>
+    <th>Utility</th>
+    <th>Description</th>
+    <th>Package</th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
 
 ## Determine application and service specific constraints
 
