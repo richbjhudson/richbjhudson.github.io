@@ -77,67 +77,23 @@ git branch -a
 ## Monitor and troubleshoot system performance and services
 ### System Monitoring
 <table>
-  <tr>
-    <th>Utility</th>
-    <th>Description</th>
-    <th>Package</th>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-  </tr>
+<tr><th>Command</th><th>Description</th><th>Package</th></tr>  
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
 </table>
 
 ### Process Monitoring
 <table>
-  <tr>
-    <th>Utility</th>
-    <th>Description</th>
-    <th>Package</th>
-  </tr>
-  <tr>
-    <td>
-    htop
-    </td>
-    Interactive process viewer
-    <td>
-    </td>
-    htop
-    <td>
-    </td>
-  </tr>
-    <tr>
-    <td>
-    uptime
-    </td>
-    Tell how long the system has been running.
-    <td>
-    </td>
-    procps
-    <td>
-    </td>
-  </tr>
+<tr><th>Command</th><th>Description</th><th>Package</th></tr>  
+<tr><td>htop</td><td>Interactive process viewer</td><td>htop</td></tr>
+<tr><td>uptime</td><td>Tell how long the system has been running.</td><td>procps</td></tr>
 </table>
 
 ### Memory Monitoring
 <table>
-  <tr>
-    <th>Utility</th>
-    <th>Description</th>
-    <th>Package</th>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-  </tr>
+<tr><th>Command</th><th>Description</th><th>Package</th></tr>  
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
 </table>
 
 ## Determine application and service specific constraints
