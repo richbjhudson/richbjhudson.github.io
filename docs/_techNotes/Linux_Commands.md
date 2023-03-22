@@ -77,25 +77,27 @@ git branch -a
 ## Monitor and troubleshoot system performance and services
 ### System Monitoring
 <table>
-<tr><th>Command</th><th>Description</th><th>Package</th></tr>  
-<tr><td></td><td></td><td></td></tr>
-<tr><td></td><td></td><td></td></tr>
+<tr><th>Command</th><th>Description</th></tr>  
+<tr><td>journalctl -u ssh</td><td>Query the systemd journal for a service.</td></tr>
+<tr><td>tail -f /var/log/syslog</td><td>Some daemons may not have their own log file and may place logs in syslog.</td></tr>
+<tr><td>dmesg</td><td>Useful to see hardware issues logged at the kernel level.
+</td></tr>
 </table>
 
 ### Process Monitoring
 <table>
-<tr><th>Command</th><th>Description</th><th>Package</th></tr>  
-<tr><td>htop</td><td>Interactive process viewer</td><td>htop</td></tr>
-<tr><td>pstree</td><td>Display a tree of processes</td><td>psmisc</td></tr>
-<tr><td>ps</td><td>Report a snapshot of the current processes.</td><td>procps</td></tr>
-<tr><td>uptime</td><td>Tell how long the system has been running.</td><td>procps</td></tr>
+<tr><th>Command</th><th>Description</th></tr>  
+<tr><td>htop</td><td>Interactive process viewer with mouse support.</td></tr>
+<tr><td>pstree</td><td>Display a tree of processes and highlights targeted PID.</td></tr>
+<tr><td>ps -elf</td><td>Report a snapshot of the current processes.</td></tr>
+<tr><td>uptime</td><td>Tell how long the system has been running.</td></tr>
 </table>
 
 ### Memory Monitoring
 <table>
-<tr><th>Command</th><th>Description</th><th>Package</th></tr>  
-<tr><td></td><td></td><td></td></tr>
-<tr><td></td><td></td><td></td></tr>
+<tr><th>Command</th><th>Description</th></tr>  
+<tr><td>free -h</td><td>Display amount of free and used memory in the system.</td></tr>
+<tr><td>vmstat</td><td>Report virtual memory statistics.</td></tr>
 </table>
 
 ## Determine application and service specific constraints

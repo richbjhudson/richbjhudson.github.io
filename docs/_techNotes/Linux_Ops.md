@@ -44,6 +44,7 @@ title: Operations and Deployment
 - `sudo apt upgrade` can be used to upgrade existing packages, `sudo apt dist-upgrade` in addition upgrades the Kernel and adds/removes dependant packages automatically.
 - `sudo apt-get clean` may be used to clear the *apt cache* to reclaim valuable diskspace. 
 - `apt` is a frontend to `dpkg`. `dpkg -V htop` is a useful command to verify package installation.
+- `dpkg -S pstree` can be used to identify which package a command was installed from.
 
 ### SNAP
 - A more modern approach to packaging software is `snap` that allows an application and its dependencies to be bundled together so that it works across Linux distros.
