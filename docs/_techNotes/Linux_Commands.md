@@ -103,12 +103,16 @@ git branch -a
 ## Determine application and service specific constraints
 - [How to troubleshoot services]({{ site.baseurl }}/techNotes/Linux_Commands#create-configure-and-troubleshoot-services)
 - [How to troubleshoot system performance issues]({{ site.baseurl }}/techNotes/Linux_Commands#monitor-and-troubleshoot-system-performance-and-services)
-- [How to troubleshoot SELinux label issue]({{ site.baseurl }}/techNotes/Linux_Ops/#create-and-enforce-mac-using-selinux)
+- [How to troubleshoot a SELinux label issue]({{ site.baseurl }}/techNotes/Linux_Ops/#create-and-enforce-mac-using-selinux)
 - Most applications will have their own log file located in `/var/log`.
 - `help ulimit` may be used to provides control over the resources available to the shell and processes.
 - To make changes effective for all logged-in users amend `/etc/security/limits.conf`.
 
 ## Troubleshoot diskspace issues
-Here
+- `df -Th` displays filesystem usage with its type and human readable size.
+- Once you have identified filesystem that is running out of space, you may examine disk usage using `du -hsc *` to display the disk usage for current directory in human readable format.
+- `df -i` displays the number of inodes (metadata describing stored data) in use. A filesystem may report as full if an inode limit is hit. You would need to delete files to reclaim inodes.
+- `ncdu -x /var` provides a tree view of your filesystem and <kbd>D</kbd> allows you to delete the selected file or directory.
 
 ## Work with SSL certificates
+Here
