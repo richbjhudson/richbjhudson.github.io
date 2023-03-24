@@ -65,11 +65,11 @@ sudo systemctl restart apache2
   ```
   sudo openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
   ```
-  - Edit `/etc/apache2/sites-available/default-ssl.conf` and set the *SSLCertificateFile and SSLCertificateKeyFile values* as follows:
-  ```
-  SSLCertificateFile /etc/apache2/certs/mysite.crt
-  SSLCertificateKeyFile /etc/apache2/certs/mysite.key
-  ```
+- Edit `/etc/apache2/sites-available/default-ssl.conf` and set the *SSLCertificateFile and SSLCertificateKeyFile values* as follows:
+```
+SSLCertificateFile /etc/apache2/certs/mysite.crt
+SSLCertificateKeyFile /etc/apache2/certs/mysite.key
+```
 - Enable the site configuration:
 ```
 sudo a2ensite default-ssl.conf
