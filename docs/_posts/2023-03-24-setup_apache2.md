@@ -43,7 +43,8 @@ ServerName: hexale.net:443
 - `sudo apt install libapache2-mod-php8.1` will install a module to support *PHP*.
 - `a2enmod` will list all available modules and `sudo a2enmod php8.1` would install a specific module. `a2dismod` may be used to disable a module.
 - Once a module is enabled you must restart the *apache2* service using `sudo systemctl restart apache2`.
-- `apache2 -l` will display builtin modules.
+
+*Note: `apache2 -l` will display builtin modules.*
 
 # Secure a Site with TLS
 - Enable SSL Apache Module:
