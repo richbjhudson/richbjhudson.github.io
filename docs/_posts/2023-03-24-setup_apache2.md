@@ -35,6 +35,7 @@ ServerName: hexale.net:443
   - Amend the *DocumentRoot value* to a subdirectory of `/var/www`.
   - Amend the *ErrorLog and CustomLog values* to include the Site name.
 - You can enable a site configuration using `sudo a2ensite hexale.net.conf` and than reload the apache2 configuration using `sudo systemctl reload apache2`. `a2dissite` may be used to disable a site configuration.
+
 *Note: The commands add / delete a symbolic link to the .conf file in `/etc/apache2/sites-enabled` to enable/ disable the site.*
 
 # Installing Additional Apache Modules
