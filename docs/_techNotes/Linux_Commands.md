@@ -66,7 +66,7 @@ git branch -a
 ```
 *Note: You could simply create a new main branch and then ignore the master branch.*
 
-## Create, configure, and troubleshoot services
+## <a id="create-configure-and-troubleshoot-services"></a>Create, configure, and troubleshoot services
 - [Systemd](https://manpages.ubuntu.com/manpages/bionic/man1/systemd.1.html) configures the environment and starts processes ready for user login. It replaces shell scripts with programs and provides on-demand daemon starting and can track processes using cgroups. 
 - `systemctl` displays everything that *systemd* controls.
 - You can list units of type *service* using `systemctl list-units -t service`.
@@ -74,7 +74,7 @@ git branch -a
 - You can change the state of a service with `sudo systemctl [start/stop/restart] apache2` and reload its configuration using `sudo systemctl reload apache2`.
 - `systemctl [enable/ disable] apache2` is used to set a service to start at boot time.
 
-## Monitor and troubleshoot system performance and services
+## <a id="monitor-and-troubleshoot-system-performance-and-services"></a>Monitor and troubleshoot system performance and services
 ### System Monitoring
 <table>
 <tr><th>Command</th><th>Description</th></tr>  
@@ -101,7 +101,12 @@ git branch -a
 </table>
 
 ## Determine application and service specific constraints
+- [How to troubleshoot services]({{ site.baseurl }}/techNotes/Linux_Commands#create-configure-and-troubleshoot-services)
+- [How to troubleshoot system performance issues]({{ site.baseurl }}/techNotes/Linux_Commands#monitor-and-troubleshoot-system-performance-and-services)
+- `help ulimit` may be used to provides control over the resources available to the shell and processes.
+- To make changes effective for all logged-in users amend `/etc/security/limits.conf`.
 
 ## Troubleshoot diskspace issues
+Here
 
 ## Work with SSL certificates
