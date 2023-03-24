@@ -70,21 +70,21 @@ sudo systemctl restart apache2
   SSLCertificateFile /etc/apache2/certs/mysite.crt
   SSLCertificateKeyFile /etc/apache2/certs/mysite.key
   ```
-  - Enable the site configuration:
-  ```
-  sudo a2ensite default-ssl.conf
-  sudo systemctl reload apache2
-  ls /etc/apache2/sites-enabled
-  ``` 
-  - If using a self-signed certificate you may carry out the following additional steps to ensure the certificate is trusted:
+- Enable the site configuration:
+```
+sudo a2ensite default-ssl.conf
+sudo systemctl reload apache2
+ls /etc/apache2/sites-enabled
+``` 
+- If using a self-signed certificate you may carry out the following additional steps to ensure the certificate is trusted [certificate is trusted](https://ubuntu.com/server/docs/security-trust-store):
 
-  ```
-  sudo cp /etc/apache2/certs/mysite.crt /usr/local/share/ca-certificates/
-  sudo update-ca-certificates
-  ls -l /etc/ssl/certs
-  ```
-  - If you are not using a DNS Server you may wish to add an entry to `/etc/hosts`:
-  ```
-  192.168.101.83 devopsrich.com
-  ```
-  - Test connectivity using `curl https://devopsrich.com`.
+```
+sudo cp /etc/apache2/certs/mysite.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+ls -l /etc/ssl/certs
+```
+- If you are not using a DNS Server you may wish to add an entry to `/etc/hosts`:
+```
+192.168.101.83 devopsrich.com
+```
+- Test connectivity using `curl https://devopsrich.com`.
