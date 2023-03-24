@@ -103,6 +103,8 @@ git branch -a
 ## Determine application and service specific constraints
 - [How to troubleshoot services]({{ site.baseurl }}/techNotes/Linux_Commands#create-configure-and-troubleshoot-services)
 - [How to troubleshoot system performance issues]({{ site.baseurl }}/techNotes/Linux_Commands#monitor-and-troubleshoot-system-performance-and-services)
+- [How to troubleshoot SELinux label issue]({{ site.baseurl }}/techNotes/Linux_Ops/#create-and-enforce-mac-using-selinux)
+- Most applications will have their own log file located in `/var/log`.
 - `help ulimit` may be used to provides control over the resources available to the shell and processes.
 - To make changes effective for all logged-in users amend `/etc/security/limits.conf`.
 

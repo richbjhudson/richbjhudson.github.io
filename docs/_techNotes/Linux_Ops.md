@@ -184,7 +184,7 @@ snap list lxd
 - [Setup a K8s Cluster]({{ site.baseurl }}/linux/2023/02/15/setup_k8s/)
 - [Deploy Containers to a K8s Cluster]({{ site.baseurl }}/linux/2023/02/17/deploy_containers_to_k8s/)
 
-## Create and enforce MAC using SELinux 
+## <a id="create-and-enforce-mac-using-selinux">Create and enforce MAC using SELinux 
 - Disable *apparmor* before you enable *SELinux*:
 ```
 sudo systemctl stop apparmor
