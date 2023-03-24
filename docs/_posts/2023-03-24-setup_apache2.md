@@ -9,7 +9,7 @@ categories: Linux
 ```
 sudo apt install apache2
 systemctl status apache2
-lynx http://192.168.101.81
+lynx http://192.168.101.83
 ```
 - The main configuration file is `/etc/apache2/apache2.conf`, the document root is `/var/www/html` with a default landing page of `/var/www/html/index.html`.
 
@@ -17,17 +17,21 @@ lynx http://192.168.101.81
 - You can host multiple website using `/etc/apache2/sites-available` that includes configuration files for each website configuration with a matching criteria. If hosting single site then `000-default.conf` will suffice.
 - Copy the `/etc/apache2/sites-available/000-default.conf` file. 
   - Amend the *VirtualHost value* to match an additional hostname or IP address, for example:
+
 ```
-<VirtualHost 192.168.101.81:80>
+<VirtualHost 192.168.101.83:80>
 ```
+
 ```
 <VirtualHost *:80>
 ServerName: hexale.net
 ```
+
 ```
 <VirtualHost *:443>
 ServerName: hexale.net:443
 ```
+
   - Amend the *DocumentRoot value* to a subdirectory of `/var/www`.
   - Amend the *ErrorLog and CustomLog values* to include the Site name.
 - You can enable a site configuration using `sudo a2ensite hexale.net.conf` and than reload the apache2 configuration using `sudo systemctl reload apache2`. `a2dissite` may be used to disable a site configuration.
@@ -65,5 +69,5 @@ sudo systemctl restart apache2
   ```
   sudo a2ensite default-ssl.conf
   sudo systemctl reload apache2
-  lynx https://192.168.101.81
+  lynx https://192.168.101.83
   ``` 
