@@ -52,6 +52,9 @@ ServerName: hexale.net:443
 sudo a2enmod ssl
 sudo systemctl restart apache2
 ```
+
+*Note: That at this stage a new site configuration will be generated `/etc/apache2/sites-available/default-ssl.conf`.*
+
 - Generate a certificate
   - Self-signed certificate example:
   ```
@@ -71,5 +74,17 @@ sudo systemctl restart apache2
   ```
   sudo a2ensite default-ssl.conf
   sudo systemctl reload apache2
-  lynx https://192.168.101.83
+  ls /etc/apache2/sites-enabled
   ``` 
+  - If using a self-signed certificate you may carry out the following additional steps to ensure the certificate is trusted:
+
+  ```
+  sudo cp /etc/apache2/certs/mysite.crt /usr/local/share/ca-certificates/
+  sudo update-ca-certificates
+  ls -l /etc/ssl/certs
+  ```
+  - If you are not using a DNS Server you may wish to add an entry to `/etc/hosts`:
+  ```
+  192.168.101.83 devopsrich.com
+  ```
+  - Test connectivity using `curl https://devopsrich.com`.
