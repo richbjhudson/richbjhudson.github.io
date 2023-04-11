@@ -115,4 +115,4 @@ git branch -a
 - `ncdu -x /var` provides a tree view of your filesystem and <kbd>D</kbd> allows you to delete the selected file or directory.
 
 ## Work with SSL certificates
-- [How to Setup an Apache Web Server]({{ site.baseurl }}/linux/2023/03/24/setup_apache2/
+- [How to Setup an Apache Web Server]({{ site.baseurl }}/linux/2023/03/24/setup_apache2/)
